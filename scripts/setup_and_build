@@ -1,0 +1,54 @@
+#!/bin/env bash
+
+# Determine the directory where the script is located
+SCRIPT_DIR=$(realpath $(dirname "$0"))
+MAIN_DIR=$SCRIPT_DIR/..
+
+# Define the log file relative to the script's location
+LOGFILE="$MAIN_DIR/build_and_run.log"
+
+# Empty the log file at the start of the script
+> "$LOGFILE"
+
+# Function to execute a command and log its output
+execute_and_log() {
+    COMMAND="$1"
+    shift
+    ARGS="$@"
+    echo "Executing: $COMMAND $ARGS"
+    echo "--------------------------------------------------" >> "$LOGFILE"
+    echo "COMMAND: $COMMAND $ARGS" >> "$LOGFILE"
+    echo "OUTPUT:" >> "$LOGFILE"
+    eval "$COMMAND $ARGS" >> "$LOGFILE" 2>&1
+    echo "--------------------------------------------------" >> "$LOGFILE"
+}
+
+# Functions corresponding to each step of the workflow
+setup() {
+    echo "Starting build & run script..."
+    execute_and_log "git submodule update --init --recursive"
+    echo "Submodules are fetched and updated."
+}
+
+build() {
+    if [ -z "$1" ]; then
+        echo "Error: No branch specified." >&2
+        exit 1
+    fi
+    
+    if [ -d "$MAIN_DIR/verilator/$1" ]; then
+            echo "Building verilator/$1..."
+            execute_and_log "cd $MAIN_DIR/verilator/$1"
+            execute_and_log "pwd"
+            execute_and_log "git show -q"
+            execute_and_log "autoconf"
+            execute_and_log "./configure"
+            execute_and_log "make -j$(nproc)"
+            echo "verilator/$1 build is done."
+        else
+            echo "Error: Build directory for '$1' does not exist." >&2
+            exit 1
+        fi
+    fi
+}
+

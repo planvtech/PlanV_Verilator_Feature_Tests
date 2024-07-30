@@ -1,0 +1,68 @@
+name: PlanV Verilator Feature Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  schedule:
+    - cron: "0 7 * * *"
+
+jobs:
+  matrix:
+    name: Generate Test Matrix for different branches of verilator
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.make_matrix.outputs.matrix }}
+    steps:
+      - name: Checkout verilator repo from PlanV github
+        uses: actions/checkout@v2
+        with:
+          submodule: recursive
+          fetch-depth: 0
+          clean: false
+      
+      - name: Check how many branches there are, and process one by one.
+        id: make_matrix
+        run: echo "::set-output name=matrix::$(ls verilator | jq -R -s -c 'split("\n")[:-1]')"
+  
+  test:
+    name: Test for branch ${{ matrix.VERILATOR_BRANCH }}
+    needs: matrix
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        VERILATOR_BRANCH: ${{ fromJson(needs.matrix.outputs.matrix) }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          clean: false
+
+      - name: Enable Dependencies
+        run:
+
+      - name: Setup Repo
+        run: scripts/setup_and_build --setup
+      
+      - name: Build Verilator
+        run: scripts/setup_and_build --build ${{ matrix.VERILATOR_BRANCH }}
+
+      - name: Run Tests
+        run: |
+          for test_dir in planv_test/*; do
+            if [ -d "$test_dir" ]; then
+              echo "Running tests in $test_dir"
+              make
+            fi
+          done
+
+      - name: Upload Tests Results
+        uses: actions/upload-artifact@v3
+        with:
+          path: "*.xml"
+          name: output-${{ matrix.VERILATOR_BRANCH }}
