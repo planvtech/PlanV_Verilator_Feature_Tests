@@ -10,9 +10,6 @@ class cls;
     rand bit[31:0] lgc_32_bit;
     rand bit x;
 
-    constraint enum_con {
-        enum_4_ inside {TWO, THREE};
-    }
     function new();
         enum_4_ = ONE;
     endfunction
@@ -55,7 +52,7 @@ class w_sequence_item;
 
 endclass
 
-module test_4_conditional_constrain;
+module unconstrained_random_test;
     w_sequence_item w;
     int v;
     initial begin

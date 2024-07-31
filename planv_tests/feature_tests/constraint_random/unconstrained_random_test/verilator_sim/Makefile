@@ -7,28 +7,19 @@ VERILATOR := $(VERILATOR_ROOT)/bin/verilator
 endif
 
 CMD = $(pwd)
-UVM_ROOT ?=/home/yilou/Desktop/OSVISE/uvm/uvm-verilator
-
-VERILOG_INCLUDE_DIRS = ${UVM_ROOT}/src
-
 SV_PATHS := .
 SV_FILES := $(foreach path,$(SV_PATHS),$(wildcard $(path)/*svh) $(wildcard $(path)/*svh))
 
 # -------------------------------------
 # Compilation/simulation configuration
 # -------------------------------------
-ifeq ($(test),1)
-	VERILOG_DEFINE_FILES = ../implication_con_and_if_else_con.sv
-	SIM_NAME = implication_con_and_if_else_con
-else
-	VERILOG_DEFINE_FILES = ../test_4_conditional_constrain.sv
-	SIM_NAME = test_4_conditional_constrain
-endif
+
+VERILOG_DEFINE_FILES = ../unconstrained_random_test.sv
+SIM_NAME = unconstrained_random_test
 
 SIM_DIR := $(SIM_NAME)-sim
 COMPILE_ARGS += -DUVM_NO_DPI
 COMPILE_ARGS += --prefix $(SIM_NAME) -o $(SIM_NAME)
-COMPILE_ARGS += $(addprefix +incdir+, $(VERILOG_INCLUDE_DIRS))
 EXTRA_ARGS += --timescale 1ns/1ps --error-limit 100
 WARNING_ARGS += -Wno-lint \
 	-Wno-style \
@@ -37,6 +28,9 @@ WARNING_ARGS += -Wno-lint \
 	-Wno-ZERODLY \
 	-Wno-CONSTRAINTIGN
 
+# -------------------------------------
+# Some Useful args for debugging
+# -------------------------------------
 ifeq ($(json_dump),1)
 	EXTRA_ARGS += -dump-tree-json
 else
@@ -47,14 +41,12 @@ ifeq ($(debug),1)
 else
 endif
 
+
 .PHONY: simulate clean verilate verilator-version
 
 all: clean verilate simulate
 
 verilate:
-# -------------------------------------
-# Make UVM test with Verilator
-# -------------------------------------
 $(SIM_DIR)/$(SIM_NAME).mk: $(SV_FILES)
 	$(VERILATOR) --cc --exe --main --trace --trace-structs --timing -Mdir $(SIM_DIR) \
 	${COMPILE_ARGS} ${EXTRA_ARGS} \

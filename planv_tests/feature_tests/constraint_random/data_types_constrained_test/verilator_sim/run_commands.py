@@ -14,7 +14,7 @@ def run_test0():
 def run_test1():
     commands = [
         "cd ../../verilator && ./configure && make",
-        "make test=1 json_dump=1 debug=1"
+        #"make test=1 json_dump=1 debug=1"
     ]
 
     for command in commands:
