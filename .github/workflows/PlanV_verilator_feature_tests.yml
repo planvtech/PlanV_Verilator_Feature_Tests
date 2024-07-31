@@ -45,8 +45,20 @@ jobs:
 
       - name: Enable Dependencies
         run: |
-          scl enbale gcc-toolset-12 bash
-          echo "enbale the higher version gcc toolset to version: $(gcc --version)"
+          sudo apt-get update
+          sudo apt-get -y install git help2man perl python3 make autoconf flex bison ccache # Prerequisites from verilator manual
+          sudo apt-get -y install gcc-12 g++-12 # in planv, we "scl enbale gcc-toolset-12 bash" to hold a 12 version g++.
+          sudo apt-get -y install libgoogle-perftools-dev numactl perl-doc
+          sudo apt-get -y install libfl2 || true  # Ubuntu only (ignore if gives error)
+          sudo apt-get -y install libfl-dev || true  # Ubuntu only (ignore if gives error)
+          sudo apt-get -y install zlibc zlib1g zlib1g-dev || true  # Ubuntu only (ignore if gives error)
+          sudo pip3 install pyyaml jinja2 robotframework
+
+      - name: Cache $CCACHE_DIR
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.CCACHE_DIR }}
+          key: ${{ matrix.VERILATOR_BRANCH }}
 
       - name: Create logs folder and setup_and_build log file
         run: |
@@ -57,6 +69,9 @@ jobs:
         run: scripts/setup_and_build --setup
       
       - name: Build Verilator
+        env:
+         CC: gcc-12
+         CXX: g++-12
         run: scripts/setup_and_build --build ${{ matrix.VERILATOR_BRANCH }}
 
       - name: Run Tests
