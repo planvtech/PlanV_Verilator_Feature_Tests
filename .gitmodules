@@ -10,3 +10,6 @@
 	path = verilator/master
 	url = https://github.com/planvtech/verilator.git
 	branch = master
+[submodule "uvm-verilator"]
+	path = uvm-verilator
+	url = https://github.com/chipsalliance/uvm-verilator.git
