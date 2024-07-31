@@ -65,6 +65,7 @@ run_tests() {
                 mkdir -p "$(dirname "$LOGFILE")"
                 echo "Running test in $test_dir/verilator_sim"
                 execute_and_log "$LOGFILE" "cd $test_dir/verilator_sim"
+                execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
                 execute_and_log "$LOGFILE" "make"
                 execute_and_log "$LOGFILE" "cd -"
             elif [ "$test_type" = "uvm_tests" ]; then
