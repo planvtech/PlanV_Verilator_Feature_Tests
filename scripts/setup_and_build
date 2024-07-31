@@ -35,13 +35,12 @@ build() {
     fi
     BRANCH="$1"
     if [ -d "$MAIN_DIR/verilator/$BRANCH" ]; then
-        LOGFILE="$LOGDIR/$BRANCH/build.log"
-        mkdir -p "$(dirname "$LOGFILE")"
+        LOGFILE="$LOGDIR/setup_and_build.log"
         echo "Building verilator/$BRANCH..."
         execute_and_log "$LOGFILE" "cd $MAIN_DIR/verilator/$BRANCH"
         execute_and_log "$LOGFILE" "pwd"
         execute_and_log "$LOGFILE" "git show -q"
-        execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$(pwd)"
+        execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
         execute_and_log "$LOGFILE" "autoconf"
         execute_and_log "$LOGFILE" "./configure"
         execute_and_log "$LOGFILE" "make -j$(nproc)"
@@ -99,6 +98,4 @@ while [ -n "$1" ]; do
         *) echo "Option $1 not recognized" >&2; exit 1;;
     esac
     shift
-done 
-
-echo "Script execution is done."
+done
