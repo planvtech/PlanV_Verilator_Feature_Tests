@@ -36,6 +36,12 @@ jobs:
       matrix:
         VERILATOR_BRANCH: ${{ fromJson(needs.matrix.outputs.matrix) }}
 
+    env:
+      CCACHE_COMPRESS: 1
+      CCACHE_DIR: ${{ github.workspace }}/.ccache
+      CCACHE_LIMIT_MULTIPLE: 0.95
+      CCACHE_MAXSIZE: 150M
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
