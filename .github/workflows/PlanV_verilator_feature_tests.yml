@@ -9,32 +9,32 @@ on:
     - cron: "0 7 * * *"
 
 jobs:
-  matrix:
+  generate-matrix:
     name: Generate Test Matrix for different branches of verilator
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.make_matrix.outputs.matrix }}
+      matrix: ${{ steps.create_matrix.outputs.matrix }}
     steps:
       - name: Checkout verilator repo from PlanV github
         uses: actions/checkout@v2
         with:
-          submodule: recursive
+          submodules: recursive
           fetch-depth: 0
           clean: false
       
       - name: Check how many branches there are, and process one by one.
-        id: make_matrix
+        id: create_matrix
         run: echo "::set-output name=matrix::$(ls verilator | jq -R -s -c 'split("\n")[:-1]')"
   
   test:
-    name: Test for branch ${{ matrix.VERILATOR_BRANCH }}
-    needs: matrix
+    name: Execute Tests for Verilator Branch ${{ matrix.VERILATOR_BRANCH }}
+    needs: generate-matrix
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
-        VERILATOR_BRANCH: ${{ fromJson(needs.matrix.outputs.matrix) }}
+        VERILATOR_BRANCH: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
 
     env:
       CCACHE_COMPRESS: 1
@@ -53,7 +53,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get -y install git help2man perl python3 make autoconf flex bison ccache # Prerequisites from verilator manual
-          sudo apt-get -y install gcc-12 g++-12 # in planv, we "scl enbale gcc-toolset-12 bash" to hold a 12 version g++.
+          sudo apt-get -y install gcc-12 g++-12 # in planv, we "scl enable gcc-toolset-12 bash" to hold a 12 version g++.
           sudo apt-get install -y libunwind-dev
           sudo apt-get -y install libgoogle-perftools-dev numactl perl-doc
           sudo apt-get -y install libfl2 || true  # Ubuntu only (ignore if gives error)
@@ -61,11 +61,16 @@ jobs:
           sudo apt-get -y install zlibc zlib1g zlib1g-dev || true  # Ubuntu only (ignore if gives error)
           sudo pip3 install pyyaml jinja2 robotframework
 
-      - name: Cache $CCACHE_DIR
+      - name: Cache Compilation Outputs
         uses: actions/cache@v2
         with:
           path: ${{ env.CCACHE_DIR }}
-          key: ${{ matrix.VERILATOR_BRANCH }}
+          key: ${{ runner.os }}-ccache-${{ matrix.VERILATOR_BRANCH }}
+          restore-keys: |
+            ${{ runner.os }}-ccache-
+
+      - name: Make setup_and_build script executable
+        run: chmod +x scripts/setup_and_build.sh
 
       - name: Create logs folder and setup_and_build log file
         run: |
@@ -73,19 +78,19 @@ jobs:
           touch logs/setup_and_build.log
 
       - name: Setup Repo
-        run: scripts/setup_and_build --setup
+        run: scripts/setup_and_build.sh --setup
       
       - name: Build Verilator
         env:
-         CC: gcc-12
-         CXX: g++-12
-        run: scripts/setup_and_build --build ${{ matrix.VERILATOR_BRANCH }}
+          CC: gcc-12
+          CXX: g++-12
+        run: scripts/setup_and_build.sh --build ${{ matrix.VERILATOR_BRANCH }}
 
       - name: Run Tests
-        run: scripts/setup_and_build --run_tests ${{ matrix.VERILATOR_BRANCH }}
+        run: scripts/setup_and_build.sh --run-tests ${{ matrix.VERILATOR_BRANCH }}
 
       - name: Upload logs
         uses: actions/upload-artifact@v3
         with:
           path: logs/
-          name: output-${{ matrix.VERILATOR_BRANCH }}
+          name: test-output-${{ matrix.VERILATOR_BRANCH }}
