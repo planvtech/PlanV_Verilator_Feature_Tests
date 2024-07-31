@@ -59,7 +59,7 @@ run_tests() {
     BRANCH="$1"
     if [ -d "$MAIN_DIR/verilator/$BRANCH" ]; then
         TEST_DIR="$MAIN_DIR/planv_tests/feature_tests"
-        REPORT_FILE="$TEST_DIR/tests_report.log"
+        REPORT_FILE="$LOGDIR/feature_tests/tests_report.log"
         mkdir -p "$(dirname "$REPORT_FILE")"
         echo "Test Report" > "$REPORT_FILE"
         echo "============" >> "$REPORT_FILE"
@@ -67,7 +67,7 @@ run_tests() {
         for verilator_sim_dir in $(find $TEST_DIR -type d -name verilator_sim); do
             test_dir=$(dirname "$verilator_sim_dir")
             category_dir=$(dirname "$test_dir")
-            LOGFILE="$TEST_DIR/$(basename "$category_dir")/$(basename "$test_dir").log"
+            LOGFILE="$LOGDIR/feature_tests/$(basename "$category_dir")/$(basename "$test_dir").log"
             mkdir -p "$(dirname "$LOGFILE")"
 
             echo "Running test in $test_dir/verilator_sim"
@@ -86,21 +86,6 @@ run_tests() {
         echo "Error: Test directory for '$BRANCH' does not exist." >&2
         exit 1
     fi
-}
-
-report_tests() {
-    echo "Generating test report..."
-    SUMMARY_FILE="$LOGDIR/test_summary.txt"
-    echo "Test Summary" > "$SUMMARY_FILE"
-    echo "============" >> "$SUMMARY_FILE"
-    for log_file in $LOGDIR/$BRANCH/simple_feature_tests/*.log; do
-        if grep -q -E "test fail|fail|Error" "$log_file"; then
-            echo "$(basename "$log_file"): FAILED" >> "$SUMMARY_FILE"
-        else
-            echo "$(basename "$log_file"): PASSED" >> "$SUMMARY_FILE"
-        fi
-    done
-    echo "Test summary written to $SUMMARY_FILE"
 }
 
 # If no arguments are given, run all steps
