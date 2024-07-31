@@ -59,6 +59,10 @@ run_tests() {
     BRANCH="$1"
     if [ -d "$MAIN_DIR/verilator/$BRANCH" ]; then
         TEST_DIR="$MAIN_DIR/planv_tests/simple_feature_tests"
+        REPORT_FILE="$LOGDIR/$BRANCH/simple_feature_tests/tests_report.log"
+        mkdir -p "$(dirname "$REPORT_FILE")"
+        echo "Test Report" > "$REPORT_FILE"
+        echo "============" >> "$REPORT_FILE"
         for test_dir in $TEST_DIR/*; do
             if [ -d "$test_dir/verilator_sim" ]; then
                 LOGFILE="$LOGDIR/$BRANCH/simple_feature_tests/$(basename "$test_dir").log"
@@ -68,6 +72,11 @@ run_tests() {
                 execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
                 execute_and_log "$LOGFILE" "make"
                 execute_and_log "$LOGFILE" "cd -"
+                if grep -q -E "test fail|fail|Error" "$LOGFILE"; then
+                    echo "$(basename "$test_dir"): FAILED" >> "$REPORT_FILE"
+                else
+                    echo "$(basename "$test_dir"): PASSED" >> "$REPORT_FILE"
+                fi
             elif [ "$test_type" = "uvm_tests" ]; then
                 echo "Processing uvm_tests" >> "$LOGFILE"
             else
@@ -79,6 +88,21 @@ run_tests() {
         echo "Error: Test directory for '$BRANCH' does not exist." >&2
         exit 1
     fi
+}
+
+report_tests() {
+    echo "Generating test report..."
+    SUMMARY_FILE="$LOGDIR/test_summary.txt"
+    echo "Test Summary" > "$SUMMARY_FILE"
+    echo "============" >> "$SUMMARY_FILE"
+    for log_file in $LOGDIR/$BRANCH/simple_feature_tests/*.log; do
+        if grep -q -E "test fail|fail|Error" "$log_file"; then
+            echo "$(basename "$log_file"): FAILED" >> "$SUMMARY_FILE"
+        else
+            echo "$(basename "$log_file"): PASSED" >> "$SUMMARY_FILE"
+        fi
+    done
+    echo "Test summary written to $SUMMARY_FILE"
 }
 
 # If no arguments are given, run all steps

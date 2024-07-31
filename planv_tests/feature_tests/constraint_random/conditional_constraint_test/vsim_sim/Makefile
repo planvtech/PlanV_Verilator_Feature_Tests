@@ -1,22 +1,16 @@
 
-ifeq ($(test),1)
-	TESTNAME = simple_tb_1
-else
-	TESTNAME = simple_tb
-endif
+TESTNAME = conditional_constraint_test
 
 TOPLEVEL_MODULE = $(TESTNAME)
 #TESTBENCH_MODULE = sv_tb_top
 SIMULATOR = vsim
 
 UVM_ROOT ?=/opt/questasim/verilog_src/uvm-1.2/
-#UVM_ROOT ?= ../../../../uvm-verilator
-#UVM_TEST ?= case0_test
+
 USES_DPI = 1
 GUI = 0
 
 DPI_INCLUDE ?= /opt/questasim/include
-#VSIM_COV ?= -coverage
 
 ifeq ($(USES_DPI),1)
 	DPILIB_VLOG_OPT = 
