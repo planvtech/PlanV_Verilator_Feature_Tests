@@ -5,8 +5,6 @@ SCRIPT_DIR=$(realpath $(dirname "$0"))
 MAIN_DIR=$SCRIPT_DIR/..
 
 LOGDIR="$MAIN_DIR/logs"
-rm -rf "$LOGDIR"
-mkdir -p "$LOGDIR"
 
 # Function to execute a command and log its output
 execute_and_log() {
