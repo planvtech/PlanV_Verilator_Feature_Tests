@@ -4,14 +4,15 @@
 SCRIPT_DIR=$(realpath $(dirname "$0"))
 MAIN_DIR=$SCRIPT_DIR/..
 
-# Define the log file relative to the script's location
-LOGFILE="$MAIN_DIR/build_and_run.log"
 
-# Empty the log file at the start of the script
-> "$LOGFILE"
+LOGDIR="$MAIN_DIR/logs"
+rm -rf "$LOGDIR"
+mkdir -p "$LOGDIR"
 
 # Function to execute a command and log its output
 execute_and_log() {
+    LOGFILE="$1"
+    shift
     COMMAND="$1"
     shift
     ARGS="$@"
@@ -25,8 +26,9 @@ execute_and_log() {
 
 # Functions corresponding to each step of the workflow
 setup() {
+    LOGFILE="$LOGDIR/setup_and_build.log"
     echo "Starting build & run script..."
-    execute_and_log "git submodule update --init --recursive"
+    execute_and_log "$LOGFILE" "git submodule update --init --recursive"
     echo "Submodules are fetched and updated."
 }
 
@@ -35,20 +37,73 @@ build() {
         echo "Error: No branch specified." >&2
         exit 1
     fi
-    
-    if [ -d "$MAIN_DIR/verilator/$1" ]; then
-            echo "Building verilator/$1..."
-            execute_and_log "cd $MAIN_DIR/verilator/$1"
-            execute_and_log "pwd"
-            execute_and_log "git show -q"
-            execute_and_log "autoconf"
-            execute_and_log "./configure"
-            execute_and_log "make -j$(nproc)"
-            echo "verilator/$1 build is done."
-        else
-            echo "Error: Build directory for '$1' does not exist." >&2
-            exit 1
-        fi
+    BRANCH="$1"
+    if [ -d "$MAIN_DIR/verilator/$BRANCH" ]; then
+        LOGFILE="$LOGDIR/$BRANCH/build.log"
+        mkdir -p "$(dirname "$LOGFILE")"
+        echo "Building verilator/$BRANCH..."
+        execute_and_log "$LOGFILE" "cd $MAIN_DIR/verilator/$BRANCH"
+        execute_and_log "$LOGFILE" "pwd"
+        execute_and_log "$LOGFILE" "git show -q"
+        execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$(pwd)"
+        execute_and_log "$LOGFILE" "autoconf"
+        execute_and_log "$LOGFILE" "./configure"
+        execute_and_log "$LOGFILE" "make -j$(nproc)"
+        echo "verilator/$BRANCH build is done."
+    else
+        echo "Error: Build directory for '$BRANCH' does not exist." >&2
+        exit 1
     fi
 }
 
+run_tests() {
+    if [ -z "$1" ]; then
+        echo "Error: No branch specified." >&2
+        exit 1
+    fi
+    BRANCH="$1"
+    if [ -d "$MAIN_DIR/verilator/$BRANCH" ]; then
+        TEST_DIR="$MAIN_DIR/planv_tests/simple_feature_tests"
+        for test_dir in $TEST_DIR/*; do
+            if [ -d "$test_dir/verilator_sim" ]; then
+                LOGFILE="$LOGDIR/$BRANCH/simple_feature_tests/$(basename "$test_dir").log"
+                mkdir -p "$(dirname "$LOGFILE")"
+                echo "Running test in $test_dir/verilator_sim"
+                execute_and_log "$LOGFILE" "cd $test_dir/verilator_sim"
+                execute_and_log "$LOGFILE" "make"
+                execute_and_log "$LOGFILE" "cd -"
+            elif [ "$test_type" = "uvm_tests" ]; then
+                echo "Processing uvm_tests" >> "$LOGFILE"
+            fi
+            else
+                echo "Directory $test_dir/verilator_sim does not exist" >> "$LOGFILE"
+            fi
+        done
+        echo "Tests for verilator/$BRANCH completed."
+    else
+        echo "Error: Test directory for '$BRANCH' does not exist." >&2
+        exit 1
+    fi
+}
+
+# If no arguments are given, run all steps
+if [[ $# -eq 0 ]] ; then
+    echo "No arguments are given, running the whole routine..."
+    setup
+    build
+    run_tests
+fi
+
+# Parse arguments and run individual steps
+while [ -n "$1" ]; do
+    case "$1" in
+        --setup) setup;;
+        --build) shift; build "$1";;
+        --run-tests) shift run_tests "$1";;
+        --help) echo "Usage: $0 [--setup] [--build <branch>] [--run-tests <branch>] "; exit 0;;
+        *) echo "Option $1 not recognized" >&2; exit 1;;
+    esac
+    shift
+done 
+
+echo "Script execution is done."

@@ -44,7 +44,14 @@ jobs:
           clean: false
 
       - name: Enable Dependencies
-        run:
+        run: |
+          scl enbale gcc-toolset-12 bash
+          echo "enbale the higher version gcc toolset to version: $(gcc --version)"
+
+      - name: Create logs folder and setup_and_build log file
+        run: |
+          mkdir -p logs
+          touch logs/setup_and_build.log
 
       - name: Setup Repo
         run: scripts/setup_and_build --setup
@@ -53,16 +60,10 @@ jobs:
         run: scripts/setup_and_build --build ${{ matrix.VERILATOR_BRANCH }}
 
       - name: Run Tests
-        run: |
-          for test_dir in planv_test/*; do
-            if [ -d "$test_dir" ]; then
-              echo "Running tests in $test_dir"
-              make
-            fi
-          done
+        run: scripts/setup_and_build --run_tests ${{ matrix.VERILATOR_BRANCH }}
 
-      - name: Upload Tests Results
+      - name: Upload logs
         uses: actions/upload-artifact@v3
         with:
-          path: "*.xml"
+          path: logs/
           name: output-${{ matrix.VERILATOR_BRANCH }}
