@@ -89,6 +89,9 @@ jobs:
       - name: Run Tests
         run: scripts/setup_and_build --run-tests ${{ matrix.VERILATOR_BRANCH }}
 
+      - name: Verify logs existence
+        run: ls -l logs
+
       - name: Upload logs
         uses: actions/upload-artifact@v3
         with:
