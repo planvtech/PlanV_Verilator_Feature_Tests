@@ -121,8 +121,8 @@ run_tests() {
             LOGFILE="$LOGDIR/uvm_tests/$(basename "$test_dir").log"
             mkdir -p "$(dirname "$LOGFILE")"
 
-            echo "Running test in $test_dir"
-            execute_and_log "$LOGFILE" "cd $test_dir"
+            echo "Running $test_dir in $sim_dir"
+            execute_and_log "$LOGFILE" "cd $sim_dir"
             execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
             execute_and_log "$LOGFILE" "make"
             execute_and_log "$LOGFILE" "cd -"
@@ -133,7 +133,6 @@ run_tests() {
             fi
         done
         echo "UVM Tests for verilator/$BRANCH completed." >> "$REPORT_FILE"
-
     else
         echo "Error: Test directory for '$BRANCH' does not exist." >&2
         exit 1
