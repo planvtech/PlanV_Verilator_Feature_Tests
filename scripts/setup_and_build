@@ -73,6 +73,7 @@ run_tests() {
             echo "Running test in $test_dir/verilator_sim"
             execute_and_log "$LOGFILE" "cd $test_dir/verilator_sim"
             execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
+            execute_and_log "$LOGFILE" "z3 -h"
             execute_and_log "$LOGFILE" "make"
             execute_and_log "$LOGFILE" "cd -"
             if grep -q -E "test fail|fail|Error" "$LOGFILE"; then
