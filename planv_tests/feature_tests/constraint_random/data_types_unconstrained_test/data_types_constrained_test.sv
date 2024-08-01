@@ -42,7 +42,7 @@ class w_sequence_item;
     int flag;
     
     constraint data1_con {
-        if(flag) {
+        if(flag > 2) {
             data1 inside {1, 2, 3} || data1 % 2 == 0;
         } else {
             // mask

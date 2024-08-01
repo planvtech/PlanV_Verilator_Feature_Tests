@@ -13,9 +13,9 @@ verilator-version:
 	@echo "Running $(VERILATOR) --version"
 	@$(VERILATOR) --version
 
-UVM_ROOT ?= /home/yilou/Desktop/OSVISE/uvm/uvm-verilator
+UVM_ROOT ?= ${CMD}/../../../../uvm-verilator
 
-# UVM_TEST ?= case0_test
+# UVM_TEST ?= case1_test
 
 VERILOG_DEFINE_FILES = ${UVM_ROOT}/src/uvm.sv ../af_pkg.sv ../af_bfm.sv ../top.sv ../../DUT/async_fifo.sv ../../DUT/empty_checker.sv ../../DUT/fifo_mem.sv ../../DUT/full_checker.sv ../../DUT/sync_2ff.sv
 VERILOG_INCLUDE_DIRS = ${UVM_ROOT}/src ../../DUT ../. ../uvm_class
