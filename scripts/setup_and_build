@@ -111,6 +111,8 @@ run_tests() {
                 *pyuvm_test*)
                     echo "Processing sim directory: $sim_dir"
                     test_dir="pyuvm_test"
+                    execute_and_log "$LOGFILE" "pip install pyuvm"
+                    execute_and_log "$LOGFILE" "cocotb-config --version"
                     ;;
                 *)
                     echo "Unknown sim directory: $sim_dir"
