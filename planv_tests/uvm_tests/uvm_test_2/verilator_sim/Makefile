@@ -13,7 +13,7 @@ verilator-version:
 	@echo "Running $(VERILATOR) --version"
 	@$(VERILATOR) --version
 
-UVM_ROOT ?= ${CMD}/../../../../uvm-verilator
+UVM_ROOT ?= $(shell pwd)/../../../../uvm-verilator-antmicro
 
 # UVM_TEST ?= case1_test
 
