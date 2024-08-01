@@ -94,9 +94,31 @@ run_tests() {
         echo "============" >> "$REPORT_FILE"
 
         for makefile in $(find $TEST_DIR -type f -name Makefile); do
-            test_dir=$(dirname "$makefile")
-            category_dir=$(dirname "$test_dir")
-            LOGFILE="$LOGDIR/uvm_tests/$(basename "$category_dir")/$(basename "$test_dir").log"
+            sim_dir=$(dirname "$makefile")
+            case "$sim_dir" in
+                *vsim_sim*)
+                    echo "Skipping sim directory: $sim_dir"
+                    continue
+                    ;;
+                *verilator_sim*)
+                    echo "Processing sim directory: $sim_dir"
+                    test_dir=$(dirname "$sim_dir")
+                    ;;
+                *DUT*)
+                    echo "Processing sim directory: $sim_dir"
+                    test_dir="simple_c++_tb_veriator_test"
+                    ;;
+                *pyuvm_test*)
+                    echo "Processing sim directory: $sim_dir"
+                    test_dir="pyuvm_test"
+                    ;;
+                *)
+                    echo "Unknown sim directory: $sim_dir"
+                    continue
+                    ;;
+            esac
+            
+            LOGFILE="$LOGDIR/uvm_tests/$(basename "$test_dir").log"
             mkdir -p "$(dirname "$LOGFILE")"
 
             echo "Running test in $test_dir"
