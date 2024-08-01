@@ -3,15 +3,25 @@
 Welcome to the PlanV Verilator Feature Tests repository! This repo is designed to help you run and contribute tests for Verilator-based projects. Below, you'll find instructions on how to get started, run tests, and contribute.
 
 ## Repository Structure
+
 ├── .github
+
 │ └── workflows
+
 │ │ └── PlanV_verilator_feature_tests.yml
+
 ├── scripts
+
 │ └── setup_and_build
+
 ├── planv_tests
+
 │ ├── feature_tests
+
 │ │ └── ...
+
 │ └── uvm_tests
+
 │ └── ...
 
 ## Getting Started
