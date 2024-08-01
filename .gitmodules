@@ -13,3 +13,6 @@
 [submodule "uvm-verilator"]
 	path = uvm-verilator
 	url = https://github.com/chipsalliance/uvm-verilator.git
+[submodule "uvm-verilator-antmicro"]
+	path = uvm-verilator-antmicro
+	url = https://github.com/antmicro/uvm-verilator.git
