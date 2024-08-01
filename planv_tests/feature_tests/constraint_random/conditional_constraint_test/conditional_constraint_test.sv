@@ -67,7 +67,7 @@ class implication_con_and_if_else_con_class;
     }
 endclass
 
-module implication_con_and_if_else_con;
+module conditional_constraint_test;
 
     implication_con_and_if_else_con_class w = new;
     int v;

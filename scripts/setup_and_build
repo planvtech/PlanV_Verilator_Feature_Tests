@@ -58,10 +58,12 @@ run_tests() {
     fi
     BRANCH="$1"
     if [ -d "$MAIN_DIR/verilator/$BRANCH" ]; then
+        
+        # Feature Tests
         TEST_DIR="$MAIN_DIR/planv_tests/feature_tests"
         REPORT_FILE="$LOGDIR/feature_tests/tests_report.log"
         mkdir -p "$(dirname "$REPORT_FILE")"
-        echo "Test Report" > "$REPORT_FILE"
+        echo "Feature Tests Report" > "$REPORT_FILE"
         echo "============" >> "$REPORT_FILE"
 
         for verilator_sim_dir in $(find $TEST_DIR -type d -name verilator_sim); do
@@ -73,7 +75,7 @@ run_tests() {
             echo "Running test in $test_dir/verilator_sim"
             execute_and_log "$LOGFILE" "cd $test_dir/verilator_sim"
             execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
-            execute_and_log "$LOGFILE" "z3 -h"
+            # execute_and_log "$LOGFILE" "z3 -h"
             execute_and_log "$LOGFILE" "make"
             execute_and_log "$LOGFILE" "cd -"
             if grep -q -E "test fail|fail|Error" "$LOGFILE"; then
@@ -83,6 +85,33 @@ run_tests() {
             fi
         done
         echo "Feature Tests for verilator/$BRANCH completed."
+
+        # UVM Tests
+        TEST_DIR="$MAIN_DIR/planv_tests/uvm_tests"
+        REPORT_FILE="$LOGDIR/uvm_tests/tests_report.log"
+        mkdir -p "$(dirname "$REPORT_FILE")"
+        echo "UVM Test Report" > "$REPORT_FILE"
+        echo "============" >> "$REPORT_FILE"
+
+        for makefile in $(find $TEST_DIR -type f -name Makefile); do
+            test_dir=$(dirname "$makefile")
+            category_dir=$(dirname "$test_dir")
+            LOGFILE="$LOGDIR/uvm_tests/$(basename "$category_dir")/$(basename "$test_dir").log"
+            mkdir -p "$(dirname "$LOGFILE")"
+
+            echo "Running test in $test_dir"
+            execute_and_log "$LOGFILE" "cd $test_dir"
+            execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
+            execute_and_log "$LOGFILE" "make"
+            execute_and_log "$LOGFILE" "cd -"
+            if grep -q -E "test fail|fail|Error" "$LOGFILE"; then
+                echo "$(basename "$test_dir"): FAILED" >> "$REPORT_FILE"
+            else
+                echo "$(basename "$test_dir"): PASSED" >> "$REPORT_FILE"
+            fi
+        done
+        echo "UVM Tests for verilator/$BRANCH completed." >> "$REPORT_FILE"
+
     else
         echo "Error: Test directory for '$BRANCH' does not exist." >&2
         exit 1

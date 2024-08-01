@@ -13,8 +13,7 @@ verilator-version:
 	@echo "Running $(VERILATOR) --version"
 	@$(VERILATOR) --version
 
-CMD = $(pwd)
-UVM_ROOT ?=/home/yilou/Desktop/OSVISE/uvm/uvm-verilator
+UVM_ROOT ?= $(shell pwd)/../../../../uvm-verilator-antmicro
 
 UVM_TEST ?= case0_test
 
