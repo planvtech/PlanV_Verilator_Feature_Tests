@@ -103,6 +103,7 @@ run_tests() {
                 *verilator_sim*)
                     echo "Processing sim directory: $sim_dir"
                     test_dir=$(dirname "$sim_dir")
+                    continue
                     ;;
                 *DUT*)
                     echo "Processing sim directory: $sim_dir"
