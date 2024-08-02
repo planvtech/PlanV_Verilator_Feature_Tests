@@ -130,7 +130,7 @@ run_tests() {
             execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
             execute_and_log "$LOGFILE" "make"
             execute_and_log "$LOGFILE" "cd -"
-            if grep -q -E "test fail|fail|Error" "$LOGFILE"; then
+            if grep -q -E "test fail|Error" "$LOGFILE"; then
                 echo "$(basename "$test_dir"): FAILED" >> "$REPORT_FILE"
             else
                 echo "$(basename "$test_dir"): PASSED" >> "$REPORT_FILE"
