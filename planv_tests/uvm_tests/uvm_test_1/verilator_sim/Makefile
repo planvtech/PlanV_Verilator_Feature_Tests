@@ -1,5 +1,3 @@
-all: simulate
-
 # -------------------------------------
 # Testbench setup
 # -------------------------------------
@@ -8,19 +6,14 @@ ifdef VERILATOR_ROOT
 VERILATOR := $(VERILATOR_ROOT)/bin/verilator
 endif
 
-.PHONY: verilator-version
-verilator-version:
-	@echo "Running $(VERILATOR) --version"
-	@$(VERILATOR) --version
-
 UVM_ROOT ?= $(shell pwd)/../../../../uvm-verilator
 
 UVM_TEST ?= case0_test
 
 VERILOG_DEFINE_FILES = ${UVM_ROOT}/src/uvm.sv ../sv_fifo_pkg.sv ../sv_fifo_interface.sv ../sv_tb_top.sv ../../DUT/simple_demo_tb.sv ../../DUT/async_fifo.sv ../../DUT/empty_checker.sv ../../DUT/fifo_mem.sv ../../DUT/full_checker.sv ../../DUT/sync_2ff.sv
-VERILOG_INCLUDE_DIRS = ../../DUT ../sv_tb ../sv_uvm_class ${UVM_ROOT}/src
+VERILOG_INCLUDE_DIRS = ../../DUT ../. ../sv_uvm_class ${UVM_ROOT}/src
 
-SV_PATHS := ../../DUT ../sv_tb ../sv_uvm_class
+SV_PATHS := ../../DUT ../. ../sv_uvm_class
 SV_FILES := $(foreach path,$(SV_PATHS),$(wildcard $(path)/*svh) $(wildcard $(path)/*svh))
 
 # -------------------------------------
@@ -46,6 +39,12 @@ endif
 # -------------------------------------
 # Make UVM test with Verilator
 # -------------------------------------
+
+.PHONY: simulate clean verilate verilator-version
+
+all: clean verilate simulate
+
+verilate:
 $(SIM_DIR)/$(SIM_NAME).mk: $(SV_FILES)
 	$(VERILATOR) --cc --exe --main --trace --trace-structs --timing -Mdir $(SIM_DIR) \
 	${COMPILE_ARGS} ${EXTRA_ARGS} \
@@ -64,5 +63,6 @@ clean:
 	rm -rf $(SIM_DIR)
 	rm -rf dump.vcd
 
-
-.PHONY: simulate clean
+verilator-version:
+	@echo "Running $(VERILATOR) --version"
+	@$(VERILATOR) --version
