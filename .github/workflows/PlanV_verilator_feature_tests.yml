@@ -65,9 +65,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ env.CCACHE_DIR }}
-          key: ${{ runner.os }}-ccache-${{ matrix.VERILATOR_BRANCH }}
-          restore-keys: |
-            ${{ runner.os }}-ccache-
+          key: ${{ matrix.VERILATOR_BRANCH }}
 
       - name: Make setup_and_build script executable
         run: chmod +x scripts/setup_and_build
