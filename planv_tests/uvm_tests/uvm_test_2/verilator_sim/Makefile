@@ -1,5 +1,3 @@
-all: simulate
-
 # -------------------------------------
 # Testbench setup
 # -------------------------------------
@@ -7,11 +5,6 @@ VERILATOR := verilator
 ifdef VERILATOR_ROOT
 VERILATOR := $(VERILATOR_ROOT)/bin/verilator
 endif
-
-.PHONY: verilator-version
-verilator-version:
-	@echo "Running $(VERILATOR) --version"
-	@$(VERILATOR) --version
 
 UVM_ROOT ?= $(shell pwd)/../../../../uvm-verilator
 
@@ -39,10 +32,15 @@ WARNING_ARGS += -Wno-lint \
 	-Wno-CONSTRAINTIGN \
 	-Wno-ZERODLY
 
-
 # -------------------------------------
 # Make UVM test with Verilator
 # -------------------------------------
+
+.PHONY: simulate clean verilate verilator-version
+
+all: clean verilate simulate
+
+verilate:
 $(SIM_DIR)/$(SIM_NAME).mk: $(SV_FILES)
 	$(VERILATOR) --cc --exe --main --trace --trace-structs --timing -Mdir $(SIM_DIR) \
 	${COMPILE_ARGS} ${EXTRA_ARGS} \
@@ -62,5 +60,6 @@ clean:
 	rm -rf $(SIM_DIR)
 	rm -rf dump.vcd
 
-
-.PHONY: simulate clean
+verilator-version:
+	@echo "Running $(VERILATOR) --version"
+	@$(VERILATOR) --version
