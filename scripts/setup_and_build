@@ -114,6 +114,7 @@ run_tests() {
                     test_dir="pyuvm_test"
                     execute_and_log "$LOGFILE" "pip install pyuvm"
                     execute_and_log "$LOGFILE" "cocotb-config --version"
+                    execute_and_log "$LOGFILE" "sudo apt-get -y install verilator"
                     ;;
                 *)
                     echo "Unknown sim directory: $sim_dir"
