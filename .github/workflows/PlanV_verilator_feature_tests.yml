@@ -68,7 +68,9 @@ jobs:
           key: ${{ matrix.VERILATOR_BRANCH }}
 
       - name: Make setup_and_build script executable
-        run: chmod +x scripts/setup_and_build
+        run: |
+          chmod +x scripts/setup_and_build
+          chmod +x scripts/setup_feature_tests_sim_framework
 
       - name: Create logs folder and setup_and_build log file
         run: |
