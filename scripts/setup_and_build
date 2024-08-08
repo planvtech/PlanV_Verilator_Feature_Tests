@@ -26,6 +26,9 @@ setup() {
     LOGFILE="$LOGDIR/setup_and_build.log"
     echo "Fetching and Updating the submodules..."
     execute_and_log "$LOGFILE" "git submodule update --init --recursive"
+
+    echo "Setting up tests simulation framework..."
+    execute_and_log "$LOGFILE" "$SCRIPT_DIR/setup_feature_tests_sim_framework $MAIN_DIR"
 }
 
 build() {
