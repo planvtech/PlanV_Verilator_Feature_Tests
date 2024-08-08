@@ -71,8 +71,10 @@ run_tests() {
 
         for verilator_sim_dir in $(find $TEST_DIR -type d -name verilator_sim); do
             test_dir=$(dirname "$verilator_sim_dir")
-            category_dir=$(dirname "$test_dir")
-            LOGFILE="$LOGDIR/feature_tests/$(basename "$category_dir")/$(basename "$test_dir").log"
+            # relative_test_dir=$(echo "$test_dir" | sed "s|$MAIN_DIR/planv_tests/feature_tests/||")
+            relative_test_dir=${test_dir#*$MAIN_DIR/planv_tests/feature_tests/}
+            relative_test_dir=$(dirname "$relative_test_dir")
+            LOGFILE="$LOGDIR/feature_tests/$relative_test_dir/$(basename "$test_dir").log"
             mkdir -p "$(dirname "$LOGFILE")"
 
             echo "Running test in $test_dir/verilator_sim"
@@ -82,9 +84,9 @@ run_tests() {
             execute_and_log "$LOGFILE" "make"
             execute_and_log "$LOGFILE" "cd -"
             if grep -q -E "test fail|Error" "$LOGFILE"; then
-                echo "$(basename "$test_dir"): FAILED" >> "$REPORT_FILE"
+                echo "$test_dir: FAILED" >> "$REPORT_FILE"
             else
-                echo "$(basename "$test_dir"): PASSED" >> "$REPORT_FILE"
+                echo "$test_dir: PASSED" >> "$REPORT_FILE"
             fi
         done
         echo "Feature Tests for verilator/$BRANCH completed."
