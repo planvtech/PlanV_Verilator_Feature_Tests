@@ -9,9 +9,9 @@ create_test_framework() {
     local verilator_sim_dir="${base_dir}/verilator_sim"
     mkdir -p "${verilator_sim_dir}"
 
-    local sv_file_path="${base_dir}/${test_name}.sv"
+    local sv_file_path="${test_path}/${test_name}.sv"
     if [[ -f "${sv_file_path}" ]]; then
-        mv "${sv_file_path}" "${verilator_sim_dir}"
+        mv "${sv_file_path}" "${base_dir}"
     fi
 
     local makefile_path="${verilator_sim_dir}/Makefile"
@@ -32,7 +32,7 @@ SV_FILES := \$(foreach path,\$(SV_PATHS),\$(wildcard \$(path)/*sv))
 # Compilation/simulation configuration
 # -------------------------------------
 
-VERILOG_DEFINE_FILES = ./${test_name}.sv
+VERILOG_DEFINE_FILES = ../${test_name}.sv
 SIM_NAME = ${test_name}
 
 SIM_DIR := \$(SIM_NAME)-sim
