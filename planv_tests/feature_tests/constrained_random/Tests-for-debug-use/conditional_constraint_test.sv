@@ -1,98 +1,79 @@
-// Examples from LRM 1800-2023
+class implication_con_and_if_else_con_class;
 
-class Bus;
-    rand bit[15:0] addr;
-    rand bit[31:0] data;
-    constraint word_align {addr[1:0] == 2'b0;}
-endclass
+    rand int flag = 0;
+    rand int sub_flag = 0;
 
-typedef enum {low, mid, high} AddrType;
+    rand bit [2:0] ic_data1;
+    rand logic[3:0] ic_data2;
 
-class MyBus extends Bus;
-    rand AddrType atype;
-    constraint addr_range
-    {
-    (atype == low ) -> addr inside { [0 : 15] };
-    (atype == mid ) -> addr inside { [16 : 127]};
-    (atype == high) -> addr inside {[128 : 255]};
+    rand logic[7:0] iec_data1;
+    rand logic[7:0] iec_data2;
+    rand logic[9:0] iec_data3;
+    
+    constraint imp_con {
+        ic_data1 > 2 -> ic_data2 inside {1, 2, 3};
+    }
+    
+    constraint flag_con {
+        flag > -4 && flag < 4;
+        sub_flag inside {-15, -10, -5, 0, 10, 20, 25};
+    }
+
+    constraint if_else_con_1 {
+        if(flag > 2) {
+            iec_data1 inside {1, 2, 3} || iec_data1 % 2 == 0;
+        } else {
+            (iec_data1 & 8'hF0) == 8'hA0;
+        }
+    }
+    
+    constraint if_else_con_2 {
+        if(flag > 2) {
+            iec_data2 inside {1, 2, 3};
+        } else if (flag > 0) {
+            iec_data2 inside {4, 5};
+        } else if (flag > -2) {
+            iec_data2 inside {6, 7};
+        }
+        else {
+            iec_data2 inside {8, 9};
+        }
+    }
+    
+    constraint if_else_con_3 {
+        if (flag > 0) {
+            if (sub_flag > 10) {
+                iec_data3 inside {1, 2, 3} || iec_data3 % 2 == 0;
+            } else if (sub_flag == 10) {
+                iec_data3 inside {6, 7};
+            } else {
+                iec_data3 inside {4, 5};
+            }
+        } else if (flag == 0 || flag == -1) {
+            if (sub_flag < -10) {
+                iec_data3 inside {10, 11};
+            } else {
+                iec_data3 inside {12, 13};
+            }
+        } else {
+            if (sub_flag > 20) {
+                iec_data3 inside {14, 15};
+            } else if (sub_flag == 20) {
+                iec_data3 inside {16, 17};
+            } else {
+                iec_data3 inside {8, 9};
+            }
+        }
     }
 endclass
 
-task exercise_bus (MyBus bus);
-    int res;
-    // EXAMPLE 1: restrict to low addresses 
-    res = bus.randomize() with {atype == low;}; 
-    // EXAMPLE 2: restrict to address between 10 and 20
-    res = bus.randomize() with {10 <= addr && addr <= 20;};
-    // EXAMPLE 3: restrict data values to powers-of-two
-    res = bus.randomize() with {(data & (data - 1)) == 0;};
-endtask
+module conditional_constraint_test;
 
-task exercise_illegal(MyBus bus, int cycles);
-    int res;
-    // Disable word alignment constraint.
-    bus.word_align.constraint_mode(0);
-    repeat (cycles) begin
-        // CASE 1: restrict to small addresses.
-        res = bus.randomize() with {addr[0] || addr[1];};
-    end
-    // Reenable word alignment constraint
-    bus.word_align.constraint_mode(1);
-endtask
+    implication_con_and_if_else_con_class w = new;
+    int v;
 
-class XYPair;
-    rand integer x, y;
-endclass
-class MyXYPair extends XYPair; 
-
-    int res;
-    // Disable random.
-    x.rand_mode(0);
-    repeat (cycles) begin
-        x.randomize()
-    end
-    // Reenable random
-    x.rand_mode(1);
-
-    function void pre_randomize();
-        super.pre_randomize(); 
-        $display("Before randomize x=%0d, y=%0d", x, y);
-    endfunction
-    function void post_randomize();
-        super.post_randomize();
-        $display("After randomize x=%0d, y=%0d", x, y);
-    endfunction
-endclass
-
- x dist {100:=1, 200:=2, 300:=5};
- x dist {100:/1, 200:/2, 300:/5};
-
- x != 200;
-x dist {100:=1, 200:=2, 300:=5} ;
-
- x dist {[100:102]:=1, 103:=1};
- x dist {[100:102]:/3, 103:=1};
-
-rand byte a[5];
-rand byte b;
-rand byte excluded;
-constraint u { unique {b, a[2:3], excluded}; }
-constraint exclusion { excluded == 5; }
-
-
-module LRM_random_and_disable_test;
-
-    Bus bus = new;
-
-        initial begin
+    initial begin
         
-        repeat (50) begin
-            if (bus.randomize() == 1)
-                $display ("addr = %4h data = %h\n", bus.addr, bus.data);
-            else
-                $display ("BUS Randomization test failed.\n");
-        end
-
         repeat(50) begin
 
             $display("***************************");
