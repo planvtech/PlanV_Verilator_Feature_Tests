@@ -9,6 +9,11 @@ create_test_framework() {
     local verilator_sim_dir="${base_dir}/verilator_sim"
     mkdir -p "${verilator_sim_dir}"
 
+    local sv_file_path="${base_dir}/${test_name}.sv"
+    if [[ -f "${sv_file_path}" ]]; then
+        mv "${sv_file_path}" "${verilator_sim_dir}"
+    fi
+
     local makefile_path="${verilator_sim_dir}/Makefile"
     cat <<EOL > "${makefile_path}"
 # -------------------------------------
