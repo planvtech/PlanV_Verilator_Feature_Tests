@@ -21,6 +21,13 @@ execute_and_log() {
     echo "--------------------------------------------------" >> "$LOGFILE"
 }
 
+create_logdir() {
+    if [ ! -d "$LOGDIR" ]; then
+        echo "Creating logs directory at $LOGDIR"
+        mkdir -p "$LOGDIR"
+    fi
+}
+
 # Functions corresponding to each step of the workflow
 setup() {
     LOGFILE="$LOGDIR/setup_and_build.log"
@@ -151,9 +158,11 @@ run_tests() {
 # If no arguments are given, run all steps
 if [[ $# -eq 0 ]]; then
     echo "No arguments are given, running the whole routine with master branch..."
+    create_logdir
     setup
     build "master"
     run_tests "master"
+    exit 0
 fi
 
 # Parse arguments and run individual steps
