@@ -1,3 +1,7 @@
+/*
+    Known Unsupported Feature Tests due to the lack of support for "rand bit [7:0] array [4];"
+*/
+
 class ForeachConstraintTest;
     rand bit [7:0] array [4];
 
