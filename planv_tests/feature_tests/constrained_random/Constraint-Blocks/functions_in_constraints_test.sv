@@ -1,3 +1,6 @@
+/*
+    Internal Error, seems unsupported.
+*/
 class C;
     rand bit [9:0] v;
     rand int length;

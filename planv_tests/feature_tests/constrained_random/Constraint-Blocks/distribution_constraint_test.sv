@@ -1,3 +1,7 @@
+/*
+    Solver Error
+*/
+
 class DistributionConstraintTest;
     rand int value;
 

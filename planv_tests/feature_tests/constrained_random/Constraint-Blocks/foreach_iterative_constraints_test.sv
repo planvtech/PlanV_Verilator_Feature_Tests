@@ -1,3 +1,7 @@
+/*
+    Known Unsupported Feature Tests due to the lack of support for "rand dyn_arr"
+*/
+
 class C;
     rand byte A[];
     rand int B[];

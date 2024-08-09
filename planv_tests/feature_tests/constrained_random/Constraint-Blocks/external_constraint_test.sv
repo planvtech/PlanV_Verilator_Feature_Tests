@@ -1,3 +1,7 @@
+/*
+    Known Unsupported Feature Tests due to the lack of support for "extern"
+*/
+
 class ExternalConstraintExample;
     rand int x;
     rand int y;
