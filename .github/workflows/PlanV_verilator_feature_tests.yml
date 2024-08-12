@@ -75,8 +75,6 @@ jobs:
       - name: Make setup_and_build script executable
         run: |
           chmod +x scripts/setup_and_build
-          chmod +x scripts/setup_feature_tests_sim_framework
-          chmod +x scripts/polish_to_html.py
 
       - name: Create logs folder and setup_and_build log file
         run: |

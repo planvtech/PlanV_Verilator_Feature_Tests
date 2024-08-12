@@ -35,6 +35,7 @@ setup() {
     execute_and_log "$LOGFILE" "git submodule update --init --recursive"
 
     echo "Setting up tests simulation framework..."
+    execute_and_log "$LOGFILE" "chmod +x $SCRIPT_DIR/setup_feature_tests_sim_framework"
     execute_and_log "$LOGFILE" "$SCRIPT_DIR/setup_feature_tests_sim_framework $MAIN_DIR"
 }
 
@@ -154,6 +155,7 @@ run_tests() {
         echo "Generating HTML report..."
         execute_and_log "$LOGDIR/setup_and_build.log" "cd $SCRIPT_DIR"
         execute_and_log "$LOGDIR/setup_and_build.log" "pip install jinja2"
+        execute_and_log "$LOGDIR/setup_and_build.log" "chmod +x polish_to_html.py"
         execute_and_log "$LOGDIR/setup_and_build.log" "python3 polish_to_html.py $BRANCH"
         echo "HTML report generated."
         
