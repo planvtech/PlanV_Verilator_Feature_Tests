@@ -109,12 +109,3 @@ jobs:
         with:
           name: test-report-${{ github.ref_name }}
           path: test_report_${{ github.ref_name }}.html
-
-  generate-test-report:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    
