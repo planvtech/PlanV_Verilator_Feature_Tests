@@ -19,7 +19,7 @@ with open(report_file_path, "r") as report_file:
         if line.strip():
             test_name, status = line.split(": ")
             status = status.strip()
-            log_file_path = os.path.join(base_log_dir, test_name.replace("/", "\\")) + ".log"
+            log_file_path = os.path.join(base_log_dir, test_name.replace("/", os.path.sep)) + ".log"
             data.append({"Test Name": test_name, "Status": status, "Log File": log_file_path})
 
 # Define the HTML template
@@ -59,8 +59,8 @@ html_template = """
 template = Template(html_template)
 html_content = template.render(rows=data)
 
-# Define output HTML path based on branch name
-output_html_path = os.path.join(current_dir, f"test_report_{branch_name}.html")
+# Define the output HTML path, should be at the same level as 'logs'
+output_html_path = os.path.abspath(os.path.join(base_log_dir, f"fancy_test_report_{branch_name}.html"))
 with open(output_html_path, "w") as file:
     file.write(html_content)
 

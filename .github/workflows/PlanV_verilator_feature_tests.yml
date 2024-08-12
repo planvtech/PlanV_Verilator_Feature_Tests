@@ -65,7 +65,6 @@ jobs:
           sudo apt-get -y install libfl-dev || true  # Ubuntu only (ignore if gives error)
           sudo apt-get -y install zlibc zlib1g zlib1g-dev || true  # Ubuntu only (ignore if gives error)
           sudo pip3 install pyyaml jinja2 robotframework z3-solver # configparser
-          sudo pip3 install jinja2 # for html polishing
 
       - name: Cache Compilation Outputs
         uses: actions/cache@v2
@@ -77,6 +76,7 @@ jobs:
         run: |
           chmod +x scripts/setup_and_build
           chmod +x scripts/setup_feature_tests_sim_framework
+          chmod +x scripts/polish_to_html.py
 
       - name: Create logs folder and setup_and_build log file
         run: |
@@ -103,9 +103,3 @@ jobs:
         with:
           path: logs/
           name: test-output-${{ matrix.VERILATOR_BRANCH }}
-
-      - name: Upload test report
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-report-${{ github.ref_name }}
-          path: test_report_${{ github.ref_name }}.html

@@ -152,7 +152,8 @@ run_tests() {
 
         # Generate HTML Report
         echo "Generating HTML report..."
-        execute_and_log "$LOGDIR/setup_and_build.log" "python3 "$SCRIPT_DIR/polish_to_html.py" "$BRANCH""
+        execute_and_log "$LOGDIR/setup_and_build.log" "cd $SCRIPT_DIR"
+        execute_and_log "$LOGDIR/setup_and_build.log" "python3 polish_to_html.py $BRANCH"
         echo "HTML report generated."
         
     else
