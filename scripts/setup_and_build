@@ -121,13 +121,13 @@ run_tests() {
                     echo "Processing sim directory: $sim_dir"
                     test_dir="simple_c++_tb_veriator_test"
                     ;;
-                *pyuvm_test*)
-                    echo "Processing sim directory: $sim_dir"
-                    test_dir="pyuvm_test"
-                    execute_and_log "$LOGFILE" "pip install pyuvm"
-                    execute_and_log "$LOGFILE" "cocotb-config --version"
-                    execute_and_log "$LOGFILE" "sudo apt-get -y install verilator"
-                    ;;
+                # *pyuvm_test*)
+                    # echo "Processing sim directory: $sim_dir"
+                    # test_dir="pyuvm_test"
+                    # execute_and_log "$LOGFILE" "pip install pyuvm"
+                    # execute_and_log "$LOGFILE" "cocotb-config --version"
+                    # execute_and_log "$LOGFILE" "sudo apt-get -y install verilator"
+                    # ;;
                 *)
                     echo "Unknown sim directory: $sim_dir"
                     continue
@@ -153,6 +153,7 @@ run_tests() {
         # Generate HTML Report
         echo "Generating HTML report..."
         execute_and_log "$LOGDIR/setup_and_build.log" "cd $SCRIPT_DIR"
+        execute_and_log "$LOGDIR/setup_and_build.log" "pip install jinja2"
         execute_and_log "$LOGDIR/setup_and_build.log" "python3 polish_to_html.py $BRANCH"
         echo "HTML report generated."
         
