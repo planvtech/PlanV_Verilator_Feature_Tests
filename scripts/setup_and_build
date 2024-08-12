@@ -149,6 +149,12 @@ run_tests() {
             fi
         done
         echo "UVM Tests for verilator/$BRANCH completed." >> "$REPORT_FILE"
+
+        # Generate HTML Report
+        echo "Generating HTML report..."
+        python3 "$SCRIPT_DIR/polish_to_html.py" "$BRANCH"
+        echo "HTML report generated."
+        
     else
         echo "Error: Test directory for '$BRANCH' does not exist." >&2
         exit 1
