@@ -19,8 +19,9 @@ with open(report_file_path, "r") as report_file:
         if line.strip():
             test_name, status = line.split(": ")
             status = status.strip()
-            log_file_path = os.path.join(base_log_dir, test_name.replace("/", os.path.sep)) + ".log"
-            data.append({"Test Name": test_name, "Status": status, "Log File": log_file_path})
+             # Create relative log file path
+            relative_log_file_path = os.path.join(test_name.replace("/", os.path.sep)) + ".log"
+            data.append({"Test Name": test_name, "Status": status, "Log File": relative_log_file_path})
 
 # Define the HTML template
 html_template = """
