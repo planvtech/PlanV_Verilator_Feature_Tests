@@ -97,3 +97,30 @@ jobs:
         with:
           path: logs/
           name: test-output-${{ matrix.VERILATOR_BRANCH }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install Jinja2
+        run: pip install jinja2
+
+      - name: Run polish_to_html script
+        run: |
+          python scripts/polish_to_html.py ${{ github.ref_name }}
+
+      - name: Upload test report as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-report-${{ github.ref_name }}
+          path: test_report_${{ github.ref_name }}.html
+
+  generate-test-report:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    
