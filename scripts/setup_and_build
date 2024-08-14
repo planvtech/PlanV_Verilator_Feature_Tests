@@ -166,7 +166,7 @@ run_tests() {
         execute_and_log "$LOGDIR/setup_and_build.log" "pip install jinja2"
         execute_and_log "$LOGDIR/setup_and_build.log" "chmod +x polish_to_html.py"
         execute_and_log "$LOGDIR/setup_and_build.log" "python3 polish_to_html.py $BRANCH"
-        execute_and_log "$LOGDIR/setup_and_build.log" "cp scripts/planv_logo.png logs/feature_tests/."
+        execute_and_log "$LOGDIR/setup_and_build.log" "cp $SCRIPT_DIR/planv_logo.png $LOGDIR/feature_tests/."
         echo "HTML report generated."
         
     else
