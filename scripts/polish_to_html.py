@@ -10,7 +10,7 @@ branch_name = sys.argv[1] if len(sys.argv) > 1 else "master"
 # Define base log directory and report file path
 base_log_dir = os.path.abspath(os.path.join(current_dir, "..", "logs", "feature_tests"))
 report_file_path = os.path.join(base_log_dir, "tests_report.log")
-logo_path = "planv_logo.png"  # Using a relative path assuming logo is in the same directory as the script
+logo_path = "planv_logo.png"
 
 # Read the report file and process the data
 data = defaultdict(lambda: {'PASSED': [], 'FAILED': []})
@@ -22,8 +22,11 @@ with open(report_file_path, "r") as report_file:
             test_name, status = line.split(": ")
             status = status.strip()
             category = test_name.split("/")[0]
+            # Keep full test name for constructing the log path
             relative_log_file_path = os.path.join(test_name.replace("/", os.path.sep)) + ".log"
-            data[category][status].append({"Test Name": test_name, "Log File": relative_log_file_path})
+            # Simplify the test name for display purposes only
+            simple_test_name = "/".join(test_name.split("/")[1:])
+            data[category][status].append({"Test Name": simple_test_name, "Log File": relative_log_file_path})
 
 # Define the HTML template with the PlanV logo
 html_template = """
@@ -51,19 +54,19 @@ html_template = """
         <p>Failed: {{ tests['FAILED']|length }}</p>
         <table>
             <tr>
-                <th>Test Name</th>
                 <th>Status</th>
+                <th>Test Name</th>
             </tr>
-            {% for test in tests['PASSED'] %}
-            <tr>
-                <td><a href="{{ test['Log File'] }}">{{ test['Test Name'] }}</a></td>
-                <td class="PASSED">PASSED</td>
-            </tr>
-            {% endfor %}
             {% for test in tests['FAILED'] %}
             <tr>
-                <td><a href="{{ test['Log File'] }}">{{ test['Test Name'] }}</a></td>
                 <td class="FAILED">FAILED</td>
+                <td><a href="{{ test['Log File'] }}">{{ test['Test Name'] }}</a></td>
+            </tr>
+            {% endfor %}
+            {% for test in tests['PASSED'] %}
+            <tr>
+                <td class="PASSED">PASSED</td>
+                <td><a href="{{ test['Log File'] }}">{{ test['Test Name'] }}</a></td>
             </tr>
             {% endfor %}
         </table>
