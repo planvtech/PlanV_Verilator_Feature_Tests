@@ -111,24 +111,28 @@ run_tests() {
             case "$sim_dir" in
                 *vsim_sim*)
                     echo "Skipping sim directory: $sim_dir"
+                    execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
                     continue
                     ;;
                 *verilator_sim*)
                     echo "Processing sim directory: $sim_dir"
                     test_dir=$(dirname "$sim_dir")
+                    execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
                     continue
                     ;;
                 *DUT*)
                     echo "Processing sim directory: $sim_dir"
                     test_dir="simple_c++_tb_veriator_test"
+                    execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
                     ;;
-                # *pyuvm_test*)
-                    # echo "Processing sim directory: $sim_dir"
-                    # test_dir="pyuvm_test"
-                    # execute_and_log "$LOGFILE" "pip install pyuvm"
-                    # execute_and_log "$LOGFILE" "cocotb-config --version"
-                    # execute_and_log "$LOGFILE" "sudo apt-get -y install verilator"
-                    # ;;
+                *pyuvm_test*)
+                    echo "Processing sim directory: $sim_dir"
+                    test_dir="pyuvm_test"
+                    execute_and_log "$LOGFILE" "pip install pyuvm"
+                    execute_and_log "$LOGFILE" "cocotb-config --version"
+                    execute_and_log "$LOGFILE" "unset VERILATOR_ROOT"
+                    execute_and_log "$LOGFILE" "export VERILATOR_BIN_DIR=$MAIN_DIR/verilator/$BRANCH/bin"
+                    ;;
                 *)
                     echo "Unknown sim directory: $sim_dir"
                     continue
@@ -140,7 +144,7 @@ run_tests() {
 
             echo "Running $test_dir in $sim_dir"
             execute_and_log "$LOGFILE" "cd $sim_dir"
-            execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
+            
             execute_and_log "$LOGFILE" "make"
             execute_and_log "$LOGFILE" "cd -"
             if grep -q -E "test fail|Error" "$LOGFILE"; then
