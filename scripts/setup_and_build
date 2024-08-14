@@ -118,7 +118,6 @@ run_tests() {
                     echo "Processing sim directory: $sim_dir"
                     test_dir=$(dirname "$sim_dir")
                     execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
-                    continue
                     ;;
                 *DUT*)
                     echo "Processing sim directory: $sim_dir"
@@ -154,6 +153,11 @@ run_tests() {
             fi
         done
         echo "UVM Tests for verilator/$BRANCH completed." >> "$REPORT_FILE"
+        echo "Note for UVM Tests: 
+            uvm_test_1: Currently only master branch can run successfuly while other branches cannot.
+            uvm_test_2: Currently, due to recursive instantiation unsupported, test compilation is not complete.
+            All these two tests work fine with vsim, you can check it in your local with vsim_sim folder.
+                " >> "$REPORT_FILE"
 
         # Generate HTML Report
         echo "Generating HTML report..."
