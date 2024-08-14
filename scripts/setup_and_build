@@ -118,6 +118,7 @@ run_tests() {
                     echo "Processing sim directory: $sim_dir"
                     test_dir=$(dirname "$sim_dir")
                     execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
+                    continue # ubuntu-latest cannot support this efforting test, you can run it in your local with our server.
                     ;;
                 *DUT*)
                     echo "Processing sim directory: $sim_dir"
