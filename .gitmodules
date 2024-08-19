@@ -1,7 +1,7 @@
-[submodule "verilator/Support_dyn-arr_and_union_from_version_5.026"]
-	path = verilator/Support_dyn-arr_and_union_from_version_5.026
+[submodule "verilator/Support_dyn-arr_and_union_from_version_5.027"]
+	path = verilator/Support_dyn-arr_and_union_from_version_5.027
 	url = https://github.com/planvtech/verilator.git
-	branch = Support_dyn-arr_and_union_from_version_5.026
+	branch = Support_dyn-arr_and_union_from_version_5.027
 [submodule "verilator/master"]
 	path = verilator/master
 	url = https://github.com/planvtech/verilator.git
