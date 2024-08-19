@@ -9,6 +9,13 @@ class PackedStructTest;
     function new();
         my_struct.byte_value = 8'hA0;
     endfunction
+
+    // Constraint block
+    constraint struct_constraint {
+        my_struct.byte_value == 8'hA0;    // Keep byte_value fixed at 8'hA0
+        my_struct.int_value inside {[0:100]};  // Constrain int_value to be between 0 and 100
+    }
+    
 endclass
 
 module packed_struct_constrained_test;

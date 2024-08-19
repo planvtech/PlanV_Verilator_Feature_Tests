@@ -4,6 +4,9 @@ class DynamicArrayTest;
     
     constraint size_constraint {
         data.size == len;
+        foreach (data[i]) {
+            data[i] inside {[0:255]};  // Constraint on the values in the array (e.g., 8-bit values)
+        }
     }
 
     function new();
