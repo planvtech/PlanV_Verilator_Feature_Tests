@@ -11,7 +11,7 @@ class DynamicArrayTest;
     endfunction
 endclass
 
-module dynamic_array_test;
+module dynamic_array_constrained_test;
     DynamicArrayTest array_test;
     initial begin
         array_test = new();

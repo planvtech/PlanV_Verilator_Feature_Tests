@@ -13,13 +13,19 @@ class BasicRandTest;
     constraint enum_constraint {
         enum_value inside {ENUM_ONE, ENUM_TWO, ENUM_THREE};
     }
+    constraint 32_bit_constraint {
+        (random_32_bit && 32'hFFFF0000) == 32'hABCD0000;
+    }
+    constraint single_bit_constraint {
+        single_bit == 1;
+    }
 
     function new();
         enum_value = ENUM_ONE;
     endfunction
 endclass
 
-module basic_rand_test;
+module basic_rand_constrained_test;
     BasicRandTest rand_test;
     initial begin
         rand_test = new();

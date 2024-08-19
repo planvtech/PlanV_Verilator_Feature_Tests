@@ -11,7 +11,7 @@ class PackedStructTest;
     endfunction
 endclass
 
-module packed_struct_unconstrained_test;
+module packed_struct_constrained_test;
     PackedStructTest struct_test;
     initial begin
         struct_test = new();
