@@ -1,14 +1,19 @@
 class QueueTest;
     rand int size;
     rand int queue_data[$];
-    
-    constraint queue_size_constraint {
-        queue_data.size == size;
-    }
 
     function new();
         size = 5;
     endfunction
+
+    // Constraint block
+    constraint queue_constraints {
+        size inside {[1:10]};            // Constrain size to be between 1 and 10
+        queue_data.size() == size;       // Constrain the size of the queue to match the size variable
+        foreach(queue_data[i]) {
+            queue_data[i] inside {[0:100]};  // Constrain each element of the queue_data to be between 0 and 100
+        }
+    }
 endclass
 
 module queue_constrained_test;

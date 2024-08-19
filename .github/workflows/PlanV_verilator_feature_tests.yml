@@ -1,12 +1,15 @@
 name: PlanV Verilator Feature Tests
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  # To save the running time in github runner, the workflow will now only trigger automatically once a week (every Monday).
+  # Users can still trigger the workflow manually on their local machines.
+  
+  # push:
+  #  branches:
+  #    - main
+  # pull_request:
   schedule:
-    - cron: "0 7 */3 * *" # Every three days
+    - cron: "0 7 * * 1" # Every Monday at 07:00
 
 jobs:
   generate-matrix:

@@ -11,6 +11,17 @@ class ObjectHandleTest;
     function new();
         handle = new();
     endfunction
+
+    // Constraint block
+    constraint struct_constraint {
+        my_struct.a inside {[0:100]};    // Constrain 'a' to be between 0 and 100
+        my_struct.b > my_struct.a;       // Constrain 'b' to be greater than 'a'
+    }
+    
+    constraint handle_constraint {
+        handle.my_struct.a inside {[50:150]};
+        handle.my_struct.b < 200;
+    }
 endclass
 
 module object_handle_constrained_test;

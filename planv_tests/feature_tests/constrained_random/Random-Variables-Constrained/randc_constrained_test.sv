@@ -4,6 +4,12 @@ class RandcTest;
     function new();
         cyclic_value = 4'b0001;
     endfunction
+
+        // Constraint block
+    constraint cyclic_constraint {
+        cyclic_value inside {[4'b0010:4'b1010]};  // Constrain cyclic_value to be between 2 and 10
+    }
+    
 endclass
 
 module randc_constrained_test;

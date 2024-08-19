@@ -1,10 +1,6 @@
 class QueueTest;
     rand int size;
     rand int queue_data[$];
-    
-    constraint queue_size_constraint {
-        queue_data.size == size;
-    }
 
     function new();
         size = 5;
