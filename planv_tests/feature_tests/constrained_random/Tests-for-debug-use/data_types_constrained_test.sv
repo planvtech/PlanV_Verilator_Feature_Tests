@@ -28,6 +28,13 @@ class cls;
     constraint enum_con {
         enum_4 inside {TWO, THREE, SIX};
     }
+    constraint union_con {
+        union_2.x inside {3, 7};
+    }
+    constraint struct_con {
+        struct_2.x inside {3, 7};
+        struct_2.byte_value inside {[181:186]};
+    }
     function new();
         enum_4 = ONE;
     endfunction
@@ -97,7 +104,7 @@ module simple_tb_1;
 
             $display("cls: enum_4: %0d, y: %h, x: %b", w.cls_1.enum_4, w.cls_1.y, w.cls_1.x);
             $display("cls: union: %d, %d", w.cls_1.union_2.x, w.cls_1.union_2.byte_value);
-            $display("cls: struct: %d, %h", w.cls_1.struct_2.x, w.cls_1.struct_2.byte_value);
+            $display("cls: struct: %d, %d", w.cls_1.struct_2.x, w.cls_1.struct_2.byte_value);
 
             $display("***************************");
         end
