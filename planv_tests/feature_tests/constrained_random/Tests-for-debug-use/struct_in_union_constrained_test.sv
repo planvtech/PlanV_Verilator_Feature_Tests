@@ -36,8 +36,8 @@ module struct_in_union_constrained_test;
         test = new();
         repeat(10) begin
             if (!test.randomize()) $error("Randomization failed");
-            $display("Struct: a: %b, b: %h", test.my_struct.a, test.my_struct.b);
-            $display("Union : raw_bits: %b", test.my_union.raw_bits);
+            $display("Struct: a: %b, b: %b", test.my_struct.a, test.my_struct.b);
+            $display("Union : raw_bits: %b, s: %b", test.my_union.raw_bits, test.my_union.s);
         end
         $finish;
     end

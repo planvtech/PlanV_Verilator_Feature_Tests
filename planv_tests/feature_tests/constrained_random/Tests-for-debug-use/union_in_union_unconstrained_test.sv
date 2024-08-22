@@ -14,12 +14,9 @@ typedef union packed {
 } OuterPackedUnion;
 
 class UnionInUnionTest;
-    rand InnerPackedUnion my_inner_union;
     rand OuterPackedUnion my_outer_union;
 
     function new();
-        my_inner_union.s.a = 4'b0000;
-        my_inner_union.s.b = 12'h000;
         my_outer_union.raw_data = 16'b0;
     endfunction
 
@@ -32,7 +29,7 @@ module union_in_union_unconstrained_test;
         test = new();
         repeat(10) begin
             if (!test.randomize()) $error("Randomization failed");
-            $display("Inner Union Struct: a: %b, b: %h", test.my_inner_union.s.a, test.my_inner_union.s.b);
+            $display("Inner Union Struct: a: %b, b: %b, raw_bits: %b", test.my_outer_union.u1.s.a, test.my_outer_union.u1.s.b, test.my_outer_union.u1.raw_bits);
             $display("Outer Union: raw_data: %b", test.my_outer_union.raw_data);
         end
         $finish;

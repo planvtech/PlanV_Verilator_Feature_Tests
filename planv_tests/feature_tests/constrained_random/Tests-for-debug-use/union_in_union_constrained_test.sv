@@ -40,7 +40,7 @@ module union_in_union_constrained_test;
         test = new();
         repeat(10) begin
             if (!test.randomize()) $error("Randomization failed");
-            $display("Inner Union Struct: a: %b, b: %h", test.my_inner_union.s.a, test.my_inner_union.s.b);
+            $display("Inner Union Struct: a: %b, b: %b, raw_bits: %b", test.my_inner_union.s.a, test.my_inner_union.s.b, test.my_inner_union.raw_bits);
             $display("Outer Union: raw_data: %b", test.my_outer_union.raw_data);
         end
         $finish;
