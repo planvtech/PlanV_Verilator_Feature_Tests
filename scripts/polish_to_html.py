@@ -13,7 +13,7 @@ report_file_path = os.path.join(base_log_dir, "tests_report.log")
 logo_path = "planv_logo.png"
 
 # Read the report file and process the data
-data = defaultdict(lambda: {'PASSED': [], 'FAILED': []})
+data = defaultdict(lambda: {'PASSED': [], 'FAILED': [], 'ALL': []})
 with open(report_file_path, "r") as report_file:
     for line in report_file:
         if line.strip() in ["Feature Tests Report", "============"]:
@@ -26,7 +26,13 @@ with open(report_file_path, "r") as report_file:
             relative_log_file_path = os.path.join(test_name.replace("/", os.path.sep)) + ".log"
             # Simplify the test name for display purposes only
             simple_test_name = "/".join(test_name.split("/")[1:])
-            data[category][status].append({"Test Name": simple_test_name, "Log File": relative_log_file_path})
+            test_entry = {
+                "Test Name": simple_test_name,
+                "Log File": relative_log_file_path,
+                "Status": status
+            }
+            data[category][status].append(test_entry)
+            data[category]['ALL'].append(test_entry)  # Maintain natural order
 
 # Define the HTML template with the PlanV logo
 html_template = """
