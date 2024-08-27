@@ -1,9 +1,7 @@
-module packed_array_constrained_test;
+class constrained_packed_array;
 
-  // Packed array declaration
   rand bit [3:0] packed_array [4];
 
-  // Constraints
   constraint packed_array_constraints {
     packed_array[0] == 4'hA;
     packed_array[1] inside {4'h3, 4'h7};
@@ -11,19 +9,25 @@ module packed_array_constrained_test;
     packed_array[3] < 4'hF;
   }
 
+endclass
+
+module packed_array_constrained_test;
+
+  constrained_packed_array my_array;
+
   initial begin
-    // Randomization of the packed array with constraints
-    if (!this.randomize() with {packed_array_constraints}) begin
+    my_array = new();
+    if (!my_array.randomize()) begin
       $display("Constrained packed array randomization failed.");
-    end else begin
-      $display("Constrained packed array randomization successful.");
+      $stop;
     end
 
-    // Displaying the values after randomization
     $display("Packed array values:");
     for (int i = 0; i < 4; i++) begin
-      $display("packed_array[%0d] = %0h", i, packed_array[i]);
+      $display("packed_array[%0d] = %0h", i, my_array.packed_array[i]);
     end
+
+    $finish;
   end
 
 endmodule

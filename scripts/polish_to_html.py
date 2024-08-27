@@ -57,15 +57,9 @@ html_template = """
                 <th>Status</th>
                 <th>Test Name</th>
             </tr>
-            {% for test in tests['FAILED'] %}
+            {% for test in tests['ALL'] %}
             <tr>
-                <td class="FAILED">FAILED</td>
-                <td><a href="{{ test['Log File'] }}">{{ test['Test Name'] }}</a></td>
-            </tr>
-            {% endfor %}
-            {% for test in tests['PASSED'] %}
-            <tr>
-                <td class="PASSED">PASSED</td>
+                <td class="{{ test['Status'] }}">{{ test['Status'] }}</td>
                 <td><a href="{{ test['Log File'] }}">{{ test['Test Name'] }}</a></td>
             </tr>
             {% endfor %}

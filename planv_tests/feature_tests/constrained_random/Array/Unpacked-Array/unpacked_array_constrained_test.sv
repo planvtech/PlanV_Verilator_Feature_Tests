@@ -1,6 +1,5 @@
-module unpacked_array_constrained_test;
+class constrained_unpacked_array;
 
-  // Unpacked array declaration
   rand bit [7:0] unpacked_array [4];
 
   // Constraints
@@ -11,19 +10,28 @@ module unpacked_array_constrained_test;
     unpacked_array[3] < 8'hF0;
   }
 
+endclass
+
+module unpacked_array_constrained_test;
+
+  constrained_unpacked_array my_array;
+
   initial begin
+    my_array = new();
+
     // Randomization of the unpacked array with constraints
-    if (!this.randomize() with {unpacked_array_constraints}) begin
+    if (!my_array.randomize()) begin
       $display("Constrained unpacked array randomization failed.");
-    end else begin
-      $display("Constrained unpacked array randomization successful.");
+      $stop;
     end
 
     // Displaying the values after randomization
     $display("Unpacked array values:");
     for (int i = 0; i < 4; i++) begin
-      $display("unpacked_array[%0d] = %0h", i, unpacked_array[i]);
+      $display("unpacked_array[%0d] = %0h", i, my_array.unpacked_array[i]);
     end
+
+    $finish;
   end
 
 endmodule

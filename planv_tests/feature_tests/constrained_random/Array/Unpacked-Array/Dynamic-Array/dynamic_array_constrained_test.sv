@@ -1,6 +1,5 @@
-module dynamic_array_constrained_test;
+class constrained_dynamic_array;
 
-  // Dynamic array declaration
   rand int dynamic_array [];
 
   // Constraints
@@ -13,22 +12,31 @@ module dynamic_array_constrained_test;
     dynamic_array[4] inside {5, 15, 25};
   }
 
+endclass
+
+module dynamic_array_constrained_test;
+
+  constrained_dynamic_array my_array;
+
   initial begin
+    my_array = new();
+
     // Initialize the dynamic array with a size of 5
-    dynamic_array = new[5];
+    my_array.dynamic_array = new[5];
 
     // Randomization of the dynamic array with constraints
-    if (!this.randomize() with {dynamic_array_constraints}) begin
+    if (!my_array.randomize()) begin
       $display("Constrained dynamic array randomization failed.");
-    end else begin
-      $display("Constrained dynamic array randomization successful.");
+      $stop;
     end
 
     // Displaying the values after randomization
     $display("Dynamic array values:");
-    for (int i = 0; i < dynamic_array.size(); i++) begin
-      $display("dynamic_array[%0d] = %0d", i, dynamic_array[i]);
+    for (int i = 0; i < my_array.dynamic_array.size(); i++) begin
+      $display("dynamic_array[%0d] = %0d", i, my_array.dynamic_array[i]);
     end
+
+    $finish;
   end
 
 endmodule

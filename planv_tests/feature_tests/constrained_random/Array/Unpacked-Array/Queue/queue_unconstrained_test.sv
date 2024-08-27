@@ -1,25 +1,33 @@
-module queue_unconstrained_test;
+class unconstrained_queue_array;
 
-  // Queue declaration
   rand int queue_array [$];
 
+endclass
+
+module queue_unconstrained_test;
+
+  unconstrained_queue_array my_queue;
+
   initial begin
+    my_queue = new();
+
     // Initialize the queue with some elements
-    queue_array.push_back(0);
-    queue_array.push_back(0);
+    my_queue.queue_array.push_back(0);
+    my_queue.queue_array.push_back(0);
 
     // Randomization of the queue without constraints
-    if (!queue_array.randomize()) begin
+    if (!my_queue.randomize()) begin
       $display("Queue randomization failed.");
-    end else begin
-      $display("Queue randomization successful.");
+      $stop;
     end
 
     // Displaying the values after randomization
     $display("Queue values:");
-    for (int i = 0; i < queue_array.size(); i++) begin
-      $display("queue_array[%0d] = %0d", i, queue_array[i]);
+    for (int i = 0; i < my_queue.queue_array.size(); i++) begin
+      $display("queue_array[%0d] = %0d", i, my_queue.queue_array[i]);
     end
+
+    $finish;
   end
 
 endmodule

@@ -1,6 +1,5 @@
-module fixed_size_array_constrained_test;
+class constrained_fixed_size_array;
 
-  // Fixed-size array declaration
   rand bit [7:0] fixed_size_array [4];
 
   // Constraints
@@ -11,19 +10,28 @@ module fixed_size_array_constrained_test;
     fixed_size_array[3] < 8'hFF;
   }
 
+endclass
+
+module fixed_size_array_constrained_test;
+
+  constrained_fixed_size_array my_array;
+
   initial begin
+    my_array = new();
+
     // Randomization of the fixed-size array with constraints
-    if (!this.randomize() with {fixed_size_array_constraints}) begin
+    if (!my_array.randomize()) begin
       $display("Constrained fixed-size array randomization failed.");
-    end else begin
-      $display("Constrained fixed-size array randomization successful.");
+      $stop;
     end
 
     // Displaying the values after randomization
     $display("Fixed-size array values:");
     for (int i = 0; i < 4; i++) begin
-      $display("fixed_size_array[%0d] = %0h", i, fixed_size_array[i]);
+      $display("fixed_size_array[%0d] = %0h", i, my_array.fixed_size_array[i]);
     end
+
+    $finish;
   end
 
 endmodule
