@@ -1,25 +1,21 @@
 class constrained_mixed_array;
 
-  rand bit [7:0] unpacked_array [4];
-  rand bit [3:0] packed_array [4];
+  rand bit [7:0] packed_array;
+  rand bit unpacked_array [4];
   rand int dynamic_array [];
   rand int associative_array [string];
   rand bit [7:0] fixed_size_array [4];
   rand int queue [$];
 
   // Constraints for each array
-  constraint unpacked_array_constraints {
-    unpacked_array[0] == 8'hAA;
-    unpacked_array[1] == 8'hBB;
-    unpacked_array[2] == 8'hCC;
-    unpacked_array[3] == 8'hDD;
+  constraint packed_array_constraints {
+    packed_array == 8'hAA;
   }
 
-  constraint packed_array_constraints {
-    packed_array[0] inside {4'h1, 4'h2};
-    packed_array[1] inside {4'h3, 4'h4};
-    packed_array[2] inside {4'h5, 4'h6};
-    packed_array[3] inside {4'h7, 4'h8};
+  constraint unpacked_array_constraints {
+    unpacked_array[0] inside {1'b1};
+    unpacked_array[1] inside {1'b1};
+    unpacked_array[2] == 1'b0;
   }
 
   constraint dynamic_array_constraints {
@@ -69,14 +65,12 @@ module mixed_array_constrained_test_no_foreach;
       $stop;
     end
 
+    $display("Packed array values:");
+    $display("packed_array = %0h", my_array.packed_array);
+
     $display("Unpacked array values:");
     for (int i = 0; i < 4; i++) begin
-      $display("unpacked_array[%0d] = %0h", i, my_array.unpacked_array[i]);
-    end
-
-    $display("Packed array values:");
-    for (int i = 0; i < 4; i++) begin
-      $display("packed_array[%0d] = %0h", i, my_array.packed_array[i]);
+      $display("unpacked_array[%0d] = %0b", i, my_array.unpacked_array[i]);
     end
 
     $display("Dynamic array values:");

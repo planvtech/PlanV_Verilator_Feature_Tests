@@ -1,7 +1,7 @@
 class unconstrained_mixed_array;
 
-  rand bit [7:0] unpacked_array [4];
-  rand bit [3:0] packed_array [4];
+  rand bit [7:0] unpacked_array;
+  rand bit packed_array [4];
   rand int dynamic_array [];
   rand int associative_array [string];
   rand bit [7:0] fixed_size_array [4];

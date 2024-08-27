@@ -1,12 +1,12 @@
 class constrained_packed_array;
 
-  rand bit [3:0] packed_array [4];
+  rand bit [2:0] [15:0] packed_array; // 3 16-bits
 
   constraint packed_array_constraints {
-    packed_array[0] == 4'hA;
-    packed_array[1] inside {4'h3, 4'h7};
-    packed_array[2] > 4'h2;
-    packed_array[3] < 4'hF;
+    packed_array[0][15:8] == 8'hCA;
+    packed_array[0][7:0] inside {8'hCA, 8'hFE};
+    packed_array[1][15:8] == 8'hFA;
+    packed_array[1][7:0] == 8'hCE;
   }
 
 endclass
@@ -23,7 +23,7 @@ module packed_array_constrained_test;
     end
 
     $display("Packed array values:");
-    for (int i = 0; i < 4; i++) begin
+    for (int i = 0; i < 3; i++) begin
       $display("packed_array[%0d] = %0h", i, my_array.packed_array[i]);
     end
 

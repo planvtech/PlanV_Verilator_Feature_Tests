@@ -1,12 +1,15 @@
-class unconstrained_unpacked_array;
+class constrained_unpacked_array;
 
   rand int unpacked_array [3];
-  
+  constraint unpacked_array_constraints {
+    unpacked_array[0] == 7;
+    unpacked_array[1] == 8;
+  }
 endclass
 
-module unpacked_array_unconstrained_test;
+module unpacked_array_constrained_test_simple;
 
-  unconstrained_unpacked_array my_array;
+  constrained_unpacked_array my_array;
 
   initial begin
     my_array = new();

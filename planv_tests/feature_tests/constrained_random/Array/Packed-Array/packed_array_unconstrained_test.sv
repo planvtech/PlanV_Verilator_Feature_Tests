@@ -1,6 +1,6 @@
 class unconstrained_packed_array;
 
-  rand bit [3:0] packed_array [4];
+    rand bit [2:0] [15:0] packed_array; // 3 16-bits
 
 endclass
 
@@ -16,7 +16,7 @@ module packed_array_unconstrained_test;
     end
 
     $display("Packed array values:");
-    for (int i = 0; i < 4; i++) begin
+    for (int i = 0; i < 3; i++) begin
       $display("packed_array[%0d] = %0h", i, my_array.packed_array[i]);
     end
 

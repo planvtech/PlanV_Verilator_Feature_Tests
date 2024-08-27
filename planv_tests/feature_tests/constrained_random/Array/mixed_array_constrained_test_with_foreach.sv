@@ -1,20 +1,11 @@
 class constrained_mixed_array;
 
-  rand bit [7:0] unpacked_array [4];
-  rand bit [3:0] packed_array [4];
   rand int dynamic_array [];
   rand int associative_array [string];
   rand bit [7:0] fixed_size_array [4];
   rand int queue [$];
 
   // Constraints
-  constraint unpacked_array_constraints {
-    foreach(unpacked_array[i]) unpacked_array[i] inside {8'h00, 8'hFF};
-  }
-
-  constraint packed_array_constraints {
-    foreach(packed_array[i]) packed_array[i] inside {4'h1, 4'hE};
-  }
 
   constraint dynamic_array_constraints {
     dynamic_array.size() == 5;
@@ -57,16 +48,6 @@ module mixed_array_constrained_test_with_foreach;
     if (!my_array.randomize()) begin
       $display("Constrained mixed array randomization failed.");
       $stop;
-    end
-
-    $display("Unpacked array values:");
-    foreach (my_array.unpacked_array[i]) begin
-      $display("unpacked_array[%0d] = %0h", i, my_array.unpacked_array[i]);
-    end
-
-    $display("Packed array values:");
-    foreach (my_array.packed_array[i]) begin
-      $display("packed_array[%0d] = %0h", i, my_array.packed_array[i]);
     end
 
     $display("Dynamic array values:");
