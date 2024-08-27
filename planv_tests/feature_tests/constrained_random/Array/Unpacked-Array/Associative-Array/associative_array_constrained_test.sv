@@ -1,6 +1,5 @@
-module associative_array_constrained_test;
+class constrained_associative_array;
 
-  // Associative array declaration
   rand int associative_array [string];
 
   // Constraints
@@ -9,22 +8,31 @@ module associative_array_constrained_test;
     associative_array["key2"] inside {200, 300, 400};
   }
 
+endclass
+
+module associative_array_constrained_test;
+
+  constrained_associative_array my_array;
+
   initial begin
+    my_array = new();
+    
     // Initialize the associative array with some keys
-    associative_array["key1"] = 0;
-    associative_array["key2"] = 0;
+    my_array.associative_array["key1"] = 0;
+    my_array.associative_array["key2"] = 0;
 
     // Randomization of the associative array with constraints
-    if (!this.randomize() with {associative_array_constraints}) begin
+    if (!my_array.randomize()) begin
       $display("Constrained associative array randomization failed.");
-    end else begin
-      $display("Constrained associative array randomization successful.");
+      $stop;
     end
 
     // Displaying the values after randomization
     $display("Associative array values:");
-    $display("associative_array[\"key1\"] = %0d", associative_array["key1"]);
-    $display("associative_array[\"key2\"] = %0d", associative_array["key2"]);
+    $display("associative_array[\"key1\"] = %0d", my_array.associative_array["key1"]);
+    $display("associative_array[\"key2\"] = %0d", my_array.associative_array["key2"]);
+
+    $finish;
   end
 
 endmodule

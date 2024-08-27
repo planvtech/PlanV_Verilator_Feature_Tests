@@ -1,6 +1,5 @@
-module queue_constrained_test;
+class constrained_queue_array;
 
-  // Queue declaration
   rand int queue_array [$];
 
   // Constraints
@@ -11,24 +10,33 @@ module queue_constrained_test;
     queue_array[2] < 100;
   }
 
+endclass
+
+module queue_constrained_test;
+
+  constrained_queue_array my_queue;
+
   initial begin
+    my_queue = new();
+
     // Initialize the queue with some elements
-    queue_array.push_back(0);
-    queue_array.push_back(0);
-    queue_array.push_back(0);
+    my_queue.queue_array.push_back(0);
+    my_queue.queue_array.push_back(0);
+    my_queue.queue_array.push_back(0);
 
     // Randomization of the queue with constraints
-    if (!this.randomize() with {queue_array_constraints}) begin
+    if (!my_queue.randomize()) begin
       $display("Constrained queue randomization failed.");
-    end else begin
-      $display("Constrained queue randomization successful.");
+      $stop;
     end
 
     // Displaying the values after randomization
     $display("Queue values:");
-    for (int i = 0; i < queue_array.size(); i++) begin
-      $display("queue_array[%0d] = %0d", i, queue_array[i]);
+    for (int i = 0; i < my_queue.queue_array.size(); i++) begin
+      $display("queue_array[%0d] = %0d", i, my_queue.queue_array[i]);
     end
+
+    $finish;
   end
 
 endmodule
