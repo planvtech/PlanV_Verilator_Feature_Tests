@@ -1,42 +1,58 @@
-class constrained_queue_array;
+class constrained_queue;
 
-  rand int queue_array [$];
+rand int m_intQueue[$];
 
-  // Constraints
-  constraint queue_array_constraints {
-    queue_array.size() == 3;  // Fixing the size of the queue
-    queue_array[0] == 10;
-    queue_array[1] inside {20, 30, 40};
-    queue_array[2] < 100;
-  }
+rand int m_idx;
+
+function new;
+
+m_intQueue = '{6{0}};
+
+endfunction
+
+constraint int_queue_c {
+
+m_idx inside {[0:5]};
+
+m_intQueue[m_idx] == m_idx + 1;
+
+foreach (m_intQueue[i]) {
+
+m_intQueue[i] inside {[0:127]};
+
+}
+
+}
 
 endclass
 
 module queue_constrained_test;
 
-  constrained_queue_array my_queue;
+constrained_queue my_queue;
 
-  initial begin
-    my_queue = new();
+initial begin
 
-    // Initialize the queue with some elements
-    my_queue.queue_array.push_back(0);
-    my_queue.queue_array.push_back(0);
-    my_queue.queue_array.push_back(0);
+my_queue = new();
 
-    // Randomization of the queue with constraints
-    if (!my_queue.randomize()) begin
-      $display("Constrained queue randomization failed.");
-      $stop;
-    end
+// Randomization of the unpacked array without constraints
 
-    // Displaying the values after randomization
-    $display("Queue values:");
-    for (int i = 0; i < my_queue.queue_array.size(); i++) begin
-      $display("queue_array[%0d] = %0d", i, my_queue.queue_array[i]);
-    end
+if (!my_queue.randomize()) begin
 
-    $finish;
-  end
+$display("Unpacked array randomization failed.");
+
+$stop;
+
+end
+
+
+$display("Queue values (m_intQueue):");
+        foreach (my_queue.m_intQueue[i]) begin
+            $display("m_intQueue[%0d] = %0d", i, my_queue.m_intQueue[i]);
+        end
+        $display("Index value: %0d", my_queue.m_idx);
+
+$finish;
+
+end
 
 endmodule
