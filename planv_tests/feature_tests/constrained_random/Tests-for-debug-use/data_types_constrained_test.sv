@@ -13,8 +13,8 @@ typedef union packed{
 } UNION;
 
 typedef struct {
-    int x;
-    bit [13:0] byte_value;
+    rand int x;
+    rand bit [13:0] byte_value;
 } STRUCT;
 
 class cls;
@@ -83,7 +83,7 @@ class w_sequence_item;
 
 endclass
 
-module simple_tb_1;
+module data_types_constrained_test;
     w_sequence_item w;
     int v;
     initial begin
