@@ -6,11 +6,3 @@
 	path = uvm-verilator
 	url = https://github.com/antmicro/uvm-verilator.git
 	branch = master
-[submodule "verilator/Support_if-else_constraint_from_version_5.025"]
-	path = verilator/Support_if-else_constraint_from_version_5.025
-	url = https://github.com/planvtech/verilator.git
-	branch = Support_if-else_constraint_from_version_5.025
-[submodule "verilator/Support_dyn-arr_and_union_from_version_5.027"]
-	path = verilator/Support_dyn-arr_and_union_from_version_5.027
-	url = https://github.com/planvtech/verilator.git
-	branch = Support_dyn-arr_and_union_from_version_5.027
