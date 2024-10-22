@@ -2,9 +2,7 @@ typedef enum bit[15:0] {
     ONE = 3,
     TWO = 5,
     THREE = 8,
-    FOUR = 13,
-    FIVE = 15,
-    SIX = 17
+    FOUR = 13
 } ENUM;
 
 typedef union packed{
@@ -12,29 +10,19 @@ typedef union packed{
     bit [3:0][7:0] byte_value;
 } UNION;
 
-typedef struct {
-    rand int x;
-    rand bit [13:0] byte_value;
+typedef struct packed {
+    int x;
+    bit [3:0][7:0] byte_value;
 } STRUCT;
 
 class cls;
     rand ENUM enum_4;
-    rand UNION union_2;    //UNSPORTED IN VERILATOR(A DIRECTION TO VESTIGATE)
+    rand UNION union_2;
     rand STRUCT struct_2;
-    //rand int dyn_arr[];
+    rand int dyn_arr[];
     rand bit[31:0] y;
     rand bit x;
 
-    constraint enum_con {
-        enum_4 inside {TWO, THREE, SIX};
-    }
-    constraint union_con {
-        union_2.x inside {3, 7};
-    }
-    constraint struct_con {
-        struct_2.x inside {3, 7};
-        struct_2.byte_value inside {[181:186]};
-    }
     function new();
         enum_4 = ONE;
     endfunction
@@ -51,9 +39,8 @@ class w_sequence_item;
     rand logic[7:0] data2;
     rand logic[7:0] data3;
     rand int delay;
-    rand int flag;
+    int flag;
     
-    // constraint w_delay_con { delay > 90 && delay < 700;}
     constraint data1_con {
         if(flag > 2) {
             data1 inside {1, 2, 3} || data1 % 2 == 0;
@@ -71,19 +58,19 @@ class w_sequence_item;
         (data3 & 8'hF0) == 8'hA0;
     }
 
-    //constraint typ_con {
-    //    typ dist { 0:/20, [1:5]:/50, 6:/40, 7:/10};
-    //}
+    constraint typ_con {
+        typ dist { 0:/20, [1:5]:/50, 6:/40, 7:/10};
+    }
 
     function new(string name = "w_sequence_item");
         cls_1 = new();
         r = cls_1.randomize();
-        //flag = cls_1.x;
+        flag = cls_1.x;
     endfunction
 
 endclass
 
-module data_types_constrained_test;
+module data_types_test;
     w_sequence_item w;
     int v;
     initial begin
@@ -103,8 +90,8 @@ module data_types_constrained_test;
             $display("typ(d) = %d", w.typ);
 
             $display("cls: enum_4: %0d, y: %h, x: %b", w.cls_1.enum_4, w.cls_1.y, w.cls_1.x);
-            $display("cls: union: %d, %d", w.cls_1.union_2.x, w.cls_1.union_2.byte_value);
-            $display("cls: struct: %d, %d", w.cls_1.struct_2.x, w.cls_1.struct_2.byte_value);
+            $display("cls: union: %d, %h", w.cls_1.union_2.x, w.cls_1.union_2.byte_value);
+            $display("cls: struct: %d, %h", w.cls_1.struct_2.x, w.cls_1.struct_2.byte_value);
 
             $display("***************************");
         end
