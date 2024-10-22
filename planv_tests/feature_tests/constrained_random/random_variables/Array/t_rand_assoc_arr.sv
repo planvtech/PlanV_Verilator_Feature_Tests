@@ -1,3 +1,9 @@
+// DESCRIPTION: PlanV Verilator Feature Tests
+//
+// Property of PlanV GmbH, 2024. All rights reserved.
+// Contact: yilou.wang@planv.tech
+// SPDX-License-Identifier: CC0-1.0
+
 `define check_rand(cl, field) \
 begin \
    longint prev_result; \
@@ -9,7 +15,10 @@ begin \
       if (i > 0 && result != prev_result) ok = 1; \
       prev_result = result; \
    end \
-   if (ok != 1) $stop; \
+   if (ok != 1) begin \
+      $display("Error: Randomization failed for %s", `"field"`); \
+      $stop; \
+   end \
 end
 
 class array;
@@ -23,22 +32,22 @@ class array;
       assoc_arr["Alice"]["Science"] = 80;
     endfunction
 
-    function check();
-      check_rand(assoc_arr["John"]["Math"]);
-      check_rand(assoc_arr["John"]["Science"]);
-      check_rand(assoc_arr["Alice"]["Math"]);
-      check_rand(assoc_arr["Alice"]["Science"]);
+    // Self-check function to validate randomization
+    function void check();
+      `check_rand(this, this.assoc_arr["John"]["Math"]);
+      `check_rand(this, this.assoc_arr["John"]["Science"]);
+      `check_rand(this, this.assoc_arr["Alice"]["Math"]);
+      `check_rand(this, this.assoc_arr["Alice"]["Science"]);
     endfunction
 
     task display_assoc_array();
-      $display(assoc_arr);
-      $display(assoc_arr["John"]["Science"]);
-      $display(assoc_arr["Alice"]["Science"]);
-      $display(assoc_arr["Alice"]);
+      // Display the entire associative array content
+      $display("John - Math: %0d, Science: %0d", assoc_arr["John"]["Math"], assoc_arr["John"]["Science"]);
+      $display("Alice - Math: %0d, Science: %0d", assoc_arr["Alice"]["Math"], assoc_arr["Alice"]["Science"]);
     endtask
 endclass
 
-module assoc_arr_basic_rand;
+module t_rand_assoc_arr;
 
     array cl;
 
@@ -47,8 +56,10 @@ module assoc_arr_basic_rand;
 
     $display("Associative Array Content before rand:");
     cl.display_assoc_array();
+
     $display("Associative Array Check Rand:");
     cl.check();
+
     $display("Associative Array Content after rand:");
     cl.display_assoc_array();
 
