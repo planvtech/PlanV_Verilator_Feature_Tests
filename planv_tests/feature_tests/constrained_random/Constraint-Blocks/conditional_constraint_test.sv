@@ -138,6 +138,7 @@ module conditional_constraint_test;
             $display("iec_data3(d) = %d", w.iec_data3);
 
         end
+        $write("*-* All Finished *-*\n");
         $finish;
     end
 endmodule
