@@ -3,28 +3,30 @@
 // Property of PlanV GmbH, 2024. All rights reserved.
 // Contact: yilou.wang@planv.tech
 
-class real_constraint_c; 
+class real_constraint_c;  
     const int ZSTATE = -100;
     const real VALUE_LOW = 0.70;
     const real VALUE_MIN = 1.43;
     const real VALUE_NOM = 3.30;
     const real VALUE_MAX = 3.65;
-    
+
     rand real a;
     rand real b;
 
+    // Constraint for variable a
     constraint a_constraint {
-        a dist {
+        a dist { 
             ZSTATE := 5,
             [VALUE_LOW:VALUE_MIN] :/ 1,
-            [VALUE_NOM - 1.0: VALUE_NOM + 1.0] :/ 13, // equivalent to 3.3 +/- 0.033
+            [VALUE_NOM +%- 1.0] :/ 13, // equivalent to 3.3 +/- 0.033
             [VALUE_MIN:VALUE_MAX] :/ 1
         };
     }
 
+    // Constraint for variable b
     constraint b_constraint {
         (a inside [VALUE_LOW:VALUE_MIN]) -> b == ZSTATE;
-        b dist {
+        b dist { 
             ZSTATE := 1,
             [VALUE_MIN:VALUE_MAX] :/ 20
         };

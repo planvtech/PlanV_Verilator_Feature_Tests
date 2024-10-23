@@ -29,7 +29,7 @@ module t_constraint_order;
             if (obj.s && obj.d != 0) $fatal("Constraint violated: s = %0b, d = %0d", obj.s, obj.d);
         end
 
-        $display("Variable ordering test passed.");
+        $write("*-* All Finished *-*\n");
         $finish;
     end
 endmodule

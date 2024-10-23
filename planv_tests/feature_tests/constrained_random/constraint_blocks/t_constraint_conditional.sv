@@ -106,51 +106,48 @@ class ConditionalConstraintClass;
         end
 
         if (flag > 0) begin
-            if (sub_flag > 10) {
+            if (sub_flag > 10)
                 if (!(iec_data3 inside {1, 2, 3} || iec_data3 % 2 == 0)) begin
                     $display("Error: flag = %0d, sub_flag = %0d, iec_data3 = %0d", flag, sub_flag, iec_data3);
                     $stop;
                 end
-            end else if (sub_flag == 10) {
+            else if (sub_flag == 10)
                 if (!(iec_data3 inside {6, 7})) begin
                     $display("Error: flag = %0d, sub_flag = %0d, iec_data3 = %0d", flag, sub_flag, iec_data3);
                     $stop;
                 end
-            end else {
+            else
                 if (!(iec_data3 inside {4, 5})) begin
                     $display("Error: flag = %0d, sub_flag = %0d, iec_data3 = %0d", flag, sub_flag, iec_data3);
                     $stop;
                 end
-            end
-        end else if (flag == 0 || flag == -1) {
-            if (sub_flag < -10) {
+        end else if (flag == 0 || flag == -1) begin
+            if (sub_flag < -10)
                 if (!(iec_data3 inside {10, 11})) begin
                     $display("Error: flag = %0d, sub_flag = %0d, iec_data3 = %0d", flag, sub_flag, iec_data3);
                     $stop;
                 end
-            end else {
+            else
                 if (!(iec_data3 inside {12, 13})) begin
                     $display("Error: flag = %0d, sub_flag = %0d, iec_data3 = %0d", flag, sub_flag, iec_data3);
                     $stop;
                 end
-            end
-        end else {
-            if (sub_flag > 20) {
+        end else begin
+            if (sub_flag > 20)
                 if (!(iec_data3 inside {14, 15})) begin
                     $display("Error: flag = %0d, sub_flag = %0d, iec_data3 = %0d", flag, sub_flag, iec_data3);
                     $stop;
                 end
-            end else if (sub_flag == 20) {
+            else if (sub_flag == 20)
                 if (!(iec_data3 inside {16, 17})) begin
                     $display("Error: flag = %0d, sub_flag = %0d, iec_data3 = %0d", flag, sub_flag, iec_data3);
                     $stop;
                 end
-            end else {
+            else
                 if (!(iec_data3 inside {8, 9})) begin
                     $display("Error: flag = %0d, sub_flag = %0d, iec_data3 = %0d", flag, sub_flag, iec_data3);
                     $stop;
                 end
-            end
         end
         $display("All constraints validated successfully.");
     endfunction
