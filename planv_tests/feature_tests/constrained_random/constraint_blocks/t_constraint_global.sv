@@ -1,3 +1,8 @@
+// DESCRIPTION: PlanV Verilator Global Constraints Test
+//
+// Property of PlanV GmbH, 2024. All rights reserved.
+// Contact: yilou.wang@planv.tech
+
 class A;
     rand bit [7:0] v;
 
@@ -20,10 +25,8 @@ class B extends A;
     endfunction
 endclass
 
-module global_constraints_test;
-
+module t_constraint_global;
     B obj = new();
-    int i;
 
     initial begin
         if (!obj.randomize()) $fatal("Randomization failed.");
@@ -38,6 +41,7 @@ module global_constraints_test;
         assert(obj.right.v > obj.v) else $fatal("Constraint violated: right.v = %0d, v = %0d", obj.right.v, obj.v);
 
         $display("Global constraints test passed.");
+        $write("*-* All Finished *-*\n");
         $finish;
     end
 endmodule

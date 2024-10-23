@@ -28,7 +28,7 @@ class constrained_associative_array;
 
 endclass
 
-module constraint_rand_associative_array;
+module t_constraint_assoc_arr;
 
   constrained_associative_array my_array;
 

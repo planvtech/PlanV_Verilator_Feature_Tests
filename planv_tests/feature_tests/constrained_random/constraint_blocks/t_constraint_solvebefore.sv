@@ -1,3 +1,8 @@
+// DESCRIPTION: PlanV Verilator Solve Before Constraint Test
+//
+// Property of PlanV GmbH, 2024. All rights reserved.
+// Contact: yilou.wang@planv.tech
+
 class SolveBeforeConstraintTest;
     rand bit [3:0] a;
     rand bit [3:0] b;
@@ -10,14 +15,16 @@ class SolveBeforeConstraintTest;
     endfunction
 endclass
 
-module solve_before_constraint_test;
+module t_constraint_solvebefore;
     SolveBeforeConstraintTest sbct;
+
     initial begin
         sbct = new();
         repeat(10) begin
             if (!sbct.randomize()) $error("Randomization failed");
             $display("a: %0d, b: %0d", sbct.a, sbct.b);
         end
+        $write("*-* All Finished *-*\n");
         $finish;
     end
 endmodule
