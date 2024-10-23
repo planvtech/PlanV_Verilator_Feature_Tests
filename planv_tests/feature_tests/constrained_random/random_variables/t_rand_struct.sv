@@ -21,8 +21,8 @@ begin \
 end
 
 typedef struct packed {
-    rand bit [7:0] byte_value;
-    rand int int_value;
+    bit [7:0] byte_value;
+    int int_value;
 } PackedStruct;
 
 typedef struct {

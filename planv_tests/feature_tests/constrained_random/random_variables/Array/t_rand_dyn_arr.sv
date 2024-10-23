@@ -30,15 +30,6 @@ class dynamic_arrays;
     function new();
         // Initialize 2D array dyn_arr
         dyn_arr = '{'{1, 2, 3}, '{4, 5, 6, 0, 10}, '{6, 7, 8, 9}};
-        foreach(dyn_arr[i]) begin
-            foreach(dyn_arr[i][j]) begin
-                $display("i = %d, j = %d." , i, j);
-            end
-        end
-        $display("--------------------------------------------");
-        foreach(dyn_arr[i, j]) begin
-            $display("i = %d, j = %d." , i, j);
-        end
 
         // Initialize 1D dynamic array with size 5
         dynamic_array_1d = new[5];
@@ -100,17 +91,14 @@ module t_rand_dyn_arr;
     // Self-check to validate the randomization using check_rand
     cl.check();
 
-    // Display randomization result
     $display("Dyn_arr Content after randomization:");
     $display("%p", cl.dyn_arr);
 
-    // Display 1D dynamic array values
     $display("1D Dynamic array values:");
     for (int i = 0; i < cl.dynamic_array_1d.size(); i++) begin
       $display("dynamic_array_1d[%0d] = %0d", i, cl.dynamic_array_1d[i]);
     end
 
-    // Display 2D dynamic array values
     $display("2D Dynamic array values:");
     for (int i = 0; i < cl.dynamic_array_2d.size(); i++) begin
       for (int j = 0; j < cl.dynamic_array_2d[i].size(); j++) begin
@@ -118,7 +106,6 @@ module t_rand_dyn_arr;
       end
     end
 
-    // Display 3D dynamic array values
     $display("3D Dynamic array values:");
     for (int i = 0; i < cl.dynamic_array_3d.size(); i++) begin
       for (int j = 0; j < cl.dynamic_array_3d[i].size(); j++) begin

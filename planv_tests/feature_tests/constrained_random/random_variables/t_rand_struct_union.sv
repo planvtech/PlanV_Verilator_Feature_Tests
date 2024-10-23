@@ -21,8 +21,8 @@ begin \
 end
 
 typedef struct packed {
-    rand bit [3:0] a;
-    rand bit [7:0] b;
+    bit [3:0] a;
+    bit [7:0] b;
 } PackedStruct1;
 
 typedef union packed {
@@ -46,8 +46,8 @@ class StructInUnionTest;
 endclass
 
 typedef struct packed {
-    rand bit [3:0] a;
-    rand bit [11:0] b;
+    bit [3:0] a;
+    bit [11:0] b;
 } PackedStruct2;
 
 typedef union packed {

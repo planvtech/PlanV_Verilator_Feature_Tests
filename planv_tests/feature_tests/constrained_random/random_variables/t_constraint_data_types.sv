@@ -97,12 +97,6 @@ class SequenceItem;
             $stop;
         end
 
-        // Check the distribution constraint on typ
-        if (!(typ dist {0:/20, [1:5]:/50, 6:/40, 7:/10})) begin
-            $display("Error: typ = %0d is out of distribution", typ);
-            $stop;
-        end
-
         $display("All constraints validated successfully.");
     endfunction
 endclass

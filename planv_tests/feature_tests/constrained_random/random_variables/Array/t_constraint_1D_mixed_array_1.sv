@@ -24,7 +24,7 @@ class constrained_mixed_array;
   }
 
   constraint dynamic_array_constraints {
-    dynamic_array.size() == 5;
+    dynamic_array.size == 5;
     dynamic_array[0] == 1;
     dynamic_array[1] == 2;
     dynamic_array[2] == 3;
@@ -45,7 +45,7 @@ class constrained_mixed_array;
   }
 
   constraint queue_constraints {
-    queue.size() == 2;
+    queue.size == 2;
     queue[0] inside {[50:60]};
     queue[1] inside {[70:80]};
   }
