@@ -12,7 +12,7 @@ class constrained_mixed_array;
 
   // Constraints
   constraint dynamic_array_constraints {
-    dynamic_array.size() == 5;
+    dynamic_array.size == 5;
     foreach(dynamic_array[i]) dynamic_array[i] inside {[1:10]};
   }
 

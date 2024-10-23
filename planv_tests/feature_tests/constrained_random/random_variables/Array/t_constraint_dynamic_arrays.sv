@@ -16,15 +16,17 @@ class ConstrainedDynamicArray;
         foreach (dynamic_array[i]) {
             dynamic_array[i] inside {[0:255]};
         }
-        fixed_dynamic_array_2d.size() == 3;
+
         foreach (fixed_dynamic_array_2d[i]) {
-            fixed_dynamic_array_2d[i].size() == 2;  
+            fixed_dynamic_array_2d[i].size == 2;
         }
-        dynamic_fixed_array_2d.size() == 2;  
-        dyn_arr_3d.size() == 2;  
+
+        dynamic_fixed_array_2d.size() == 2;
+
+        dyn_arr_3d.size() == 2;
         foreach (dyn_arr_3d[i]) {
-            dyn_arr_3d[i].size() == 3;  
-            foreach (dyn_arr_3d[i][j]) {
+            dyn_arr_3d[i].size() == 3;
+            foreach (dyn_arr_3d[j]) {
                 dyn_arr_3d[i][j].size() == 4;  
             }
         }
@@ -67,20 +69,20 @@ class ConstrainedDynamicArray;
         end
 
         foreach (fixed_dynamic_array_2d[i]) begin
-            foreach (fixed_dynamic_array_2d[i][j]) begin
+            foreach (fixed_dynamic_array_2d[j]) begin
                 $display("fixed_dynamic_array_2d[%0d][%0d] = %0d", i, j, fixed_dynamic_array_2d[i][j]);
             end
         end
 
         foreach (dynamic_fixed_array_2d[i]) begin
-            foreach (dynamic_fixed_array_2d[i][j]) begin
+            foreach (dynamic_fixed_array_2d[j]) begin
                 $display("dynamic_fixed_array_2d[%0d][%0d] = %0d", i, j, dynamic_fixed_array_2d[i][j]);
             end
         end
 
         foreach (dyn_arr_3d[i]) begin
-            foreach (dyn_arr_3d[i][j]) begin
-                foreach (dyn_arr_3d[i][j][k]) begin
+            foreach (dyn_arr_3d[j]) begin
+                foreach (dyn_arr_3d[k]) begin
                     $display("dyn_arr_3d[%0d][%0d][%0d] = %0d", i, j, k, dyn_arr_3d[i][j][k]);
                 end
             end

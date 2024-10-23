@@ -47,6 +47,7 @@ class unconstrained_unpacked_array_test;
   endfunction
 
   function void check_randomization();
+    // non-standard foreach loop
     foreach (unpacked_array[i]) begin
       foreach (unpacked_array[i][j]) begin
         `check_rand(this, this.unpacked_array[i][j])
@@ -78,9 +79,6 @@ class unconstrained_dynamic_array_test;
     dynamic_array_2d = new[3];
     foreach(dynamic_array_2d[i]) begin
       dynamic_array_2d[i] = new[3];
-      foreach(dynamic_array_2d[i][j]) begin
-        dynamic_array_2d[i][j] = 'h0 + i + j;
-      end
     end
   endfunction
 
@@ -88,11 +86,11 @@ class unconstrained_dynamic_array_test;
     foreach (dynamic_array_1d[i]) begin
       `check_rand(this, dynamic_array_1d[i])
     end
-    foreach (dynamic_array_2d[i]) begin
-      foreach (dynamic_array_2d[i][j]) begin
-        `check_rand(this, dynamic_array_2d[i][j])
-      end
+
+    foreach (dynamic_array_2d[i, j]) begin
+      `check_rand(this, dynamic_array_2d[i][j])
     end
+
   endfunction
 
 endclass

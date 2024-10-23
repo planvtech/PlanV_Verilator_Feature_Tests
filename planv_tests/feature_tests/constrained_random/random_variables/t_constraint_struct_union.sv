@@ -4,23 +4,23 @@
 // Contact: yilou.wang@planv.tech
 
 typedef struct packed {
-    rand bit [3:0] a;  // 4-bit value
-    rand bit [7:0] b;  // 8-bit value
+    bit [3:0] a;
+    bit [7:0] b;
 } PackedStruct;
 
 typedef union packed {
-    PackedStruct s;   // Packed structure
-    bit [11:0] raw_bits;  // Raw bits for the union
+    PackedStruct s;
+    bit [11:0] raw_bits;
 } PackedUnion;
 
 typedef union packed {
-    PackedStruct s;  // Inner structure
-    bit [15:0] raw_bits;  // Raw bits for inner union
+    PackedUnion u;
+    bit [11:0] raw_bits;
 } InnerPackedUnion;
 
 typedef union packed {
-    InnerPackedUnion u1;  // Outer union containing inner union
-    bit [15:0] raw_data;   // Raw data for outer union
+    InnerPackedUnion u1;
+    bit [11:0] raw_data;
 } OuterPackedUnion;
 
 class StructUnionTest;
@@ -33,8 +33,8 @@ class StructUnionTest;
         my_struct.a = 4'b0000;
         my_struct.b = 8'h00;
         my_union.raw_bits = 12'b0;
-        my_inner_union.s.a = 4'b0000;
-        my_inner_union.s.b = 12'h000;
+        my_inner_union.u.s.a = 4'b0000;
+        my_inner_union.u.s.b = 12'h000;
         my_outer_union.raw_data = 16'b0;
     endfunction
 
@@ -99,7 +99,7 @@ module t_constraint_struct_union;
             // Display values after randomization
             $display("PackedStruct: a: %b, b: %b", test.my_struct.a, test.my_struct.b);
             $display("Union: raw_bits: %b, s: %b", test.my_union.raw_bits, test.my_union.s);
-            $display("Inner Union: a: %b, b: %b, raw_bits: %b", test.my_inner_union.s.a, test.my_inner_union.s.b, test.my_inner_union.raw_bits);
+            $display("Inner Union: a: %b, b: %b, raw_bits: %b", test.my_inner_union.u.s.a, test.my_inner_union.u.s.b, test.my_inner_union.raw_bits);
             $display("Outer Union: raw_data: %b", test.my_outer_union.raw_data);
             $display("***************************");
         end
