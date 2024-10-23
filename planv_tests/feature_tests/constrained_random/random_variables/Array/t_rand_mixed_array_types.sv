@@ -15,7 +15,7 @@ begin \
       prev_result = result; \
    end \
    if (ok != 1) begin \
-      $display("Error: Randomization failed for %m"); \
+      $display("Error: Randomization failed for %s", field); \
       $stop; \
    end \
 end
