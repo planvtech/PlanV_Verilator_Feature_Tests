@@ -19,10 +19,10 @@ class DerivedClass extends BaseClass;
 endclass
 
 class OverrideClass extends DerivedClass;
-    constraint base_constraint extends {
+    constraint base_constraint {
         x inside {2, 3, 4};
     }
-    final constraint derived_constraint {
+    constraint derived_constraint {
         y inside {5, 6, 7};
     }
 endclass
@@ -43,7 +43,7 @@ module t_constraint_pure;
         assert(override_obj.x inside {2, 3, 4}) else $fatal("Base constraint override failed in OverrideClass");
         assert(override_obj.y inside {5, 6, 7}) else $fatal("Final derived constraint failed in OverrideClass");
 
-        $write("*-* All Constraints Passed *-*\n");
+        $write("*-* All Finished *-*\n");
         $finish;
     end
 endmodule

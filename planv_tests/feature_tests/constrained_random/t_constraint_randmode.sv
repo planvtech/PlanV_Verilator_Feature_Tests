@@ -39,7 +39,7 @@ module t_constraint_randmode;
             $display("Initial randomization failed.");
         end
 
-        p.constraint_mode("x_less_than_y", 0);
+        p.x_less_than_y.constraint_mode(0);
         success = p.randomize();
         if (success) begin
             $display("Randomization without x_less_than_y constraint: x = %0d, y = %0d, z = %0d", p.x, p.y, p.z);
@@ -48,7 +48,7 @@ module t_constraint_randmode;
             $display("Randomization failed without x_less_than_y constraint.");
         end
 
-        p.constraint_mode("x_less_than_y", 1);
+        p.x_less_than_y.constraint_mode(1);
         success = p.randomize();
         if (success) begin
             $display("Randomization with x_less_than_y constraint: x = %0d, y = %0d, z = %0d", p.x, p.y, p.z);
@@ -58,7 +58,7 @@ module t_constraint_randmode;
             $display("Randomization failed with x_less_than_y constraint.");
         end
 
-        p.rand_mode("x", 0);
+        p.x.rand_mode(0);
         success = p.randomize();
         if (success) begin
             $display("Randomization with x inactive: x = %0d, y = %0d, z = %0d", p.x, p.y, p.z);
