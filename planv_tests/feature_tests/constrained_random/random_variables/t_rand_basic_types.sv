@@ -1,3 +1,25 @@
+// DESCRIPTION: PlanV Verilator Feature Tests
+//
+// Property of PlanV GmbH, 2024. All rights reserved.
+// Contact: yilou.wang@planv.tech
+
+`define check_rand(cl, field) \
+begin \
+   longint prev_result; \
+   int ok = 0; \
+   for (int i = 0; i < 10; i++) begin \
+      longint result; \
+      void'(cl.randomize()); \
+      result = longint'(field); \
+      if (i > 0 && result != prev_result) ok = 1; \
+      prev_result = result; \
+   end \
+   if (ok != 1) begin \
+      $display("Error: Randomization failed for %s", `"field"`); \
+      $stop; \
+   end \
+end
+
 typedef enum bit [15:0] {
     ENUM_ONE = 3,
     ENUM_TWO = 5,
@@ -6,23 +28,39 @@ typedef enum bit [15:0] {
 } ENUM;
 
 class BasicRandTest;
-    rand ENUM enum_value;
-    rand bit [31:0] random_32_bit;
-    rand bit single_bit;
+    // Randomizable fields with formal names
+    rand ENUM enum_selection;
+    rand bit [31:0] random_value_32bit;
+    rand bit random_single_bit;
 
     function new();
-        enum_value = ENUM_ONE;
+        enum_selection = ENUM_ONE;
+    endfunction
+
+    // Self-check function using check_rand
+    function void check();
+        `check_rand(this, enum_selection);
+        `check_rand(this, random_value_32bit);
+        `check_rand(this, random_single_bit);
     endfunction
 endclass
 
-module basic_rand_test;
+module t_rand_basic_types;
     BasicRandTest rand_test;
+
     initial begin
         rand_test = new();
         repeat(10) begin
             if (!rand_test.randomize()) $error("Randomization failed");
-            $display("enum_value: %0d, random_32_bit: %h, single_bit: %b", rand_test.enum_value, rand_test.random_32_bit, rand_test.single_bit);
+            // Use check_rand to validate the randomization
+            rand_test.check();
+
+            $display("enum_selection: %0d, random_value_32bit: %h, random_single_bit: %b", 
+                     rand_test.enum_selection, rand_test.random_value_32bit, rand_test.random_single_bit);
         end
+
+        // Successful execution marker
+        $write("*-* All Finished *-*\n");
         $finish;
     end
 endmodule

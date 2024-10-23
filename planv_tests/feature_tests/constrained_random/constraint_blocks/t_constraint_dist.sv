@@ -1,6 +1,7 @@
-/*
-    Solver Error
-*/
+// DESCRIPTION: PlanV Verilator Distribution Constraint Test
+//
+// Property of PlanV GmbH, 2024. All rights reserved.
+// Contact: yilou.wang@planv.tech
 
 class DistributionConstraintTest;
     rand int value;
@@ -13,14 +14,16 @@ class DistributionConstraintTest;
     endfunction
 endclass
 
-module distribution_constraint_test;
+module t_constraint_dist;
     DistributionConstraintTest dct;
+
     initial begin
         dct = new();
         repeat(10) begin
             if (!dct.randomize()) $error("Randomization failed");
             $display("value: %0d", dct.value);
         end
+        $write("*-* All Finished *-*\n");
         $finish;
     end
 endmodule
