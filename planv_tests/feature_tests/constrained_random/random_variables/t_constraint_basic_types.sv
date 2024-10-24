@@ -20,7 +20,7 @@ class BasicRandTest;
         enum_value inside {ENUM_ONE, ENUM_TWO, ENUM_THREE};
     }
     constraint random_32_bit_constraint {
-        (random_32_bit && 32'hFFFF0000) == 32'hABCD0000;
+        (random_32_bit & 32'hFFFF0000) == 32'hABCD0000;
     }
     constraint single_bit_constraint {
         single_bit == 1;
@@ -36,7 +36,7 @@ class BasicRandTest;
             $display("Error: enum_value = %0d is out of bounds", enum_value);
             $stop;
         end
-        if (!((random_32_bit && 32'hFFFF0000) == 32'hABCD0000)) begin
+        if (!((random_32_bit & 32'hFFFF0000) == 32'hABCD0000)) begin
             $display("Error: random_32_bit = %h does not satisfy the constraint", random_32_bit);
             $stop;
         end

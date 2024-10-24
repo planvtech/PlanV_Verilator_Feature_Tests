@@ -12,7 +12,7 @@ class ConstrainedDynamicArray;
 
     // Constraints for all arrays
     constraint size_constraint {
-        dynamic_array.size == len;  
+        dynamic_array.size == len;
         foreach (dynamic_array[i]) {
             dynamic_array[i] inside {[0:255]};
         }
@@ -27,7 +27,7 @@ class ConstrainedDynamicArray;
         foreach (dyn_arr_3d[i]) {
             dyn_arr_3d[i].size() == 3;
             foreach (dyn_arr_3d[j]) {
-                dyn_arr_3d[i][j].size() == 4;  
+                dyn_arr_3d[i][j].size() == 4;
             }
         }
     }
@@ -37,7 +37,8 @@ class ConstrainedDynamicArray;
         dynamic_array.sum() < 1000; // Sum of elements must be less than 1000
     }
 
-    // Constraint for unique elements
+    // Constraint for unique elements (nightmare for questasim)
+    /*
     constraint unique_elements {
         foreach (dynamic_array[i]) {
             foreach (dynamic_array[j]) {
@@ -47,7 +48,7 @@ class ConstrainedDynamicArray;
             }
         }
     }
-
+    */
     function new();
         len = 10;  // Initial length of dynamic_array
     endfunction
@@ -55,38 +56,52 @@ class ConstrainedDynamicArray;
     // Self-check function
     function void check();
         if (dynamic_array.size() == len) begin
+            int sum;
             foreach (dynamic_array[i]) begin
                 if (dynamic_array[i] inside {[0:255]}) begin
+                    sum += dynamic_array[i];
                     $display("dynamic_array[%0d] = %0d is valid", i, dynamic_array[i]);
                 end else begin
                     $display("Error: dynamic_array[%0d] = %0d is out of bounds", i, dynamic_array[i]);
                     $stop;
                 end
             end
+            if (sum > 1000) begin
+                $display("Error: sum of dynamic_arrays = %0d is out of bounds", sum);
+                $stop;
+            end
         end else begin
             $display("Error: dynamic_array size = %0d does not match len = %0d", dynamic_array.size(), len);
             $stop;
         end
-
+        int count_fixed_dynamic_array_2d;
         foreach (fixed_dynamic_array_2d[i]) begin
             foreach (fixed_dynamic_array_2d[j]) begin
                 $display("fixed_dynamic_array_2d[%0d][%0d] = %0d", i, j, fixed_dynamic_array_2d[i][j]);
+                count_fixed_dynamic_array_2d += 1;
             end
         end
-
+        int count_dynamic_fixed_array_2d;
         foreach (dynamic_fixed_array_2d[i]) begin
             foreach (dynamic_fixed_array_2d[j]) begin
                 $display("dynamic_fixed_array_2d[%0d][%0d] = %0d", i, j, dynamic_fixed_array_2d[i][j]);
+                count_dynamic_fixed_array_2d += 1;
             end
         end
-
+        int count_dyn_arr_3d;
         foreach (dyn_arr_3d[i]) begin
             foreach (dyn_arr_3d[j]) begin
                 foreach (dyn_arr_3d[k]) begin
                     $display("dyn_arr_3d[%0d][%0d][%0d] = %0d", i, j, k, dyn_arr_3d[i][j][k]);
+                    count_dyn_arr_3d += 1;
                 end
             end
         end
+
+        if (count_fixed_dynamic_array_2d != 6) $stop;
+        if (count_dynamic_fixed_array_2d != 4) $stop;
+        if (count_dyn_arr_3d != 24) $stop;
+
     endfunction
 endclass
 
