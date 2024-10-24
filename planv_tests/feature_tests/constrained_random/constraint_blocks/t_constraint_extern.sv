@@ -27,6 +27,8 @@ module t_constraint_extern;
         repeat(10) begin
             if (!ece.randomize()) $error("Randomization failed");
             $display("x: %0d, y: %0d", ece.x, ece.y);
+            if (!(ece.x inside {-4, 5, 7})) $stop;
+            if (!(ece.y >= 0)) $stop;
         end
         $write("*-* All Finished *-*\n");
         $finish;
