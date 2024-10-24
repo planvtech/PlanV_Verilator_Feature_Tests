@@ -17,21 +17,14 @@ module t_rand_randcase;
         for (i = 0; i < 20; i++) begin
             randcase
                 (a + b) : x = 1;
-                (a - b) : x = 2;
+                0 : x = 2;
                 (a ^ ~b) : x = 3;
                 12'h800 : x = 4;
             endcase
 
-            // Determine expected value based on conditions
-            if (a + b > 255) expected_value = 1;
-            else if (a - b >= 0) expected_value = 2;
-            else expected_value = 3;
-
             // Check if the selected value matches the expected value
-            if (x == expected_value) begin
-                $display("Iteration %0d: Selected x = %0d, which is as expected.", i + 1, x);
-            end else begin
-                $display("Iteration %0d: Selected x = %0d, which is NOT as expected (expected %0d).", i + 1, x, expected_value);
+            if (x == 2) begin
+                $display("Iteration %0d: Selected x = %0d, which is NOT as expected.", i + 1, x);
                 $stop; // Stop the test if it doesn't match the expected value
             end
         end
