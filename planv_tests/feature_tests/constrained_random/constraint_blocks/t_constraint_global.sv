@@ -37,8 +37,14 @@ module t_constraint_global;
         $display("Right child value: %0d", obj.right.v);
 
         // Validate constraints
-        assert(obj.left.v <= obj.v) else $fatal("Constraint violated: left.v = %0d, v = %0d", obj.left.v, obj.v);
-        assert(obj.right.v > obj.v) else $fatal("Constraint violated: right.v = %0d, v = %0d", obj.right.v, obj.v);
+        if (!(obj.left.v <= obj.v)) begin
+            $display("Constraint violated: left.v = %0d, v = %0d", obj.left.v, obj.v);
+            $stop;
+        end
+        if (!(obj.right.v > obj.v)) begin 
+            $display("Constraint violated: right.v = %0d, v = %0d", obj.right.v, obj.v);
+            $stop;
+        end
 
         $display("Global constraints test passed.");
         $write("*-* All Finished *-*\n");

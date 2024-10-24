@@ -24,6 +24,7 @@ class DynamicArrayConstraintTest;
     }
 
     function new();
+        B = new[10];
     endfunction
 
     // Self-check function for array A
