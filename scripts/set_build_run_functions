@@ -27,6 +27,7 @@ execute_and_log() {
 }
 
 create_logdir() {
+    rm -rf "$LOGDIR"
     if [ ! -d "$LOGDIR" ]; then
         echo "Creating logs directory at $LOGDIR"
         mkdir -p "$LOGDIR"
@@ -74,10 +75,10 @@ run_tests() {
         echo "Feature Tests Report for $TEST_DIR on branch $BRANCH" > "$REPORT_FILE"
         echo "============" >> "$REPORT_FILE"
 
-        for verilator_sim_dir in $(find $TEST_DIR -type d -name verilator_sim); do
-            echo $verilator_sim_dir
-            test_dir=$(dirname "$verilator_sim_dir")
-            echo $test_dir
+        for test_name in $(find "${TESTS_DIR}" -type f -name "t*.sv"); do
+            test_dir=$(dirname "$test_name")
+            relative_path=${test_name#*$MAIN_DIR/planv_tests/}
+            echo "Found test file: $relative_path"
             # relative_test_dir=$(echo "$test_dir" | sed "s|$MAIN_DIR/planv_tests/feature_tests/||")
             relative_test_dir=${test_dir#*planv_tests/feature_tests/}
             relative_test_dir=$(dirname "$relative_test_dir")

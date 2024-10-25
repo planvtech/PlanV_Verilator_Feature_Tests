@@ -16,13 +16,14 @@ logo_path = "planv_logo.png"
 data = defaultdict(lambda: {'PASSED': [], 'FAILED': [], 'ALL': []})
 with open(report_file_path, "r") as report_file:
     for line in report_file:
-        if line.strip() in ["Feature Tests Report", "============"]:
+        line = line.strip()
+        if line in ["Feature Tests Report", "============", ""]:
             continue
-        if line.strip():
-            print(line)
+        if ": " in line:
             test_name, status = line.split(": ")
             status = status.strip()
             category = test_name.split("/")[0]
+            print(f"Test Name: {test_name}, Status: {status}, Category: {category}")
             # Keep full test name for constructing the log path
             relative_log_file_path = os.path.join(test_name.replace("/", os.path.sep)) + ".log"
             # Simplify the test name for display purposes only
