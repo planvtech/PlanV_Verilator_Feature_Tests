@@ -1,4 +1,10 @@
-#!/bin/bash
+#!/bin/env bash
+
+# DESCRIPTION: PlanV CI System Setup Framework Script
+#
+# Property of PlanV GmbH, 2024. All rights reserved.
+# Contact: yilou.wang@planv.tech
+
 SCRIPT_DIR=$(realpath "$(dirname "$0")")
 DEFAULT_TEST_DIR="${SCRIPT_DIR}/../planv_tests/feature_tests"
 # Function to create feature tests framework

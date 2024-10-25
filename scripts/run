@@ -1,18 +1,34 @@
-#!/bin/bash
+#!/bin/env bash
 
+# DESCRIPTION: PlanV User Run Script
+#
+# Property of PlanV GmbH, 2024. All rights reserved.
+# Contact: yilou.wang@planv.tech
+
+echo "Arguments received: $@"
 SCRIPT_DIR=$(realpath $(dirname "$0"))
-source "$SCRIPT_DIR/setup_and_build"
 
-DEFAULT_BRANCH="master"
-DEFAULT_TEST_DIR="$SCRIPT_DIR/planv_tests/feature_tests"
+source "$SCRIPT_DIR/set_build_run_functions"
 
-while getopts "b:t:" opt; do
-    case ${opt} in
-        b) branch="$OPTARG" ;;
-        t) test_dir="$OPTARG" ;;
-        *)
+branch="master"
+test_dir="$SCRIPT_DIR/planv_tests/feature_tests"
+
+while [[ $# -gt 0 ]]; do
+    echo "Current option: $1"
+    case "$1" in
+        -b|--branch) 
+            echo "Branch option recognized: $2"
+            branch="$2"
+            shift 2 
+            ;;
+        -t|--test-dir) 
+            echo "Test directory option recognized: $2"
+            test_dir="$2"
+            shift 2 
+            ;;
+        *) 
             echo "Usage: $0 [-b <branch>] [-t <test_dir>]" >&2
-            exit 1
+            exit 1 
             ;;
     esac
 done

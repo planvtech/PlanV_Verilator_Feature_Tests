@@ -1,5 +1,10 @@
 #!/bin/env bash
 
+# DESCRIPTION: PlanV CI System Scripts functions
+#
+# Property of PlanV GmbH, 2024. All rights reserved.
+# Contact: yilou.wang@planv.tech
+
 # Determine the directory where the script is located
 SCRIPT_DIR=$(realpath $(dirname "$0"))
 MAIN_DIR=$SCRIPT_DIR/..
@@ -36,8 +41,8 @@ setup() {
     execute_and_log "$LOGFILE" "git submodule update --init --recursive"
 
     echo "Setting up tests simulation framework..."
-    execute_and_log "$LOGFILE" "chmod +x $SCRIPT_DIR/setup_feature_tests_sim_framework"
-    execute_and_log "$LOGFILE" "$SCRIPT_DIR/setup_feature_tests_sim_framework $TEST_DIR"
+    execute_and_log "$LOGFILE" "chmod +x $SCRIPT_DIR/setup_framework"
+    execute_and_log "$LOGFILE" "$SCRIPT_DIR/setup_framework $TEST_DIR"
 }
 
 build() {
@@ -161,25 +166,3 @@ run_tests() {
         exit 1
     fi
 }
-
-# If no arguments are given, run all steps
-if [[ $# -eq 0 ]]; then
-    echo "No arguments are given, running the whole routine with master branch..."
-    create_logdir
-    setup
-    build
-    run_tests
-    exit 0
-fi
-
-# Parse arguments and run individual steps
-while [ -n "$1" ]; do
-    case "$1" in
-        --setup) setup;;
-        --build) shift; build "$1";;
-        --run-tests) shift; run_tests "$1" "$2"; shift 2;;
-        --help) echo "Usage: $0 [--setup] [--build <branch>] [--run-tests <branch> <test_path>]"; exit 0;;
-        *) echo "Option $1 not recognized" >&2; exit 1;;
-    esac
-    shift
-done
