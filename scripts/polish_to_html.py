@@ -19,6 +19,7 @@ with open(report_file_path, "r") as report_file:
         if line.strip() in ["Feature Tests Report", "============"]:
             continue
         if line.strip():
+            print(line)
             test_name, status = line.split(": ")
             status = status.strip()
             category = test_name.split("/")[0]
