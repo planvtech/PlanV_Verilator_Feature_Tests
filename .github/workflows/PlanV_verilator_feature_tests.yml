@@ -4,10 +4,10 @@ on:
   # To save the running time in github runner, the workflow will now only trigger automatically once a week (every Monday).
   # Users can still trigger the workflow manually on their local machines.
   
-  # push:
-  #  branches:
-  #    - main
-  # pull_request:
+  push:
+    branches:
+      - main
+  pull_request:
   schedule:
     - cron: "0 7 * * 1" # Every Monday at 07:00
 
@@ -77,24 +77,24 @@ jobs:
 
       - name: Make setup_and_build script executable
         run: |
-          chmod +x scripts/setup_and_build
+          chmod +x scripts/ciSystemRunner
 
-      - name: Create logs folder and setup_and_build log file
+      - name: Create logs folder and ciSystemRunner log file
         run: |
           mkdir -p logs
-          touch logs/setup_and_build.log
+          touch logs/ciSystemRunner.log
 
       - name: Setup Repo
-        run: scripts/setup_and_build --setup
+        run: scripts/ciSystemRunner --setup
       
       - name: Build Verilator
         env:
           CC: gcc-12
           CXX: g++-12
-        run: scripts/setup_and_build --build ${{ matrix.VERILATOR_BRANCH }}
+        run: scripts/ciSystemRunner --build ${{ matrix.VERILATOR_BRANCH }}
 
       - name: Run Tests
-        run: scripts/setup_and_build --run-tests ${{ matrix.VERILATOR_BRANCH }}
+        run: scripts/ciSystemRunner --run-tests ${{ matrix.VERILATOR_BRANCH }}
 
       - name: Verify logs existence
         run: |
