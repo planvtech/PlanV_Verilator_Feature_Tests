@@ -36,7 +36,7 @@ create_logdir() {
 # Functions corresponding to each step of the workflow
 setup() {
     local TEST_DIR="$1"
-    LOGFILE="$LOGDIR/setup_and_build.log"
+    LOGFILE="$LOGDIR/run.log"
     echo "Fetching and Updating the submodules..."
     execute_and_log "$LOGFILE" "git submodule update --init --recursive"
 
@@ -48,7 +48,7 @@ setup() {
 build() {
     local BRANCH="${1:-master}"
     if [ -d "$MAIN_DIR/verilator/$BRANCH" ]; then
-        LOGFILE="$LOGDIR/setup_and_build.log"
+        LOGFILE="$LOGDIR/run.log"
         echo "Building verilator/$BRANCH..."
         execute_and_log "$LOGFILE" "cd $MAIN_DIR/verilator/$BRANCH"
         execute_and_log "$LOGFILE" "pwd"
@@ -75,10 +75,13 @@ run_tests() {
         echo "============" >> "$REPORT_FILE"
 
         for verilator_sim_dir in $(find $TEST_DIR -type d -name verilator_sim); do
+            echo $verilator_sim_dir
             test_dir=$(dirname "$verilator_sim_dir")
+            echo $test_dir
             # relative_test_dir=$(echo "$test_dir" | sed "s|$MAIN_DIR/planv_tests/feature_tests/||")
-            relative_test_dir=${test_dir#*$MAIN_DIR/planv_tests/feature_tests/}
+            relative_test_dir=${test_dir#*planv_tests/feature_tests/}
             relative_test_dir=$(dirname "$relative_test_dir")
+            echo $relative_test_dir
             LOGFILE="$LOGDIR/feature_tests/$relative_test_dir/$(basename "$test_dir").log"
             mkdir -p "$(dirname "$LOGFILE")"
 
@@ -155,11 +158,11 @@ run_tests() {
 
         # Generate HTML Report
         echo "Generating HTML report..."
-        execute_and_log "$LOGDIR/setup_and_build.log" "cd $SCRIPT_DIR"
-        execute_and_log "$LOGDIR/setup_and_build.log" "pip install jinja2"
-        execute_and_log "$LOGDIR/setup_and_build.log" "chmod +x polish_to_html.py"
-        execute_and_log "$LOGDIR/setup_and_build.log" "python3 polish_to_html.py $BRANCH"
-        execute_and_log "$LOGDIR/setup_and_build.log" "cp $SCRIPT_DIR/planv_logo.png $LOGDIR/feature_tests/."
+        execute_and_log "$LOGDIR/run.log" "cd $SCRIPT_DIR"
+        execute_and_log "$LOGDIR/run.log" "pip install jinja2"
+        execute_and_log "$LOGDIR/run.log" "chmod +x polish_to_html.py"
+        execute_and_log "$LOGDIR/run.log" "python3 polish_to_html.py $BRANCH"
+        execute_and_log "$LOGDIR/run.log" "cp $SCRIPT_DIR/planv_logo.png $LOGDIR/feature_tests/."
         echo "HTML report generated."
     else
         echo "Error: Test directory for '$BRANCH' does not exist." >&2

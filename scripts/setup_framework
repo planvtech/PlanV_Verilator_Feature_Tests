@@ -98,16 +98,12 @@ EOL
     echo "Test framework for ${test_name} created successfully."
 }
 
-
 main() {
-    TESTS_DIR="{$1:-DEFAULT_TEST_DIR}"
-    if [ ! -d "$BASE_DIR" ]; then
-        echo "Error: Specified base directory does not exist: $BASE_DIR" >&2
-        exit 1
-    fi
+    TESTS_DIR="${1:-$DEFAULT_TEST_DIR}"
     find "${TESTS_DIR}" -type f -name "*.sv" | while read -r sv_file; do
         test_path=$(dirname "$sv_file")
         test_name=$(basename "$sv_file" .sv)
+        echo "${test_path} and ${test_name}"
         create_test_framework "$test_path" "$test_name"
     done
 }
