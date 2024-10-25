@@ -11,17 +11,11 @@ DEFAULT_TEST_DIR="${SCRIPT_DIR}/../planv_tests/feature_tests"
 create_test_framework() {
     local test_path=$1
     local test_name=$2
+    local relative_test_path=${test_path#*planv_tests/}
+    local test_sim_dir="${simulation_dir}/${relative_test_path}/${test_name}"
+    mkdir -p "${test_sim_dir}"
 
-    local base_dir="${test_path}/${test_name}"
-    local verilator_sim_dir="${base_dir}/verilator_sim"
-    mkdir -p "${verilator_sim_dir}"
-
-    local sv_file_path="${test_path}/${test_name}.sv"
-    if [[ -f "${sv_file_path}" ]]; then
-        mv "${sv_file_path}" "${base_dir}"
-    fi
-
-    local makefile_path="${verilator_sim_dir}/Makefile"
+    local makefile_path="${test_sim_dir}/Makefile"
     cat <<EOL > "${makefile_path}"
 # -------------------------------------
 # Testbench setup
@@ -39,7 +33,7 @@ SV_FILES := \$(foreach path,\$(SV_PATHS),\$(wildcard \$(path)/*sv))
 # Compilation/simulation configuration
 # -------------------------------------
 
-VERILOG_DEFINE_FILES = ../${test_name}.sv
+VERILOG_DEFINE_FILES = ${test_path}/${test_name}.sv
 SIM_NAME = ${test_name}
 
 SIM_DIR := \$(SIM_NAME)-sim
@@ -100,10 +94,13 @@ EOL
 
 main() {
     TESTS_DIR="${1:-$DEFAULT_TEST_DIR}"
+    local simulation_dir="${SCRIPT_DIR}/../sim"
+    rm -rf "${simulation_dir}"
+    mkdir -p "${simulation_dir}"
+    TESTS_DIR=$(realpath "$TESTS_DIR")
     find "${TESTS_DIR}" -type f -name "*.sv" | while read -r sv_file; do
         test_path=$(dirname "$sv_file")
         test_name=$(basename "$sv_file" .sv)
-        echo "${test_path} and ${test_name}"
         create_test_framework "$test_path" "$test_name"
     done
 }
