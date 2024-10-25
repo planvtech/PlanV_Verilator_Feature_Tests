@@ -1,0 +1,33 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(realpath $(dirname "$0"))
+source "$SCRIPT_DIR/setup_and_build"
+
+DEFAULT_BRANCH="master"
+DEFAULT_TEST_DIR="$SCRIPT_DIR/planv_tests/feature_tests"
+
+while getopts "b:t:" opt; do
+    case ${opt} in
+        b) branch="$OPTARG" ;;
+        t) test_dir="$OPTARG" ;;
+        *)
+            echo "Usage: $0 [-b <branch>] [-t <test_dir>]" >&2
+            exit 1
+            ;;
+    esac
+done
+
+test_dir=$(realpath "$test_dir")
+
+create_logdir
+
+echo "Running setup for test directory: $test_dir"
+setup "$test_dir"
+
+echo "Building Verilator on branch: $branch"
+build "$branch"
+
+echo "Running tests on branch: $branch in directory: $test_dir"
+run_tests "$branch" "$test_dir"
+
+echo "All tasks completed."

@@ -1,5 +1,6 @@
 #!/bin/bash
-
+SCRIPT_DIR=$(realpath "$(dirname "$0")")
+DEFAULT_TEST_DIR="${SCRIPT_DIR}/../planv_tests/feature_tests"
 # Function to create feature tests framework
 create_test_framework() {
     local test_path=$1
@@ -93,14 +94,12 @@ EOL
 
 
 main() {
-    if [ -z "$1" ]; then
-        echo "Error: No base directory specified." >&2
+    TESTS_DIR="{$1:-DEFAULT_TEST_DIR}"
+    if [ ! -d "$BASE_DIR" ]; then
+        echo "Error: Specified base directory does not exist: $BASE_DIR" >&2
         exit 1
     fi
-    BASE_DIR=$1
-    FEATURE_TESTS_DIR="${BASE_DIR}/planv_tests/feature_tests"
-
-    find "${FEATURE_TESTS_DIR}" -type f -name "*.sv" | while read -r sv_file; do
+    find "${TESTS_DIR}" -type f -name "*.sv" | while read -r sv_file; do
         test_path=$(dirname "$sv_file")
         test_name=$(basename "$sv_file" .sv)
         create_test_framework "$test_path" "$test_name"
