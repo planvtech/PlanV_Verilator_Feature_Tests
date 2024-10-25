@@ -30,21 +30,18 @@ create_logdir() {
 
 # Functions corresponding to each step of the workflow
 setup() {
+    local TEST_DIR="$1"
     LOGFILE="$LOGDIR/setup_and_build.log"
     echo "Fetching and Updating the submodules..."
     execute_and_log "$LOGFILE" "git submodule update --init --recursive"
 
     echo "Setting up tests simulation framework..."
     execute_and_log "$LOGFILE" "chmod +x $SCRIPT_DIR/setup_feature_tests_sim_framework"
-    execute_and_log "$LOGFILE" "$SCRIPT_DIR/setup_feature_tests_sim_framework $MAIN_DIR"
+    execute_and_log "$LOGFILE" "$SCRIPT_DIR/setup_feature_tests_sim_framework $TEST_DIR"
 }
 
 build() {
-    if [ -z "$1" ]; then
-        echo "Error: No branch specified." >&2
-        exit 1
-    fi
-    BRANCH="$1"
+    local BRANCH="${1:-master}"
     if [ -d "$MAIN_DIR/verilator/$BRANCH" ]; then
         LOGFILE="$LOGDIR/setup_and_build.log"
         echo "Building verilator/$BRANCH..."
@@ -63,18 +60,13 @@ build() {
 }
 
 run_tests() {
-    if [ -z "$1" ]; then
-        echo "Error: No branch specified." >&2
-        exit 1
-    fi
-    BRANCH="$1"
+    local BRANCH="${1:-master}"
+    local TEST_DIR="${2:-$MAIN_DIR/planv_tests/feature_tests}"
     if [ -d "$MAIN_DIR/verilator/$BRANCH" ]; then
-        
         # Feature Tests
-        TEST_DIR="$MAIN_DIR/planv_tests/feature_tests"
         REPORT_FILE="$LOGDIR/feature_tests/tests_report.log"
         mkdir -p "$(dirname "$REPORT_FILE")"
-        echo "Feature Tests Report" > "$REPORT_FILE"
+        echo "Feature Tests Report for $TEST_DIR on branch $BRANCH" > "$REPORT_FILE"
         echo "============" >> "$REPORT_FILE"
 
         for verilator_sim_dir in $(find $TEST_DIR -type d -name verilator_sim); do
@@ -97,15 +89,13 @@ run_tests() {
                 echo "$relative_test_dir/$(basename "$test_dir"): PASSED" >> "$REPORT_FILE"
             fi
         done
-        echo "Feature Tests for verilator/$BRANCH completed."
-
+        echo "Feature Tests for verilator/$BRANCH completed in $TEST_DIR."
         # UVM Tests
         TEST_DIR="$MAIN_DIR/planv_tests/uvm_tests"
         REPORT_FILE="$LOGDIR/uvm_tests/tests_report.log"
         mkdir -p "$(dirname "$REPORT_FILE")"
         echo "UVM Test Report" > "$REPORT_FILE"
         echo "============" >> "$REPORT_FILE"
-
         for makefile in $(find $TEST_DIR -type f -name Makefile); do
             sim_dir=$(dirname "$makefile")
             case "$sim_dir" in
@@ -138,13 +128,11 @@ run_tests() {
                     continue
                     ;;
             esac
-            
             LOGFILE="$LOGDIR/uvm_tests/$(basename "$test_dir").log"
             mkdir -p "$(dirname "$LOGFILE")"
 
             echo "Running $test_dir in $sim_dir"
             execute_and_log "$LOGFILE" "cd $sim_dir"
-            
             execute_and_log "$LOGFILE" "make"
             execute_and_log "$LOGFILE" "cd -"
             if grep -q -E "test fail|Error" "$LOGFILE"; then
@@ -168,7 +156,6 @@ run_tests() {
         execute_and_log "$LOGDIR/setup_and_build.log" "python3 polish_to_html.py $BRANCH"
         execute_and_log "$LOGDIR/setup_and_build.log" "cp $SCRIPT_DIR/planv_logo.png $LOGDIR/feature_tests/."
         echo "HTML report generated."
-        
     else
         echo "Error: Test directory for '$BRANCH' does not exist." >&2
         exit 1
@@ -180,8 +167,8 @@ if [[ $# -eq 0 ]]; then
     echo "No arguments are given, running the whole routine with master branch..."
     create_logdir
     setup
-    build "master"
-    run_tests "master"
+    build
+    run_tests
     exit 0
 fi
 
@@ -190,8 +177,8 @@ while [ -n "$1" ]; do
     case "$1" in
         --setup) setup;;
         --build) shift; build "$1";;
-        --run-tests) shift; run_tests "$1";;
-        --help) echo "Usage: $0 [--setup] [--build <branch>] [--run-tests <branch>] "; exit 0;;
+        --run-tests) shift; run_tests "$1" "$2"; shift 2;;
+        --help) echo "Usage: $0 [--setup] [--build <branch>] [--run-tests <branch> <test_path>]"; exit 0;;
         *) echo "Option $1 not recognized" >&2; exit 1;;
     esac
     shift
