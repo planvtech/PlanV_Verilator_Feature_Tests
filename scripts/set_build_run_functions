@@ -87,7 +87,7 @@ run_tests() {
             execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
             execute_and_log "$LOGFILE" "make"
             execute_and_log "$LOGFILE" "cd -"
-            if grep -q "*-* All Finished *-*\\n" "$LOGFILE"; then
+            if grep -q "*-* All Finished *-*" "$LOGFILE"; then
                 echo "$relative_test_dir/$(basename "$test_dir"): PASSED" >> "$REPORT_FILE"
             else
                 echo "$relative_test_dir/$(basename "$test_dir"): FAILED" >> "$REPORT_FILE"
