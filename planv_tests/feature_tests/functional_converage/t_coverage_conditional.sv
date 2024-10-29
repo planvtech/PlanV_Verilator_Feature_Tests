@@ -1,4 +1,9 @@
-module conditional_coverage_test;
+// DESCRIPTION: PlanV Verilator Conditional Coverage Test
+//
+// Property of PlanV GmbH, 2024. All rights reserved.
+// Contact: yilou.wang@planv.tech
+
+module t_coverage_conditional;
     bit [3:0] value;
     bit enable;
 
@@ -25,6 +30,7 @@ module conditional_coverage_test;
         end
 
         ccg.print();  // Print the coverage report
+        $write("*-* All Finished *-*\n");  // End marker
         $finish;
     end
 endmodule
