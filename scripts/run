@@ -26,8 +26,12 @@ while [[ $# -gt 0 ]]; do
             test_dir="$2"
             shift 2 
             ;;
-        *) 
+        -h|--help)
             echo "Usage: $0 [-b <branch>] [-t <test_dir>]" >&2
+            exit 1 
+            ;;
+        *)
+            echo "Unknown option: $1" >&2
             exit 1 
             ;;
     esac
@@ -37,13 +41,13 @@ test_dir=$(realpath "$test_dir")
 
 create_logdir
 
-echo "Running setup for test directory: $test_dir"
+echo "### Running setup for test directory : $test_dir ###"
 setup "$test_dir"
 
-echo "Building Verilator on branch: $branch"
+echo "### Building Verilator on branch: $branch ###"
 build "$branch"
 
-echo "Running tests on branch: $branch"
+echo "### Running tests on branch: $branch ###"
 run_tests "$branch"
 
-echo "All tasks completed."
+echo "### All tasks completed. ###"

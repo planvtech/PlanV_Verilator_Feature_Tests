@@ -75,7 +75,7 @@ jobs:
           path: ${{ env.CCACHE_DIR }}
           key: ${{ matrix.VERILATOR_BRANCH }}
 
-      - name: Make setup_and_build script executable
+      - name: Make ciSystemRunner script executable
         run: |
           chmod +x scripts/ciSystemRunner
 
@@ -86,7 +86,7 @@ jobs:
 
       - name: Setup Repo
         run: scripts/ciSystemRunner --setup
-      
+
       - name: Build Verilator
         env:
           CC: gcc-12
@@ -94,7 +94,7 @@ jobs:
         run: scripts/ciSystemRunner --build ${{ matrix.VERILATOR_BRANCH }}
 
       - name: Run Tests
-        run: scripts/ciSystemRunner --run-tests ${{ matrix.VERILATOR_BRANCH }}
+        run: scripts/ciSystemRunner --run_tests ${{ matrix.VERILATOR_BRANCH }}
 
       - name: Verify logs existence
         run: |

@@ -9,33 +9,43 @@ SCRIPT_DIR=$(realpath "$(dirname "$0")")
 
 source "$SCRIPT_DIR/set_build_run_functions"
 
+branch="master"
 test_dir="$SCRIPT_DIR/planv_tests/feature_tests"
-
-echo "Running setup for test directory: $test_dir"
-setup "$test_dir"
-
-echo "Building Verilator on branch: $branch"
-build "$branch"
-
-echo "Running tests on branch: $branch in directory: $test_dir"
-run_tests "$branch" "$test_dir"
-
-echo "All tasks completed."
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --setup)
-            echo "Running setup from command line."
-            setup "$test_dir";;
+            echo "### Running setup for test directory : $test_dir ###"
+            setup "$test_dir"
+            shift
+            ;;
         --build)
             shift
-            echo "Building on branch: $1"
-            build "$1";;
-        --run-tests) 
+            echo "### Building Verilator on branch: $1 ###"
+            build "$1"
             shift
-            echo "Running tests on branch: $1"
-            run_tests "$1"; shift;;
-        *)
-            echo "Option $1 not recognized" >&2; exit 1;;
+            ;;
+        --run_tests)
+            shift
+            echo "### Running tests on branch: $1 ###"
+            run_tests "$1"
+            shift
+            ;;
+        *) 
+            echo "Option $1 not recognized" >&2
+            exit 1
+            ;;
     esac
 done
+
+# If no options provided, run all
+echo "### Running setup for test directory : $test_dir ###"
+setup "$test_dir"
+
+echo "### Building Verilator on branch: $branch ###"
+build "$branch"
+
+echo "### Running tests on branch: $branch ###"
+run_tests "$branch"
+
+echo "### All tasks completed. ###"
