@@ -43,7 +43,7 @@ setup "$test_dir"
 echo "Building Verilator on branch: $branch"
 build "$branch"
 
-echo "Running tests on branch: $branch in directory: $test_dir"
-run_tests "$branch" "$test_dir"
+echo "Running tests on branch: $branch"
+run_tests "$branch"
 
 echo "All tasks completed."

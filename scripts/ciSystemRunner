@@ -34,7 +34,7 @@ while [[ $# -gt 0 ]]; do
         --run-tests) 
             shift
             echo "Running tests on branch: $1"
-            run_tests "$1" "$test_dir"; shift; shift;;
+            run_tests "$1"; shift;;
         *)
             echo "Option $1 not recognized" >&2; exit 1;;
     esac
