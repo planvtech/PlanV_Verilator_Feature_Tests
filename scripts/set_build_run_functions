@@ -79,7 +79,7 @@ run_tests() {
             test_dir=$(dirname "$test_name")
             relative_test_dir=${test_dir#*sim/feature_tests/}
             echo $relative_test_dir
-            LOGFILE="$LOGDIR/$relative_test_dir/$(basename "$test_dir").log"
+            LOGFILE="$LOGDIR/feature_tests/$relative_test_dir/$(basename "$test_dir").log"
             mkdir -p "$(dirname "$LOGFILE")"
 
             echo "Running test in $test_dir"
