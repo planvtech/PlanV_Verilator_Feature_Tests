@@ -1,4 +1,9 @@
-module bin_coverage_test;
+// DESCRIPTION: PlanV Verilator Bin Coverage Test
+//
+// Property of PlanV GmbH, 2024. All rights reserved.
+// Contact: yilou.wang@planv.tech
+
+module t_coverage_bin;
     bit [7:0] value;
 
     // Coverage group to capture `value` in specific bins
@@ -14,11 +19,15 @@ module bin_coverage_test;
     value_bin_coverage vbc = new();
 
     initial begin
+        // Iterate through all possible values of 8-bit `value`
         for (int i = 0; i < 256; i++) begin
             value = i;
             vbc.sample();  // Sample the coverage point
         end
-        vbc.print();  // Print the coverage report
+
+        // Print the coverage report
+        vbc.print();  
+        $write("*-* All Finished *-*\n");  // End marker
         $finish;
     end
 endmodule

@@ -1,4 +1,9 @@
-module cross_coverage_test;
+// DESCRIPTION: PlanV Verilator Cross Coverage Test
+//
+// Property of PlanV GmbH, 2024. All rights reserved.
+// Contact: yilou.wang@planv.tech
+
+module t_coverage_cross;
     bit [3:0] a, b;
 
     // Coverage group to capture cross coverage of `a` and `b`
@@ -19,6 +24,7 @@ module cross_coverage_test;
             end
         end
         ab_cg.print();  // Print the coverage report
+        $write("*-* All Finished *-*\n");  // End marker
         $finish;
     end
 endmodule

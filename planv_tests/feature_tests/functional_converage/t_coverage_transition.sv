@@ -1,4 +1,9 @@
-module transition_coverage_test;
+// DESCRIPTION: PlanV Verilator Transition Coverage Test
+//
+// Property of PlanV GmbH, 2024. All rights reserved.
+// Contact: yilou.wang@planv.tech
+
+module t_coverage_transition;
     typedef enum {IDLE, START, RUN, STOP} state_t;
     state_t current_state, next_state;
 
@@ -14,6 +19,7 @@ module transition_coverage_test;
     state_transition_coverage stc = new();
 
     initial begin
+        // Initialize state
         current_state = IDLE;
         next_state = START;
         stc.sample();  // Sample coverage
@@ -26,7 +32,9 @@ module transition_coverage_test;
         next_state = STOP;
         stc.sample();  // Sample coverage
 
-        stc.print();  // Print the coverage report
+        // Print the coverage report
+        stc.print();  
+        $write("*-* All Finished *-*\n");  // End marker
         $finish;
     end
 endmodule
