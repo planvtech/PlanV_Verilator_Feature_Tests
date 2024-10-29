@@ -37,15 +37,3 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
-
-# If no options provided, run all
-echo "### Running setup for test directory : $test_dir ###"
-setup "$test_dir"
-
-echo "### Building Verilator on branch: $branch ###"
-build "$branch"
-
-echo "### Running tests on branch: $branch ###"
-run_tests "$branch"
-
-echo "### All tasks completed. ###"
