@@ -10,7 +10,7 @@ SCRIPT_DIR=$(realpath "$(dirname "$0")")
 source "$SCRIPT_DIR/set_build_run_functions"
 
 branch="master"
-test_dir="$SCRIPT_DIR/planv_tests/feature_tests"
+test_dir="$SCRIPT_DIR/../planv_tests/feature_tests"
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
