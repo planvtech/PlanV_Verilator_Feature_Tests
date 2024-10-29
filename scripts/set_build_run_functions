@@ -67,29 +67,24 @@ build() {
 
 run_tests() {
     local BRANCH="${1:-master}"
-    local TEST_DIR="${2:-$MAIN_DIR/planv_tests/feature_tests}"
+    local SIM_DIR="$MAIN_DIR/sim"
     if [ -d "$MAIN_DIR/verilator/$BRANCH" ]; then
         # Feature Tests
         REPORT_FILE="$LOGDIR/feature_tests/tests_report.log"
         mkdir -p "$(dirname "$REPORT_FILE")"
-        echo "Feature Tests Report for $TEST_DIR on branch $BRANCH" > "$REPORT_FILE"
+        echo "Feature Tests Report on branch $BRANCH" > "$REPORT_FILE"
         echo "============" >> "$REPORT_FILE"
 
-        for test_name in $(find "${TESTS_DIR}" -type f -name "t*.sv"); do
+        for test_name in $(find "${SIM_DIR}" -type f -name "Makefile"); do
             test_dir=$(dirname "$test_name")
-            relative_path=${test_name#*$MAIN_DIR/planv_tests/}
-            echo "Found test file: $relative_path"
-            # relative_test_dir=$(echo "$test_dir" | sed "s|$MAIN_DIR/planv_tests/feature_tests/||")
-            relative_test_dir=${test_dir#*planv_tests/feature_tests/}
-            relative_test_dir=$(dirname "$relative_test_dir")
+            relative_test_dir=${test_dir#*sim/feature_tests/}
             echo $relative_test_dir
-            LOGFILE="$LOGDIR/feature_tests/$relative_test_dir/$(basename "$test_dir").log"
+            LOGFILE="$LOGDIR/$relative_test_dir/$(basename "$test_dir").log"
             mkdir -p "$(dirname "$LOGFILE")"
 
-            echo "Running test in $test_dir/verilator_sim"
-            execute_and_log "$LOGFILE" "cd $test_dir/verilator_sim"
+            echo "Running test in $test_dir"
+            execute_and_log "$LOGFILE" "cd $test_dir"
             execute_and_log "$LOGFILE" "export VERILATOR_ROOT=$MAIN_DIR/verilator/$BRANCH"
-            # execute_and_log "$LOGFILE" "z3 -h"
             execute_and_log "$LOGFILE" "make"
             execute_and_log "$LOGFILE" "cd -"
             if grep -q -E "test fail|Error" "$LOGFILE"; then
@@ -98,7 +93,7 @@ run_tests() {
                 echo "$relative_test_dir/$(basename "$test_dir"): PASSED" >> "$REPORT_FILE"
             fi
         done
-        echo "Feature Tests for verilator/$BRANCH completed in $TEST_DIR."
+        echo "Feature Tests for verilator/$BRANCH completed."
         # UVM Tests
         TEST_DIR="$MAIN_DIR/planv_tests/uvm_tests"
         REPORT_FILE="$LOGDIR/uvm_tests/tests_report.log"
