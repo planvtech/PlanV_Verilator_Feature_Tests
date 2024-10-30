@@ -54,16 +54,17 @@ The scripts/run script contains the logic for setting up the log and sim folder,
 
 #### Usage
 Run the script with the following format:
-./scripts/run -b <branch_name> -t <test_dir/test_file> 
 
-branch_name: Specifies the development branch from the [PlanV Verilator repository.](https://github.com/planvtech/verilator.git)
-test_dir/test_file: Path to the .sv file within the planv_tests directory, or the directory containing .sv files in planv_tests
+`./scripts/run -b <branch_name> -t <test_dir/test_file>`
+
+* branch_name: Specifies the development branch from the [PlanV Verilator repository.](https://github.com/planvtech/verilator.git)
+* test_dir/test_file: Path to the .sv file within the planv_tests directory, or the directory containing .sv files in planv_tests
 
 Example usage:
 
-chmod +x scripts/run
-./scripts/run -b master -t planv_tests/feature_tests/assertions
-./scripts/run -b master -t planv_tests/feature_tests/assertions/t_assertion_immediate.sv 
+`chmod +x scripts/run`
+`./scripts/run -b master -t planv_tests/feature_tests/assertions`
+`./scripts/run -b master -t planv_tests/feature_tests/assertions/t_assertion_immediate.sv`
 
 #### Generated Artifacts
 The scripts/run command generates essential artifacts to aid in debugging and analysis:
@@ -71,19 +72,19 @@ The scripts/run command generates essential artifacts to aid in debugging and an
 * Simulation artifacts and Makefiles for the tests are located in the sim directory.
 
 
-├──logs                                                                  ├──sim          
+├──logs                    ` ` ` ` ` `  ` ` ` ` ` `                                               ├──sim          
 
-|  ├──feature_tests 													 |  ├──feature_tests
+|  ├──feature_tests 		` ` ` ` ` `  ` ` ` ` ` ` 											 |  ├──feature_tests
 
-|  | └── Path_to_test_dir												 |  | └── Path_to_test_dir
+|  | └── Path_to_test_dir	` ` ` ` ` `  ` ` ` ` ` ` 											 |  | └── Path_to_test_dir
 
-|  | |   └── <test>.log													 |  | |   └── Makefile
+|  | |   └── <test>.log		` ` ` ` ` `  ` ` ` ` ` ` 											 |  | |   └── Makefile
 
-|  | └── test_report.log												 |  | |   └── <test_name>-sim
+|  | └── test_report.log	` ` ` ` ` `  ` ` ` ` ` ` 											 |  | |   └── <test_name>-sim
 
-|  | └── fancy_test_report_<branch>.html								 |  | |   |    └── ...
+|  | └── fancy_test_report_<branch>.html	` ` ` ` ` `  ` ` ` ` ` ` 							 |  | |   |    └── ...
 
-|  ├── uvm_tests
+|  ├── uvm_tests` ` ` ` ` `  ` ` ` ` ` ` 
   
 |  |	└── <test>.log
 
