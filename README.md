@@ -76,23 +76,23 @@ The scripts/run command generates essential artifacts to aid in debugging and an
 * Log files and HTML reports for enhanced visualization are saved in the logs directory.
 * Simulation artifacts and Makefiles for the tests are located in the sim directory.
 
-├── logs
+├─ logs
 
-│  ├──feature_tests
+│  ├─ feature_tests
 
-│  │  └── Path_to_test_dir
+│  │  └─ Path_to_test_dir
 
-│  │  │  └── <test>.log
+│  │  │  └─ `<test>`.log
 
-│  │  └── test_report.log
+│  │  └─ test_report.log
 
-│  │  └── fancy_test_report_<branch>.html
+│  │  └─ fancy_test_report_`<branch>`.html
 
-│  ├── uvm_tests
+│  ├─ uvm_tests
   
-│  │  └── <test>.log
+│  │  └─ `<test>`.log
 
-│  └── run.log
+│  └─ run.log
 
 
 
