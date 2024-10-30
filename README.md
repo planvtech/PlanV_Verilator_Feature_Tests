@@ -61,15 +61,16 @@ Run the script with the following format:
 * test_dir/test_file: Path to the .sv file within the planv_tests directory, or the directory containing .sv files in planv_tests
 
 Example usage:
-\```sh
+
+```sh
 chmod +x scripts/run
-\```
-\```sh
+```
+```sh
 ./scripts/run -b master -t planv_tests/feature_tests/assertions
-\```
-\```sh
+```
+```sh
 ./scripts/run -b master -t planv_tests/feature_tests/assertions/t_assertion_immediate.sv
-\```
+```
 #### Generated Artifacts
 The scripts/run command generates essential artifacts to aid in debugging and analysis:
 * Log files and HTML reports for enhanced visualization are saved in the logs directory.
