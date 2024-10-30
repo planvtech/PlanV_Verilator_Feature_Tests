@@ -61,9 +61,13 @@ Run the script with the following format:
 * test_dir/test_file: Path to the .sv file within the planv_tests directory, or the directory containing .sv files in planv_tests
 
 Example usage:
-\```bash
+\```sh
 chmod +x scripts/run
+\```
+\```sh
 ./scripts/run -b master -t planv_tests/feature_tests/assertions
+\```
+\```sh
 ./scripts/run -b master -t planv_tests/feature_tests/assertions/t_assertion_immediate.sv
 \```
 #### Generated Artifacts
@@ -71,21 +75,23 @@ The scripts/run command generates essential artifacts to aid in debugging and an
 * Log files and HTML reports for enhanced visualization are saved in the logs directory.
 * Simulation artifacts and Makefiles for the tests are located in the sim directory.
 
-│ ├──feature_tests
+├── logs
 
-│ │ └── Path_to_test_dir
+│  ├──feature_tests
 
-│ │ │   └── <test>.log
+│  │  └── Path_to_test_dir
 
-│ │ └── test_report.log
+│  │  │  └── <test>.log
 
-│ │ └── fancy_test_report_<branch>.html
+│  │  └── test_report.log
 
-│ ├── uvm_tests
+│  │  └── fancy_test_report_<branch>.html
+
+│  ├── uvm_tests
   
-│ │ └── <test>.log
+│  │  └── <test>.log
 
-│ └── run.log
+│  └── run.log
 
 
 
