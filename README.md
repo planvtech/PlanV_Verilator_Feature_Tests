@@ -63,8 +63,8 @@ Run the script with the following format:
 Example usage:
 
 `chmod +x scripts/run`
-`./scripts/run -b master -t planv_tests/feature_tests/assertions`
-`./scripts/run -b master -t planv_tests/feature_tests/assertions/t_assertion_immediate.sv`
+```./scripts/run -b master -t planv_tests/feature_tests/assertions```
+```./scripts/run -b master -t planv_tests/feature_tests/assertions/t_assertion_immediate.sv```
 
 #### Generated Artifacts
 The scripts/run command generates essential artifacts to aid in debugging and analysis:
@@ -72,19 +72,19 @@ The scripts/run command generates essential artifacts to aid in debugging and an
 * Simulation artifacts and Makefiles for the tests are located in the sim directory.
 
 
-├──logs                    ` ` ` ` ` `  ` ` ` ` ` `                                               ├──sim          
+├──logs
 
-|  ├──feature_tests 		` ` ` ` ` `  ` ` ` ` ` ` 											 |  ├──feature_tests
+|  ├──feature_tests
 
-|  | └── Path_to_test_dir	` ` ` ` ` `  ` ` ` ` ` ` 											 |  | └── Path_to_test_dir
+|  | └── Path_to_test_dir
 
-|  | |   └── <test>.log		` ` ` ` ` `  ` ` ` ` ` ` 											 |  | |   └── Makefile
+|  | |   └── <test>.log
 
-|  | └── test_report.log	` ` ` ` ` `  ` ` ` ` ` ` 											 |  | |   └── <test_name>-sim
+|  | └── test_report.log
 
-|  | └── fancy_test_report_<branch>.html	` ` ` ` ` `  ` ` ` ` ` ` 							 |  | |   |    └── ...
+|  | └── fancy_test_report_<branch>.html
 
-|  ├── uvm_tests` ` ` ` ` `  ` ` ` ` ` ` 
+|  ├── uvm_tests
   
 |  |	└── <test>.log
 
