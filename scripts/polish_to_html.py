@@ -1,3 +1,9 @@
+# DESCRIPTION: PlanV Polish-to-HTML Python Script
+#
+# Property of PlanV GmbH, 2024. All rights reserved.
+# Licensed under the Solderpad Hardware License, Version 2.0. See the LICENSE file in the project root for more information.
+# Contact: yilou.wang@planv.tech
+
 import os
 from jinja2 import Template
 import sys

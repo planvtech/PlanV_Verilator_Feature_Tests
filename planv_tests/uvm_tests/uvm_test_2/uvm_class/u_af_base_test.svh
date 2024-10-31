@@ -1,3 +1,9 @@
+// DESCRIPTION: PlanV Async Fifo SV UVM Testbench
+//
+// Property of PlanV GmbH, 2024. All rights reserved.
+// Licensed under the Solderpad Hardware License, Version 2.0. See the LICENSE file in the project root for more information.
+// Contact: yilou.wang@planv.tech
+
 class u_af_base_test extends uvm_test;
     u_env env_h;
     u_sequencer sqr_h;
