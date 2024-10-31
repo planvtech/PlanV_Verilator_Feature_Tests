@@ -2,7 +2,7 @@ name: PlanV Verilator Feature Tests
 
 on:
   # To save the running time in github runner, the workflow will now only trigger automatically once a week (every Monday).
-  # Users can still trigger the workflow manually on their local machines.
+  # Users can still trigger the workflow manually on their local machines using scripts/run.
   
   push:
     branches:
