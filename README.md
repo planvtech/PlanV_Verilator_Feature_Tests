@@ -15,9 +15,9 @@ This repo is designed to help you run and contribute tests for Verilator-based p
 
 ├── scripts
 
-│ ├── run.sh
+│ ├── run
 
-│ └── ciSystemRuner.sh
+│ └── ciSystemRuner
 
 │ └── ..
 
@@ -114,4 +114,4 @@ We welcome contributions! If you've created a test that you'd like to share:
 3. Update the README.md if your contribution includes significant changes.
 
 ## Support
-If you have any questions or need help, feel free to open an issue on GitHub or contact the maintainers.
+If you have any questions or need help, feel free to open an issue on GitHub or contact yilou.wang@planv.tech .
