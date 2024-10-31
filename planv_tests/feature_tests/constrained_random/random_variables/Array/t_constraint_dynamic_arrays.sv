@@ -9,7 +9,9 @@ class ConstrainedDynamicArray;
     rand int dynamic_fixed_array_2d[][2]; // Dynamic first dimension, fixed second dimension
     rand int dyn_arr_3d[][][];            // Fully dynamic 3D array
     rand bit [7:0] len;                   // Length for dynamic 1D array
-
+    int count_dyn_arr_3d = 0;
+    int count_fixed_dynamic_array_2d = 0;
+    int count_dynamic_fixed_array_2d = 0;
     // Constraints for all arrays
     constraint size_constraint {
         dynamic_array.size == len;
@@ -74,21 +76,21 @@ class ConstrainedDynamicArray;
             $display("Error: dynamic_array size = %0d does not match len = %0d", dynamic_array.size(), len);
             $stop;
         end
-        int count_fixed_dynamic_array_2d;
+
         foreach (fixed_dynamic_array_2d[i]) begin
             foreach (fixed_dynamic_array_2d[j]) begin
                 $display("fixed_dynamic_array_2d[%0d][%0d] = %0d", i, j, fixed_dynamic_array_2d[i][j]);
                 count_fixed_dynamic_array_2d += 1;
             end
         end
-        int count_dynamic_fixed_array_2d;
+
         foreach (dynamic_fixed_array_2d[i]) begin
             foreach (dynamic_fixed_array_2d[j]) begin
                 $display("dynamic_fixed_array_2d[%0d][%0d] = %0d", i, j, dynamic_fixed_array_2d[i][j]);
                 count_dynamic_fixed_array_2d += 1;
             end
         end
-        int count_dyn_arr_3d;
+
         foreach (dyn_arr_3d[i]) begin
             foreach (dyn_arr_3d[j]) begin
                 foreach (dyn_arr_3d[k]) begin

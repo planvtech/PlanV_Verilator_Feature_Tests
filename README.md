@@ -1,5 +1,7 @@
 # PlanV Verilator Feature Tests
 
+Copyright (c) 2024 [PlanV](https://planv.tech/)
+
 Welcome to the PlanV Verilator Feature Tests repository! 
 This repo is designed to help you run and contribute tests for Verilator-based projects. Below, you'll find instructions on how to get started, run tests, and contribute.
 
