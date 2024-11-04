@@ -6,3 +6,7 @@
 	path = uvm-verilator
 	url = https://github.com/antmicro/uvm-verilator.git
 	branch = master
+[submodule "verilator/Fix-Multi-D-Queue-Assign"]
+	path = verilator/Fix-Multi-D-Queue-Assign
+	url = https://github.com/planvtech/verilator.git
+	branch = Fix-Multi-D-Queue-Assign
