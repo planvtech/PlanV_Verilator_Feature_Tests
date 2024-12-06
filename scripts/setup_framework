@@ -46,6 +46,7 @@ WARNING_ARGS += -Wno-lint \\
 	-Wno-SYMRSVDWORD \\
 	-Wno-IGNOREDRETURN \\
 	-Wno-ZERODLY \\
+	-Wno-SIDEEFFECT \\
 	-Wno-CONSTRAINTIGN
 
 # -------------------------------------
