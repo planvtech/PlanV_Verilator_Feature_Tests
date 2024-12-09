@@ -21,7 +21,7 @@ class AssocArrTest;
 
     // Constructor to initialize arrays
     function new();
-        int_index_arr = '{1: 10, 2: 20, 3: 30};
+        int_index_arr = '{1: 10, 8: 20, 5: 30};
         string_index_arr = '{"Alice": 25, "Bob": 50, "Charlie": 45};
     endfunction
 
@@ -46,7 +46,7 @@ class AssocArrTest;
     endfunction
 endclass
 
-module t_constraint_assoc_arr_basic;
+module t_constraint_assoc_array_basic;
 
     AssocArrTest test_obj;
     initial begin
