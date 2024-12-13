@@ -8,6 +8,10 @@ class NormalAssocArray;
   // Associative array with 65-bit index
   bit [31:0] assoc_array[bit[64:0]];
 
+  function new();
+    assoc_array[65'd0] = 32'd0;
+    assoc_array[65'h1FFFFFFFFFFFFFFFF] = 32'h00000000;
+  endfunction
   // Method to insert a value into the associative array
   function void insert(bit [64:0] index, bit [31:0] value);
     assoc_array[index] = value;
@@ -30,7 +34,7 @@ class NormalAssocArray;
     bit [64:0] idx;
     if (assoc_array.first(idx)) begin
       do begin
-        $display("Index: %0d, Value: %0d", idx, assoc_array[idx]);
+        $display("Index: %0h, Value: %0h", idx, assoc_array[idx]);
       end while (assoc_array.next(idx));
     end
   endfunction
@@ -43,12 +47,17 @@ class ConstrainedAssocArray;
 
   // Constraint to ensure all indices are odd and values are even
   constraint valid_entries {
-      assoc_array[65'd6] == 8;
+      assoc_array[65'd6] == 32'd8;
   }
+
+  function new();
+    assoc_array[65'd0] = 32'd0;
+    assoc_array[65'd6] = 32'd0;
+  endfunction
 
   // Self-check function to verify constraints
   function void self_check();
-    if (assoc_array[65'd6] != 8;)
+    if (assoc_array[65'd6] != 32'd8)
       $stop;
   endfunction
 
@@ -67,6 +76,7 @@ module t_constraint_assoc_array_with_64BitMore_index;
 
   NormalAssocArray normal;
   ConstrainedAssocArray constrained;
+  int success;
   initial begin
     // Instantiate and test NormalAssocArray
     normal = new();
@@ -76,7 +86,8 @@ module t_constraint_assoc_array_with_64BitMore_index;
 
     // Instantiate and test ConstrainedAssocArray
     constrained = new();
-    constrained.randomize();
+    success = constrained.randomize();
+    if (success != 1) $stop;
     constrained.self_check();
     constrained.print();
 

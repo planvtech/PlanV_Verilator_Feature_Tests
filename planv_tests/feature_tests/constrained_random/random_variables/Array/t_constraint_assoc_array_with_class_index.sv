@@ -7,17 +7,14 @@
 class KeyClass;
   rand bit [31:0] id;
 
-  // Constraint to ensure valid range of id
   constraint valid_id {
-    id < 1000; // id must be less than 1000
+    id < 1000;
   }
 
-  // Override the equality operator
   function bit equals(ref KeyClass rhs);
     return id == rhs.id;
   endfunction
 
-  // Print method for debugging
   function void print();
     $display("KeyClass id: %0d", id);
   endfunction
@@ -28,6 +25,12 @@ class NormalAssocArrayClass;
   // Associative array with class keys
   bit [31:0] assoc_array[KeyClass];
 
+  function new();
+    KeyClass key;
+    key = new();
+    key.id = 6;
+    assoc_array[key] = 32'h00000000;
+  endfunction
   // Method to insert a value into the associative array
   function void insert(KeyClass key, bit [31:0] value);
     assoc_array[key] = value;
@@ -64,14 +67,20 @@ class ConstrainedAssocArrayClass;
   // Constraint to limit values
   constraint value_limit {
     foreach (assoc_array[key]) {
-      assoc_array[key] < 100; // Values must be less than 100
+      assoc_array[key] < 32'd100; // Values must be less than 100
     }
   }
+
+  function new();
+    KeyClass key = new();
+    key.id = 7;
+    assoc_array[key] = 32'h00000000;
+  endfunction
 
   // Self-check function to verify constraints
   function void self_check();
     foreach (assoc_array[key]) begin
-      if (assoc_array[key] >= 100) begin
+      if (assoc_array[key] >= 32'd100) begin
         $stop;
       end
     end
@@ -90,20 +99,27 @@ endclass
 
 module t_constraint_assoc_array_with_class_index;
   // Top-level initial block to execute tests
+  KeyClass key1;
+  KeyClass key2;
+  NormalAssocArrayClass normal_class;
+  ConstrainedAssocArrayClass constrained_class;
+  int success;
   initial begin
     // Test NormalAssocArrayClass
-    KeyClass key1 = new();
+    key1 = new();
     key1.id = 42;
-    NormalAssocArrayClass normal_class = new();
+    normal_class = new();
     normal_class.insert(key1, 100);
     normal_class.self_check(key1);
     normal_class.print();
 
     // Test ConstrainedAssocArrayClass
-    ConstrainedAssocArrayClass constrained_class = new();
-    KeyClass key2 = new();
-    key2.randomize();
-    constrained_class.randomize();
+    constrained_class = new();
+    key2 = new();
+    success = key2.randomize();
+    if (success != 1) $stop;
+    success = constrained_class.randomize();
+    if (success != 1) $stop;
     constrained_class.self_check();
     constrained_class.print();
 
