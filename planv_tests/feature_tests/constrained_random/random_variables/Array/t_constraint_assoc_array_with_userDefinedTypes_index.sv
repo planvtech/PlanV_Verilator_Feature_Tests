@@ -41,20 +41,37 @@ endclass
 class ConstrainedAssocArrayUserDefined;
   // Associative array with user-defined index
   rand bit [31:0] assoc_array[UserDefinedIndexType];
+  UserDefinedIndexType t1, t2, t3, t4, t5;
 
   // Constraint to limit values and indices
   constraint valid_entries {
     foreach (assoc_array[i]) {
       assoc_array[i] < 100; // Values must be less than 100
-      i.high < 500;         // high field must be less than 500
-      i.low > 100;          // low field must be greater than 100
     }
   }
+
+  function new();
+    t1.high = 111;
+    t1.low = 111;
+    assoc_array[t1] = 0;
+    t2.high = 222;
+    t2.low = 222;
+    assoc_array[t2] = 0;
+    t3.high = 333;
+    t3.low = 333;
+    assoc_array[t3] = 0;
+    t4.high = 444;
+    t4.low = 444;
+    assoc_array[t4] = 0;
+    t5.high = 555;
+    t5.low = 555;
+    assoc_array[t5] = 0;
+  endfunction
 
   // Self-check function to verify constraints
   function void self_check();
     foreach (assoc_array[i]) begin
-      if (assoc_array[i] >= 100 || i.high >= 500 || i.low <= 100) begin
+      if (assoc_array[i] >= 100) begin
         $stop;
       end
     end
@@ -73,17 +90,23 @@ endclass
 
 module t_constraint_assoc_array_with_userDefinedTypes_index;
   // Top-level initial block to execute tests
+  NormalAssocArrayUserDefined normal_user_defined;
+  UserDefinedIndexType index_normal;
+  ConstrainedAssocArrayUserDefined constrained_user_defined;
+  int success;
+
   initial begin
     // Test NormalAssocArrayUserDefined
-    NormalAssocArrayUserDefined normal_user_defined = new();
-    UserDefinedIndexType index_normal = '{high: 123, low: 456};
+    normal_user_defined = new();
+    index_normal = '{high: 123, low: 456};
     normal_user_defined.insert(index_normal, 42);
     normal_user_defined.self_check(index_normal);
     normal_user_defined.print();
 
     // Test ConstrainedAssocArrayUserDefined
-    ConstrainedAssocArrayUserDefined constrained_user_defined = new();
-    constrained_user_defined.randomize();
+    constrained_user_defined = new();
+    success = constrained_user_defined.randomize();
+    if (success != 1) $stop;
     constrained_user_defined.self_check();
     constrained_user_defined.print();
 

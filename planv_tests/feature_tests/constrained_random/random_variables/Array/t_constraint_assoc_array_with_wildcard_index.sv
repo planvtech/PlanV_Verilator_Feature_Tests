@@ -8,6 +8,11 @@ class NormalAssocArrayWildcard;
   // Associative array with wildcard index
   bit [31:0] assoc_array[*];
 
+  function new();
+    assoc_array[0] = 0;
+    assoc_array[1] = 0;
+  endfunction
+
   // Method to insert a value into the associative array
   function void insert(int index, bit [31:0] value);
     assoc_array[index] = value;
@@ -43,6 +48,11 @@ class ConstrainedAssocArrayWildcard;
     }
   }
 
+  function new();
+    assoc_array[0] = 0;
+    assoc_array[1] = 0;
+  endfunction
+
   // Self-check function to verify constraints
   function void self_check();
     foreach (assoc_array[i]) begin
@@ -65,16 +75,21 @@ endclass
 
 module t_constraint_assoc_array_with_wildcard_index;
   // Top-level initial block to execute tests
+  NormalAssocArrayWildcard normal_wildcard;
+  ConstrainedAssocArrayWildcard constrained_wildcard;
+  int success;
+
   initial begin
     // Test NormalAssocArrayWildcard
-    NormalAssocArrayWildcard normal_wildcard = new();
+    normal_wildcard = new();
     normal_wildcard.insert(42, 100);
     normal_wildcard.self_check(42);
     normal_wildcard.print();
 
     // Test ConstrainedAssocArrayWildcard
-    ConstrainedAssocArrayWildcard constrained_wildcard = new();
-    constrained_wildcard.randomize();
+    constrained_wildcard = new();
+    success = constrained_wildcard.randomize();
+    if (success != 1) $stop;
     constrained_wildcard.self_check();
     constrained_wildcard.print();
 
