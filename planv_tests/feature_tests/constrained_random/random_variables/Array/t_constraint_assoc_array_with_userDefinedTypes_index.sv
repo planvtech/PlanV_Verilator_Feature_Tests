@@ -3,17 +3,6 @@
 // Property of PlanV GmbH, 2024. All rights reserved.
 // Contact: yilou.wang@planv.tech
 
-asso_ary_1   h1=new;
-
-initial 
-begin
-     repeat(3)
-     begin
-         assert( h1.randomize() );
-         h1.display();
-	 end
-end
-
 // User-defined type for associative array index
 typedef struct packed {
   bit [15:0] high;
