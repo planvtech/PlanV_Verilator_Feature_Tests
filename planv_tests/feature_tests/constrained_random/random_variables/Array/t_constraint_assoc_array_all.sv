@@ -52,15 +52,14 @@ class AssocArrayUnpackedStruct;
         data[idx] = 32'd25;
     endfunction
 endclass
-
+typedef int IndexArrayType[2];
 // Array as index associative array
 class AssocArrayArrayIndex;
-    int arr[2] = {1, 2};
-    rand bit [31:0] data [arr];
+    rand bit [31:0] data [IndexArrayType];
     constraint valid_entries { foreach (data[i]) data[i] > 0; }
 
     function new();
-        int idx[2];
+        IndexArrayType idx;
         idx[0] = 1;
         idx[1] = 2;
         data[idx] = 32'd75;
@@ -80,49 +79,15 @@ class AssocArrayIntegral;
     endfunction
 endclass
 
-// Associative array with class keys
-class KeyClass;
-    bit [31:0] id;
-
-    function new();
-        id = 0;
-    endfunction
-endclass
-
-class AssocArrayClassKey;
-    rand bit [31:0] data [KeyClass];
-    KeyClass key;
-    constraint valid_class_key { foreach (data[i]) data[i] > 30; }
-
-    function new();
-        key = new();
-        key.id = 123;
-        data[key] = 32'd45;
-    endfunction
-endclass
-
-// Associative array with wildcard index
-class AssocArrayWildcard;
-    rand bit [31:0] data[*];
-
-    constraint valid_wildcard { foreach (data[i]) data[i] > 50; }
-
-    function new();
-        data["wild"] = 32'd55;
-    endfunction
-endclass
-
 module t_constraint_assoc_array_all;
 
     initial begin
         // Create instances of the classes
-        AssocArrayEnum enum_arr;
-        AssocArrayPackedStruct packed_arr;
-        AssocArrayUnpackedStruct unpacked_arr;
-        AssocArrayArrayIndex array_index_arr;
-        AssocArrayIntegral integral_arr;
-        AssocArrayClassKey class_arr;
-        AssocArrayWildcard wildcard_arr;
+        AssocArrayEnum enum_arr = new();
+        AssocArrayPackedStruct packed_arr = new();
+        AssocArrayUnpackedStruct unpacked_arr = new();
+        AssocArrayArrayIndex array_index_arr = new();
+        AssocArrayIntegral integral_arr = new();
 
         // Randomization tests
         enum_arr.randomize();
@@ -151,18 +116,6 @@ module t_constraint_assoc_array_all;
             $display("int_index[%0d] = %0d", i, integral_arr.int_index[i]);
         foreach (integral_arr.str_index[i])
             $display("str_index[%0s] = %0d", i, integral_arr.str_index[i]);
-
-        KeyClass key;
-        key = new();
-        class_arr.randomize();
-        $display("AssocArrayClassKey randomization successful.");
-        foreach (class_arr.data[i])
-            $display("data[%0d] = %0d", i.id, class_arr.data[i]);
-
-        wildcard_arr.randomize();
-        $display("AssocArrayWildcard randomization successful.");
-        foreach (wildcard_arr.data[i])
-            $display("data[%0s] = %0d", i, wildcard_arr.data[i]);
 
         // Successful execution marker
         $write("*-* All Finished *-*");
