@@ -66,14 +66,18 @@ class AssocArrayArrayIndex;
 endclass
 
 class keyClass;
-    bit [3:0] id;
+    int id;
+    function new();
+        id = 3;
+    endfunction
 endclass
 class AssocArrayClass;
     rand bit [31:0] data [keyClass];
-    constraint c3 { foreach (data[i]) data[i] > 0;}
+    keyClass cl;
+    // constraint c4 { foreach (data[i]) data[i] > 0;} Unsupported index type for an associative array in an iterative constraint.
+    // constraint c3 { data[cl] > 0;} Illegal index expression of unpacked type in constraint.
     function new();
-        keyClass cl;
-        cl.id = 0;
+        cl = new();
         data[cl] = 32'd77;
     endfunction
 endclass
