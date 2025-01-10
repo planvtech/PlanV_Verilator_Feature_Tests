@@ -43,7 +43,7 @@ endclass
 // Struct (unpacked) index associative array
 class AssocArrayUnpackedStruct;
     rand bit [31:0] data [UnpackedIndexType];
-    constraint valid_entries { foreach (data[i]) data[i] < 100; }
+    // constraint valid_entries { foreach (data[i]) data[i] < 100; } Illegal non-integral expression in random constraint.
 
     function new();
         UnpackedIndexType idx;
@@ -52,7 +52,7 @@ class AssocArrayUnpackedStruct;
         data[idx] = 32'd25;
     endfunction
 endclass
-typedef int IndexArrayType[2];
+typedef logic [2:0][7:0] IndexArrayType;
 // Array as index associative array
 class AssocArrayArrayIndex;
     rand bit [31:0] data [IndexArrayType];
@@ -60,12 +60,22 @@ class AssocArrayArrayIndex;
 
     function new();
         IndexArrayType idx;
-        idx[0] = 1;
-        idx[1] = 2;
+        idx = 0;
         data[idx] = 32'd75;
     endfunction
 endclass
-
+class keyClass;
+    bit [3:0] id;
+endclass
+class AssocArrayClass;
+    rand bit [31:0] data [keyClass];
+    constraint c3 { foreach (data[i]) data[i] > 0;}
+    function new();
+        keyClass cl;
+        cl.id = 0;
+        data[cl] = 32'd77;
+    endfunction
+endclass
 class AssocArrayIntegral;
     rand int int_index [int];
     rand int str_index [string];
@@ -80,38 +90,43 @@ class AssocArrayIntegral;
 endclass
 
 module t_constraint_assoc_array_all;
-
+    AssocArrayEnum enum_arr;
+    AssocArrayPackedStruct packed_arr;
+    AssocArrayUnpackedStruct unpacked_arr;
+    AssocArrayArrayIndex array_index_arr;
+    AssocArrayIntegral integral_arr;
+    int success;
     initial begin
         // Create instances of the classes
-        AssocArrayEnum enum_arr = new();
-        AssocArrayPackedStruct packed_arr = new();
-        AssocArrayUnpackedStruct unpacked_arr = new();
-        AssocArrayArrayIndex array_index_arr = new();
-        AssocArrayIntegral integral_arr = new();
+        enum_arr = new();
+        packed_arr = new();
+        unpacked_arr = new();
+        array_index_arr = new();
+        integral_arr = new();
 
         // Randomization tests
-        enum_arr.randomize();
-        $display("AssocArrayEnum randomization successful.");
+        success = enum_arr.randomize();
+        $display("AssocArrayEnum randomization successful[ %0d ].", success);
         foreach (enum_arr.colors[i])
             $display("colors[%0s] = %0d", i.name(), enum_arr.colors[i]);
 
-        packed_arr.randomize();
-        $display("AssocArrayPackedStruct randomization successful.");
+        success = packed_arr.randomize();
+        $display("packed_arr randomization successful[ %0d ].", success);
         foreach (packed_arr.data[i])
             $display("data[%0d:%0d] = %0d", i.high, i.low, packed_arr.data[i]);
 
-        unpacked_arr.randomize();
-        $display("AssocArrayUnpackedStruct randomization successful.");
+        success = unpacked_arr.randomize();
+        $display("unpacked_arr randomization successful[ %0d ].", success);
         foreach (unpacked_arr.data[i])
             $display("data[%0d, %0d] = %0d", i.a, i.b, unpacked_arr.data[i]);
 
-        array_index_arr.randomize();
-        $display("AssocArrayArrayIndex randomization successful.");
+        success = array_index_arr.randomize();
+        $display("array_index_arr randomization successful[ %0d ].", success);
         foreach (array_index_arr.data[i])
             $display("data[[%0d, %0d]] = %0d", i[0], i[1], array_index_arr.data[i]);
 
-        integral_arr.randomize();
-        $display("AssocArrayIntegral randomization successful.");
+        success = integral_arr.randomize();
+        $display("integral_arr randomization successful[ %0d ].", success);
         foreach (integral_arr.int_index[i])
             $display("int_index[%0d] = %0d", i, integral_arr.int_index[i]);
         foreach (integral_arr.str_index[i])
