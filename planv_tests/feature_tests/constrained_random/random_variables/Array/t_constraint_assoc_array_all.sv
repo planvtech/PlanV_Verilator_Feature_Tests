@@ -52,8 +52,8 @@ class AssocArrayUnpackedStruct;
         data[idx] = 32'd25;
     endfunction
 endclass
+
 typedef logic [2:0][7:0] IndexArrayType;
-// Array as index associative array
 class AssocArrayArrayIndex;
     rand bit [31:0] data [IndexArrayType];
     constraint valid_entries { foreach (data[i]) data[i] > 0; }
@@ -64,6 +64,7 @@ class AssocArrayArrayIndex;
         data[idx] = 32'd75;
     endfunction
 endclass
+
 class keyClass;
     bit [3:0] id;
 endclass
@@ -76,6 +77,7 @@ class AssocArrayClass;
         data[cl] = 32'd77;
     endfunction
 endclass
+
 class AssocArrayIntegral;
     rand int int_index [int];
     rand int str_index [string];
@@ -95,7 +97,9 @@ module t_constraint_assoc_array_all;
     AssocArrayUnpackedStruct unpacked_arr;
     AssocArrayArrayIndex array_index_arr;
     AssocArrayIntegral integral_arr;
+    AssocArrayClass class_index_arr;
     int success;
+
     initial begin
         // Create instances of the classes
         enum_arr = new();
@@ -103,34 +107,53 @@ module t_constraint_assoc_array_all;
         unpacked_arr = new();
         array_index_arr = new();
         integral_arr = new();
+        class_index_arr = new();
 
         // Randomization tests
         success = enum_arr.randomize();
-        $display("AssocArrayEnum randomization successful[ %0d ].", success);
-        foreach (enum_arr.colors[i])
-            $display("colors[%0s] = %0d", i.name(), enum_arr.colors[i]);
+        if (!success) $stop;
+        $display("[AssocArrayEnum] Randomization successful.");
+        foreach (enum_arr.colors[i]) begin
+            $display("  colors[%s] = %0d", i.name(), enum_arr.colors[i]);
+        end
 
         success = packed_arr.randomize();
-        $display("packed_arr randomization successful[ %0d ].", success);
-        foreach (packed_arr.data[i])
-            $display("data[%0d:%0d] = %0d", i.high, i.low, packed_arr.data[i]);
+        if (!success) $stop;
+        $display("[AssocArrayPackedStruct] Randomization successful.");
+        foreach (packed_arr.data[i]) begin
+            $display("  data[high: %0d, low: %0d] = %0d", i.high, i.low, packed_arr.data[i]);
+        end
 
         success = unpacked_arr.randomize();
-        $display("unpacked_arr randomization successful[ %0d ].", success);
-        foreach (unpacked_arr.data[i])
-            $display("data[%0d, %0d] = %0d", i.a, i.b, unpacked_arr.data[i]);
+        if (!success) $stop;
+        $display("[AssocArrayUnpackedStruct] Randomization successful.");
+        foreach (unpacked_arr.data[i]) begin
+            $display("  data[a: %0d, b: %0d] = %0d", i.a, i.b, unpacked_arr.data[i]);
+        end
 
         success = array_index_arr.randomize();
-        $display("array_index_arr randomization successful[ %0d ].", success);
-        foreach (array_index_arr.data[i])
-            $display("data[[%0d, %0d]] = %0d", i[0], i[1], array_index_arr.data[i]);
+        if (!success) $stop;
+        $display("[AssocArrayArrayIndex] Randomization successful.");
+        foreach (array_index_arr.data[i]) begin
+            $display("  data[[%0d, %0d]] = %0d", i[0], i[1], array_index_arr.data[i]);
+        end
 
         success = integral_arr.randomize();
-        $display("integral_arr randomization successful[ %0d ].", success);
-        foreach (integral_arr.int_index[i])
-            $display("int_index[%0d] = %0d", i, integral_arr.int_index[i]);
-        foreach (integral_arr.str_index[i])
-            $display("str_index[%0s] = %0d", i, integral_arr.str_index[i]);
+        if (!success) $stop;
+        $display("[AssocArrayIntegral] Randomization successful.");
+        foreach (integral_arr.int_index[i]) begin
+            $display("  int_index[%0d] = %0d", i, integral_arr.int_index[i]);
+        end
+        foreach (integral_arr.str_index[i]) begin
+            $display("  str_index[\"%s\"] = %0d", i, integral_arr.str_index[i]);
+        end
+
+        success = class_index_arr.randomize();
+        if (!success) $stop;
+        $display("[AssocArrayClass] Randomization successful.");
+        foreach (class_index_arr.data[i]) begin
+            $display("  data[class_id: %0d] = %0d", i.id, class_index_arr.data[i]);
+        end
 
         // Successful execution marker
         $write("*-* All Finished *-*");
