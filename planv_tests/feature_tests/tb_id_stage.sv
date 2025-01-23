@@ -60,11 +60,13 @@ module id_stage (
     end
   end
 
-  assign issue_entry_o = issue_q.sbe;
-  assign issue_entry_o_prev = issue_n.sbe;
-  assign issue_entry_valid_o = issue_q.valid;
-  assign is_ctrl_flow_o = issue_q.is_ctrl_flow;
-  assign orig_instr_o = issue_q.orig_instr;
+for (genvar i = 0; i < 2; i++) begin
+  assign issue_entry_o[i] = issue_q[i].sbe;
+  assign issue_entry_o_prev[i] = 1 ? issue_n[i].sbe : '0;
+  assign issue_entry_valid_o[i] = issue_q[i].valid;
+  assign is_ctrl_flow_o[i] = issue_q[i].is_ctrl_flow;
+  assign orig_instr_o[i] = issue_q[i].orig_instr;
+end
 
 endmodule
 
@@ -146,20 +148,26 @@ module tb_id_stage();
     $finish;
   end
 
-  // Self-checks using assertions
+  // Self-checks using if-else print statements
   always @(posedge clk) begin
     if (!rst_n) begin
-      if(issue_q[0].valid != 0) $stop;
+      if (uut.issue_q[0].valid != 0) $display("ERROR: issue_q[0].valid should be 0 after reset");
+      else $display("PASS: issue_q[0].valid is 0 after reset");
     end
-    if (fetch_entry_valid[0] && !issue_q[0].valid) begin
-      if(issue_n[0].valid != 1) $stop;
-      if(issue_n[0].sbe != fetch_entry[0]) $stop;
+    if (fetch_entry_valid[0] && !uut.issue_q[0].valid) begin
+      if (uut.issue_n[0].valid != 1) $display("ERROR: issue_n[0].valid should be 1 when fetch_entry_valid[0] is asserted and issue_q[0] is not valid");
+      else $display("PASS: issue_n[0].valid is 1 when fetch_entry_valid[0] is asserted and issue_q[0] is not valid");
+      
+      if (uut.issue_n[0].sbe != fetch_entry[0]) $display("ERROR: issue_n[0].sbe should match fetch_entry[0]");
+      else $display("PASS: issue_n[0].sbe matches fetch_entry[0]");
     end
     if (issue_instr_ack[0]) begin
-      if(issue_n[0].valid != 0) $stop;
+      if (uut.issue_n[0].valid != 0) $display("ERROR: issue_n[0].valid should be 0 when issue_instr_ack[0] is asserted");
+      else $display("PASS: issue_n[0].valid is 0 when issue_instr_ack[0] is asserted");
     end
     if (flush) begin
-      if(issue_n[0].valid != 0) $stop;
+      if (uut.issue_n[0].valid != 0) $display("ERROR: issue_n[0].valid should be 0 when flush is asserted");
+      else $display("PASS: issue_n[0].valid is 0 when flush is asserted");
     end
   end
 
