@@ -74,6 +74,7 @@ module tb_id_stage();
 
   // Parameters
   parameter CLK_PERIOD = 10;
+  parameter NUM_ENTRIES = 100; // Number of fetch entries for extensive testing
 
   // Signals
   logic clk;
@@ -123,26 +124,35 @@ module tb_id_stage();
     rst_n = 1;
 
     // Apply test stimulus
-    # (2 * CLK_PERIOD);
-    fetch_entry[0] = 32'hDEADBEEF;
-    fetch_entry_valid[0] = 1;
-    issue_instr_ack[0] = 0;
+    for (int i = 0; i < NUM_ENTRIES; i++) begin
+      // Generate random fetch entries
+      fetch_entry[0] = $random;
+      fetch_entry[1] = $random;
+      fetch_entry_valid[0] = 1;
+      fetch_entry_valid[1] = 1;
 
-    # (2 * CLK_PERIOD);
-    fetch_entry_valid[0] = 0;
-    issue_instr_ack[0] = 1;
+      # (CLK_PERIOD);
+      fetch_entry_valid[0] = 0;
+      fetch_entry_valid[1] = 0;
 
-    # (2 * CLK_PERIOD);
-    issue_instr_ack[0] = 0;
+      // Issue acknowledgment
+      issue_instr_ack[0] = 1;
+      issue_instr_ack[1] = 1;
 
-    // Apply flush
-    # (2 * CLK_PERIOD);
-    flush = 1;
+      # (CLK_PERIOD);
+      issue_instr_ack[0] = 0;
+      issue_instr_ack[1] = 0;
 
-    # (2 * CLK_PERIOD);
-    flush = 0;
+      // Apply flush randomly
+      if ($random % 61 == 0) begin
+        flush = 1;
+        # (CLK_PERIOD);
+        flush = 0;
+      end
 
-    # (2 * CLK_PERIOD);
+      # (CLK_PERIOD);
+    end
+
     // Successful execution marker
     $write("*-* All Finished *-*");
     $finish;
