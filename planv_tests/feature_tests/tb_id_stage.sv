@@ -1,3 +1,8 @@
+// DESCRIPTION: PlanV Verilator Feature Tests
+//
+// Property of PlanV GmbH, 2025. All rights reserved.
+// Contact: yilou.wang@planv.tech
+
 module id_stage (
     // Subsystem Clock - SUBSYSTEM
     input logic clk_i,
@@ -152,7 +157,7 @@ module tb_id_stage();
 
       # (CLK_PERIOD);
     end
-
+    # (CLK_PERIOD * NUM_ENTRIES);
     // Successful execution marker
     $write("*-* All Finished *-*");
     $finish;
@@ -179,6 +184,12 @@ module tb_id_stage();
       if (uut.issue_n[0].valid != 0) $display("ERROR: issue_n[0].valid should be 0 when flush is asserted");
       else $display("PASS: issue_n[0].valid is 0 when flush is asserted");
     end
+  end
+
+  // Dump waveforms
+  initial begin
+    $dumpfile("tb_id_stage.vcd");
+    $dumpvars(0, tb_id_stage);
   end
 
 endmodule

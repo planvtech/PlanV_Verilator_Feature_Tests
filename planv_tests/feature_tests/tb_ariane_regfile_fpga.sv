@@ -1,3 +1,8 @@
+// DESCRIPTION: PlanV Verilator Feature Tests
+//
+// Property of PlanV GmbH, 2025. All rights reserved.
+// Contact: yilou.wang@planv.tech
+
 module ariane_regfile_fpga #(
     parameter int unsigned           DATA_WIDTH    = 32,
     parameter int unsigned           NR_READ_PORTS = 2,
