@@ -27,35 +27,39 @@ module async_reg #(
   localparam ADDR_WIDTH = 5;
   localparam NUM_WORDS = 2 ** ADDR_WIDTH;
 
-  logic [DATA_WIDTH-1:0] mem        [NUM_WORDS];
-  logic [NrCommitPorts-1:0][NUM_WORDS-1:1] waddr_onehot, waddr_onehot_q;
-  logic [NrCommitPorts-1:0][DATA_WIDTH-1:0] wdata_q;
+  logic [            NUM_WORDS-1:0][DATA_WIDTH-1:0] mem;
+  logic [NrCommitPorts-1:0][ NUM_WORDS-1:0] we_dec;
 
 
-  // decode addresses
-  for (genvar i = 0; i < NR_READ_PORTS; i++) assign rdata_o[i] = mem[raddr_i[i][ADDR_WIDTH-1:0]];
-
-  always_ff @(posedge clk_i, negedge rst_ni) begin : sample_waddr
-    if (~rst_ni) begin
-      wdata_q <= '0;
-    end else begin
-      for (int unsigned i = 0; i < NrCommitPorts; i++)
-      // enable flipflop will most probably infer clock gating
-      if (we_i[i]) begin
-        wdata_q[i] <= wdata_i[i];
+  always_comb begin : we_decoder
+    for (int unsigned j = 0; j < NrCommitPorts; j++) begin
+      for (int unsigned i = 0; i < NUM_WORDS; i++) begin
+        if (waddr_i[j] == i) we_dec[j][i] = we_i[j];
+        else we_dec[j][i] = 1'b0;
       end
-      waddr_onehot_q <= waddr_onehot;
     end
   end
 
-  // WRITE : Write Address Decoder (WAD), combinatorial process
-  always_comb begin : decode_write_addess
-    for (int unsigned i = 0; i < NrCommitPorts; i++) begin
-      for (int unsigned j = 1; j < NUM_WORDS; j++) begin
-        if (we_i[i] && (waddr_i[i] == j)) waddr_onehot[i][j] = 1'b1;
-        else waddr_onehot[i][j] = 1'b0;
+  // loop from 1 to NUM_WORDS-1 as R0 is nil
+  always_ff @(posedge clk_i, negedge rst_ni) begin : register_write_behavioral
+    if (~rst_ni) begin
+      mem <= '{default: '0};
+    end else begin
+      for (int unsigned j = 0; j < NrCommitPorts; j++) begin
+        for (int unsigned i = 0; i < NUM_WORDS; i++) begin
+          if (we_dec[j][i]) begin
+            mem[i] <= wdata_i[j];
+          end
+        end
+        if (ZERO_REG_ZERO) begin
+          mem[0] <= '0;
+        end
       end
     end
+  end
+
+  for (genvar i = 0; i < NR_READ_PORTS; i++) begin
+    assign rdata_o[i] = mem[raddr_i[i]];
   end
 
 endmodule
@@ -294,6 +298,9 @@ module tb_cva6_fpga();
   logic [NrCommitPorts-1:0][4:0] waddr;
   logic [NrCommitPorts-1:0] we;
 
+  logic flag;
+  assign flag = fpga_reg_out == async_reg_out;
+
   // Instantiate the id_stage module
   id_stage uut (
     .clk_i(clk),
@@ -333,7 +340,6 @@ module tb_cva6_fpga();
   ) fpga_reg_inst (
     .clk_i(clk),
     .rst_ni(rst_n),
-    .test_en_i(1'b0),
     .raddr_i(issue_entry_prev),
     .rdata_o(fpga_reg_out),
     .waddr_i(waddr),
@@ -422,7 +428,7 @@ module tb_cva6_fpga();
   // Dump waveforms
   initial begin
     $dumpfile("tb_cva6_fpga.vcd");
-    $dumpvars(0, tb_cva6_fpga);
+    $dumpvars(0, tb_cva6_fpga, uut, async_reg_inst, fpga_reg_inst);
   end
 
 endmodule
