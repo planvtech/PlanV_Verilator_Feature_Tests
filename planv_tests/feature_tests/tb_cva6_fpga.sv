@@ -432,8 +432,6 @@ module tb_cva6_fpga();
     for (int i = 0; i < NR_READ_PORTS; i++) begin
       if (async_reg_out[i] !== fpga_reg_out[i]) begin
         $display("ERROR: Async register output and FPGA register output do not match for port %0d", i);
-      end else begin
-        $display("PASS: Async register output and FPGA register output match for port %0d", i);
       end
     end
   end

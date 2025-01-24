@@ -81,10 +81,8 @@ simulate: \$(SIM_DIR)/\$(SIM_NAME).mk \$(SIM_DIR)/\$(SIM_NAME)
 	\$(SIM_DIR)/\$(SIM_NAME)
 
 clean:
-	rm -rf simv*.daidir csrc
-	rm -rf csrc* simv*
 	rm -rf \$(SIM_DIR)
-	rm -rf dump.vcd
+	rm -rf *.vcd
 
 verilator-version:
 	@echo "Running \$(VERILATOR) --version"
