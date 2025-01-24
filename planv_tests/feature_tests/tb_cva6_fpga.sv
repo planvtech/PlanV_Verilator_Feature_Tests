@@ -89,6 +89,7 @@ module ariane_regfile_fpga #(
   localparam ADDR_WIDTH = 5;
   localparam NUM_WORDS = 2 ** ADDR_WIDTH;
   localparam LOG_NR_WRITE_PORTS = NrCommitPorts == 1 ? 1 : $clog2(NrCommitPorts);
+  localparam FpgaAlteraEn = 1;
 
   // Distributed RAM usually supports one write port per block - duplicate for each write port.
   logic [NUM_WORDS-1:0][DATA_WIDTH-1:0] mem[NrCommitPorts];
@@ -137,7 +138,7 @@ module ariane_regfile_fpga #(
       raddr_q <= '0;
     end else begin
       mem_block_sel_q <= mem_block_sel;
-      if (0) raddr_q <= raddr_i;  // FpgaAlteraEn is 0 in this configuration
+      if (FpgaAlteraEn) raddr_q <= raddr_i;
       else raddr_q <= '0;
     end
   end
@@ -149,11 +150,11 @@ module ariane_regfile_fpga #(
     always_ff @(posedge clk_i) begin
       if (we_i[j] && ~waddr_i[j] != 0) begin
         mem[j][waddr_i[j]] <= wdata_i[j];
-        if (0)
-          wdata_reg[j] <= wdata_i[j];  // FpgaAlteraEn is 0 in this configuration
+        if (FpgaAlteraEn)
+          wdata_reg[j] <= wdata_i[j];
         else wdata_reg[j] <= '0;
       end
-      if (0) begin
+      if (FpgaAlteraEn) begin
         for (int k = 0; k < NR_READ_PORTS; k++) begin : block_read
           mem_read_sync[j][k] = mem[j][raddr_i[k]];  // synchronous RAM
           read_after_write[j][k] <= '0;
@@ -163,11 +164,11 @@ module ariane_regfile_fpga #(
       end
     end
     for (genvar k = 0; k < NR_READ_PORTS; k++) begin : block_read
-      assign mem_read[j][k] = 0 ? ( read_after_write[j][k] ? wdata_reg[j]: mem_read_sync[j][k]) : mem[j][raddr_i[k]];  // FpgaAlteraEn is 0 in this configuration
+      assign mem_read[j][k] = FpgaAlteraEn ? ( read_after_write[j][k] ? wdata_reg[j]: mem_read_sync[j][k]) : mem[j][raddr_i[k]];
     end
   end
   //with synchronous ram there is the need to adjust which address is used at the output MUX
-  assign raddr = 0 ? raddr_q : raddr_i;  // FpgaAlteraEn is 0 in this configuration
+  assign raddr = FpgaAlteraEn ? raddr_q : raddr_i;
 
   // output MUX
   logic [NR_READ_PORTS-1:0][LOG_NR_WRITE_PORTS-1:0] block_addr;
@@ -181,7 +182,7 @@ module ariane_regfile_fpga #(
   initial begin
     for (int i = 0; i < NrCommitPorts; i++) begin
       for (int j = 0; j < NUM_WORDS; j++) begin
-        // if (!0)  // FpgaAlteraEn is 0 in this configuration
+        // if (!FpgaAlteraEn)
         //   mem[i][j] = $random();  //quartus does not support this random statement on synthesis
         mem[i][j] = '0;
       end
@@ -258,7 +259,7 @@ module id_stage (
 
 for (genvar i = 0; i < 2; i++) begin
   assign issue_entry_o[i] = issue_q[i].sbe;
-  assign issue_entry_o_prev[i] = 1 ? issue_n[i].sbe : '0;
+  assign issue_entry_o_prev[i] = issue_n[i].sbe;
   assign issue_entry_valid_o[i] = issue_q[i].valid;
   assign is_ctrl_flow_o[i] = issue_q[i].is_ctrl_flow;
   assign orig_instr_o[i] = issue_q[i].orig_instr;
@@ -274,7 +275,7 @@ module tb_cva6_fpga();
 
   // Parameters
   parameter int CLK_PERIOD = 10;
-  parameter int NUM_ENTRIES = 100; // Number of fetch entries for extensive testing
+  parameter int NUM_ENTRIES = 1000; // Number of fetch entries for extensive testing
   parameter int unsigned DATA_WIDTH = 32;
   parameter int unsigned NR_READ_PORTS = 2;
   parameter int unsigned NrCommitPorts = 2;
@@ -366,6 +367,19 @@ module tb_cva6_fpga();
     // Reset
     # (2 * CLK_PERIOD);
     rst_n = 1;
+    // Generate random write data and addresses
+    for (int i = 0; i < 30; i++) begin  
+      wdata[0] = $random;
+      wdata[1] = $random;
+      waddr[0] = $random;
+      waddr[1] = $random;
+      we[0] = 1;
+      we[1] = 1;
+      # (CLK_PERIOD);
+      we[0] = 0;
+      we[1] = 0;
+      # (CLK_PERIOD);
+    end
 
     // Apply test stimulus
     for (int i = 0; i < NUM_ENTRIES; i++) begin
@@ -375,7 +389,6 @@ module tb_cva6_fpga();
       fetch_entry_valid[0] = 1;
       fetch_entry_valid[1] = 1;
 
-      // Generate random write data and addresses
       wdata[0] = $random;
       wdata[1] = $random;
       waddr[0] = $random;
@@ -406,7 +419,7 @@ module tb_cva6_fpga();
 
       # (CLK_PERIOD);
     end
-    # (CLK_PERIOD * NUM_ENTRIES);
+    # (CLK_PERIOD * 100);
 
     // Successful execution marker
     $write("*-* All Finished *-*");
