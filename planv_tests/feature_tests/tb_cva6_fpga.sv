@@ -3,19 +3,66 @@
 // Property of PlanV GmbH, 2025. All rights reserved.
 // Contact: yilou.wang@planv.tech
 
-module async_reg (
-    input logic clk,
-    input logic rst_n,
-    input logic [31:0] data_in,
-    output logic [31:0] data_out
+// ######################################################
+// #                  ASYNC REG                         #
+// ######################################################
+module async_reg #(
+    parameter int unsigned           NR_READ_PORTS = 2,
+    parameter int unsigned           NrCommitPorts = 2,
+    parameter int unsigned           DATA_WIDTH    = 32,
+    parameter bit                    ZERO_REG_ZERO = 0
+) (
+    // clock and reset
+    input  logic                                             clk_i,
+    input  logic                                             rst_ni,
+    // read port
+    input  logic [        NR_READ_PORTS-1:0][           4:0] raddr_i,
+    output logic [        NR_READ_PORTS-1:0][DATA_WIDTH-1:0] rdata_o,
+    // write port
+    input  logic [NrCommitPorts-1:0][           4:0] waddr_i,
+    input  logic [NrCommitPorts-1:0][DATA_WIDTH-1:0] wdata_i,
+    input  logic [NrCommitPorts-1:0]                 we_i
 );
-    always_ff @(posedge clk or negedge rst_n) begin
-        if (!rst_n)
-            data_out <= 32'd0;
-        else
-            data_out <= data_in;
+
+  localparam ADDR_WIDTH = 5;
+  localparam NUM_WORDS = 2 ** ADDR_WIDTH;
+
+  logic [DATA_WIDTH-1:0] mem        [NUM_WORDS];
+  logic [NrCommitPorts-1:0][NUM_WORDS-1:1] waddr_onehot, waddr_onehot_q;
+  logic [NrCommitPorts-1:0][DATA_WIDTH-1:0] wdata_q;
+
+
+  // decode addresses
+  for (genvar i = 0; i < NR_READ_PORTS; i++) assign rdata_o[i] = mem[raddr_i[i][ADDR_WIDTH-1:0]];
+
+  always_ff @(posedge clk_i, negedge rst_ni) begin : sample_waddr
+    if (~rst_ni) begin
+      wdata_q <= '0;
+    end else begin
+      for (int unsigned i = 0; i < NrCommitPorts; i++)
+      // enable flipflop will most probably infer clock gating
+      if (we_i[i]) begin
+        wdata_q[i] <= wdata_i[i];
+      end
+      waddr_onehot_q <= waddr_onehot;
     end
+  end
+
+  // WRITE : Write Address Decoder (WAD), combinatorial process
+  always_comb begin : decode_write_addess
+    for (int unsigned i = 0; i < NrCommitPorts; i++) begin
+      for (int unsigned j = 1; j < NUM_WORDS; j++) begin
+        if (we_i[i] && (waddr_i[i] == j)) waddr_onehot[i][j] = 1'b1;
+        else waddr_onehot[i][j] = 1'b0;
+      end
+    end
+  end
+
 endmodule
+
+// ######################################################
+// #                   FPGA REGFILE                     #
+// ######################################################
 
 module ariane_regfile_fpga #(
     parameter int unsigned           DATA_WIDTH    = 32,
@@ -26,8 +73,6 @@ module ariane_regfile_fpga #(
     // clock and reset
     input  logic                                             clk_i,
     input  logic                                             rst_ni,
-    // disable clock gates for testing
-    input  logic                                             test_en_i,
     // read port
     input  logic [        NR_READ_PORTS-1:0][           4:0] raddr_i,
     output logic [        NR_READ_PORTS-1:0][DATA_WIDTH-1:0] rdata_o,
@@ -141,6 +186,10 @@ module ariane_regfile_fpga #(
   */
 endmodule
 
+// ######################################################
+// #                  ID STAGE                          #
+// ######################################################
+
 module id_stage (
     // Subsystem Clock - SUBSYSTEM
     input logic clk_i,
@@ -213,27 +262,37 @@ end
 
 endmodule
 
+// ######################################################
+// #                  TOP TB                            #
+// ######################################################
+
 module tb_cva6_fpga();
 
   // Parameters
   parameter int CLK_PERIOD = 10;
   parameter int NUM_ENTRIES = 100; // Number of fetch entries for extensive testing
+  parameter int unsigned DATA_WIDTH = 32;
+  parameter int unsigned NR_READ_PORTS = 2;
+  parameter int unsigned NrCommitPorts = 2;
 
   // Signals
   logic clk;
   logic rst_n;
   logic flush;
-  logic [1:0][31:0] fetch_entry;
-  logic [1:0] fetch_entry_valid;
-  logic [1:0] fetch_entry_ready;
-  logic [1:0][4:0] issue_entry;
-  logic [1:0][4:0] issue_entry_prev;
-  logic [1:0][31:0] orig_instr;
-  logic [1:0] issue_entry_valid_out;
-  logic [1:0] is_ctrl_flow;
-  logic [1:0] issue_instr_ack;
-  logic [31:0] async_reg_out;
-  logic [31:0] fpga_reg_out;
+  logic [NR_READ_PORTS-1:0][DATA_WIDTH-1:0] fetch_entry;
+  logic [NR_READ_PORTS-1:0] fetch_entry_valid;
+  logic [NR_READ_PORTS-1:0] fetch_entry_ready;
+  logic [NR_READ_PORTS-1:0][4:0] issue_entry;
+  logic [NR_READ_PORTS-1:0][4:0] issue_entry_prev;
+  logic [NR_READ_PORTS-1:0][DATA_WIDTH-1:0] orig_instr;
+  logic [NR_READ_PORTS-1:0] issue_entry_valid_out;
+  logic [NR_READ_PORTS-1:0] is_ctrl_flow;
+  logic [NR_READ_PORTS-1:0] issue_instr_ack;
+  logic [NR_READ_PORTS-1:0][DATA_WIDTH-1:0] async_reg_out;
+  logic [NR_READ_PORTS-1:0][DATA_WIDTH-1:0] fpga_reg_out;
+  logic [NrCommitPorts-1:0][DATA_WIDTH-1:0] wdata;
+  logic [NrCommitPorts-1:0][4:0] waddr;
+  logic [NrCommitPorts-1:0] we;
 
   // Instantiate the id_stage module
   id_stage uut (
@@ -252,27 +311,34 @@ module tb_cva6_fpga();
   );
 
   // Instantiate the asynchronous register
-  async_reg async_reg_inst (
-    .clk(clk),
-    .rst_n(rst_n),
-    .addr_in(issue_entry[0]),
-    .data_out(async_reg_out)
+  async_reg #(
+    .DATA_WIDTH(DATA_WIDTH),
+    .NR_READ_PORTS(NR_READ_PORTS),
+    .NrCommitPorts(NrCommitPorts)
+  ) async_reg_inst (
+    .clk_i(clk),
+    .rst_ni(rst_n),
+    .raddr_i(issue_entry),
+    .rdata_o(async_reg_out),
+    .waddr_i(waddr),
+    .wdata_i(wdata),
+    .we_i(we)
   );
 
   // Instantiate the FPGA register
   ariane_regfile_fpga #(
-    .DATA_WIDTH(32),
-    .NR_READ_PORTS(1),
-    .NrCommitPorts(1)
+    .DATA_WIDTH(DATA_WIDTH),
+    .NR_READ_PORTS(NR_READ_PORTS),
+    .NrCommitPorts(NrCommitPorts)
   ) fpga_reg_inst (
     .clk_i(clk),
     .rst_ni(rst_n),
     .test_en_i(1'b0),
-    .raddr_i(issue_entry_prev[0]),
+    .raddr_i(issue_entry_prev),
     .rdata_o(fpga_reg_out),
-    .waddr_i(5'd0),
-    .wdata_i(32'd0),
-    .we_i(1'b1)
+    .waddr_i(waddr),
+    .wdata_i(wdata),
+    .we_i(we)
   );
 
   // Clock generation
@@ -287,6 +353,9 @@ module tb_cva6_fpga();
     fetch_entry = '0;
     fetch_entry_valid = '0;
     issue_instr_ack = '0;
+    wdata = '0;
+    waddr = '0;
+    we = '0;
 
     // Reset
     # (2 * CLK_PERIOD);
@@ -300,9 +369,19 @@ module tb_cva6_fpga();
       fetch_entry_valid[0] = 1;
       fetch_entry_valid[1] = 1;
 
+      // Generate random write data and addresses
+      wdata[0] = $random;
+      wdata[1] = $random;
+      waddr[0] = $random;
+      waddr[1] = $random;
+      we[0] = 1;
+      we[1] = 1;
+
       # (CLK_PERIOD);
       fetch_entry_valid[0] = 0;
       fetch_entry_valid[1] = 0;
+      we[0] = 0;
+      we[1] = 0;
 
       // Issue acknowledgment
       issue_instr_ack[0] = 1;
@@ -331,10 +410,12 @@ module tb_cva6_fpga();
   // Self-checks using if-else print statements
   always @(posedge clk) begin
     // Compare outputs
-    if (async_reg_out !== fpga_reg_out) begin
-      $display("ERROR: Async register output and FPGA register output do not match");
-    end else begin
-      $display("PASS: Async register output and FPGA register output match");
+    for (int i = 0; i < NR_READ_PORTS; i++) begin
+      if (async_reg_out[i] !== fpga_reg_out[i]) begin
+        $display("ERROR: Async register output and FPGA register output do not match for port %0d", i);
+      end else begin
+        $display("PASS: Async register output and FPGA register output match for port %0d", i);
+      end
     end
   end
 
