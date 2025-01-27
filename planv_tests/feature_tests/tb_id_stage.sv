@@ -112,48 +112,36 @@ module tb_id_stage();
   );
 
   // Clock generation
-  always # (CLK_PERIOD / 2) clk = ~clk;
+  initial begin
+    clk = 0;
+    forever begin
+      #(CLK_PERIOD / 2) clk = ~clk;
+    end
+  end
+
+  // Reset generation
+  initial begin
+    rst_n = 0;
+    # (4 * CLK_PERIOD);
+    rst_n = 1;
+  end
+
+  // Stimulus 1 generation
+  initial begin
+    fetch_entry_valid = '1;
+    issue_instr_ack = '1;
+    flush = 0;
+  end
 
   // Test procedure
   initial begin
-    // Initialize signals
-    clk = 0;
-    rst_n = 0;
-    flush = 0;
     fetch_entry = '0;
-    fetch_entry_valid = '0;
-    issue_instr_ack = '0;
-
-    // Reset
-    # (2 * CLK_PERIOD);
-    rst_n = 1;
-
+    // #(CLK_PERIOD / 2);
     // Apply test stimulus
     for (int i = 0; i < NUM_ENTRIES; i++) begin
       // Generate random fetch entries
       fetch_entry[0] = $random;
       fetch_entry[1] = $random;
-      fetch_entry_valid[0] = 1;
-      fetch_entry_valid[1] = 1;
-
-      # (CLK_PERIOD);
-      fetch_entry_valid[0] = 0;
-      fetch_entry_valid[1] = 0;
-
-      // Issue acknowledgment
-      issue_instr_ack[0] = 1;
-      issue_instr_ack[1] = 1;
-
-      # (CLK_PERIOD);
-      issue_instr_ack[0] = 0;
-      issue_instr_ack[1] = 0;
-
-      // Apply flush randomly
-      if ($random % 61 == 0) begin
-        flush = 1;
-        # (CLK_PERIOD);
-        flush = 0;
-      end
 
       # (CLK_PERIOD);
     end
