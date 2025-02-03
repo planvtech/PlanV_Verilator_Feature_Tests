@@ -38,20 +38,30 @@ module id_stage (
   issue_struct_t [1:0] issue_n, issue_q;
 
   always_comb begin
-    issue_n             = issue_q;
+    // issue_n             = issue_q;
     fetch_entry_ready_o = '0;
 
     // Clear the valid flag if issue has acknowledged the instruction
-    if (issue_instr_ack_i[0]) issue_n[0].valid = 1'b0;
+    // if (issue_instr_ack_i[0]) issue_n[0].valid = 1'b0;
 
     // if we have a space in the register and the fetch is valid, go get it
     // or the issue stage is currently acknowledging an instruction, which means that we will have space
     // for a new instruction
     if ((!issue_q[0].valid || issue_instr_ack_i[0]) && fetch_entry_valid_i[0]) begin
       fetch_entry_ready_o[0] = 1'b1;
-      issue_n[0] = '{1'b1, fetch_entry_i[0], fetch_entry_i[0], 1'b0};
+      // issue_n[0] = '{1'b1, fetch_entry_i[0], fetch_entry_i[0], 1'b0};
     end
 
+    // invalidate the pipeline register on a flush
+    // if (flush_i) issue_n[0].valid = 1'b0;
+  end
+
+  always_ff @(negedge clk_i or negedge rst_ni) begin
+    issue_n             = issue_q;
+    if (issue_instr_ack_i[0]) issue_n[0].valid = 1'b0;
+    if ((!issue_q[0].valid || issue_instr_ack_i[0]) && fetch_entry_valid_i[0]) begin
+      issue_n[0] = '{1'b1, fetch_entry_i[0], fetch_entry_i[0], 1'b0};
+    end
     // invalidate the pipeline register on a flush
     if (flush_i) issue_n[0].valid = 1'b0;
   end
