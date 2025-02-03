@@ -38,7 +38,7 @@ VERILOG_DEFINE_FILES = ${test_path}/${test_name}.sv
 SIM_NAME = ${test_name}
 
 SIM_DIR := \$(SIM_NAME)-sim
-COMPILE_ARGS += -DUVM_NO_DPI
+COMPILE_ARGS += -DUVM_NO_DPI -CFLAGS "std=gnu++20"
 COMPILE_ARGS += --prefix \$(SIM_NAME) -o \$(SIM_NAME)
 EXTRA_ARGS += --timescale 1ns/1ps --error-limit 100
 WARNING_ARGS += -Wno-lint \\
