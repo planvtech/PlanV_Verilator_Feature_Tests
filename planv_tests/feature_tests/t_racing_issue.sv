@@ -1,4 +1,7 @@
-
+// DESCRIPTION: PlanV Verilator Feature Tests
+//
+// Property of PlanV GmbH, 2025. All rights reserved.
+// Contact: yilou.wang@planv.tech
 
 module dut (
     input  logic        clk,
@@ -67,6 +70,12 @@ module t_racing_issue;
     // Successful execution marker
     $write("*-* All Finished *-*");
     $finish;
+  end
+
+  // Dump waveforms
+  initial begin
+    $dumpfile("tb_id_stage.vcd");
+    $dumpvars(0, tb_id_stage);
   end
 
 endmodule
