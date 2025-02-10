@@ -162,6 +162,46 @@ class StructConstraintClass;
             s6.mix_arr[i] = new[i + 1];
         end
     endfunction
+
+    // Self-test function to verify constraints
+    function void self_test();
+        foreach (s1.arr[i]) if (!(s1.arr[i] inside {1, 2, 3, 4})) begin
+            $display("Error: s1.arr[%0d] = %0d is out of range", i, s1.arr[i]);
+            $stop;
+        end
+        foreach (s2.arr[i]) if (!(s2.arr[i] inside {[10:20]})) begin
+            $display("Error: s2.arr[%0d] = %0d is out of range", i, s2.arr[i]);
+            $stop;
+        end
+        foreach (s3.arr[i]) if (!(s3.arr[i] inside {[100:200]})) begin
+            $display("Error: s3.arr[%0d] = %0d is out of range", i, s3.arr[i]);
+            $stop;
+        end
+        if (!(s4.arr["one"] inside {[10:50]})) begin
+            $display("Error: s4.arr[\"one\"] = %0d is out of range", s4.arr["one"]);
+            $stop;
+        end
+        if (!(s4.arr["two"] inside {[51:100]})) begin
+            $display("Error: s4.arr[\"two\"] = %0d is out of range", s4.arr["two"]);
+            $stop;
+        end
+        if (!(s4.arr["three"] inside {[101:150]})) begin
+            $display("Error: s4.arr[\"three\"] = %0d is out of range", s4.arr["three"]);
+            $stop;
+        end
+        foreach (s5.arr[i, j]) if (!(s5.arr[i][j] inside {[0:9]})) begin
+            $display("Error: s5.arr[%0d][%0d] = %0d is out of range", i, j, s5.arr[i][j]);
+            $stop;
+        end
+        foreach (s6.mix_arr[i]) if (s6.mix_arr[i].size() == 0) begin
+            $display("Error: s6.mix_arr[%0d] is empty", i);
+            $stop;
+        end
+        foreach (s6.mix_arr[i, j]) if (!(s6.mix_arr[i][j] inside {[50:100]})) begin
+            $display("Error: s6.mix_arr[%0d][%0d] = %0d is out of range", i, j, s6.mix_arr[i][j]);
+            $stop;
+        end
+    endfunction
     /* verilator lint_off SIDEEFFECT */
 endclass
 
@@ -172,6 +212,7 @@ module t_constraint_struct_complex;
         scc = new();
         success = scc.randomize();
         if (success != 1) $stop;
+        scc.self_test();
         $write("*-* All Finished *-*\n");
         $finish;
     end
