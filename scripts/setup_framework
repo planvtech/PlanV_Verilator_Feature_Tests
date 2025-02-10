@@ -63,7 +63,7 @@ else
 endif
 
 
-.PHONY: simulate clean verilate verilator-version
+.PHONY: simulate clean verilate verilator-version make-vsim make-vsim-gui
 
 all: clean verilate simulate
 
@@ -87,6 +87,17 @@ clean:
 verilator-version:
 	@echo "Running \$(VERILATOR) --version"
 	@\$(VERILATOR) --version
+
+make-vsim:
+	@if [ ! -d "work" ]; then vlib work; fi
+	vlog ${test_path}/${test_name}.sv || { echo "vlog failed"; exit 1; }
+	vsim ${test_name} -c -do "log -r /*; run -all; quit" -l ${test_name}.log || { echo "vsim failed"; exit 1; }
+
+make-vsim-gui:
+	@if [ ! -d "work" ]; then vlib work; fi
+	vlog ${test_path}/${test_name}.sv || { echo "vlog failed"; exit 1; }
+	vsim ${test_name} || { echo "vsim failed"; exit 1; }
+
 EOL
 
     echo "Test framework for ${test_name} created successfully."
