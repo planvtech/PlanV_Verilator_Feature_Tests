@@ -1,8 +1,7 @@
-// DESCRIPTION: Verilator: Verilog Test module
+// DESCRIPTION: PlanV Verilator Feature Tests
 //
-// This file ONLY is placed under the Creative Commons Public Domain, for
-// any use, without warranty, 2025 by PlanV GmbH.
-// SPDX-License-Identifier: CC0-1.0
+// Property of PlanV GmbH, 2025. All rights reserved.
+// Contact: yilou.wang@planv.tech
 
 /*
 // For pull request: Struct containing all array types
