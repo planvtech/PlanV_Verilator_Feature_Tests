@@ -99,40 +99,40 @@ class StructConstraintClass;
     /* verilator lint_off SIDEEFFECT */
     // Struct with an unpacked array
     typedef struct {
-    int arr[3];
+        rand int arr[3];
     } unpacked_struct_t;
 
     // Struct with a dynamic array
     typedef struct {
-    int arr[];
+        rand int arr[];
     } dynamic_struct_t;
 
     // Struct with a queue
     typedef struct {
-    int arr[$];
+        rand int arr[$];
     } queue_struct_t;
 
     // Struct with an associative array (string as index)
     typedef struct {
-    int arr[string];
+        rand int arr[string];
     } associative_struct_t;
 
     // Struct with a multi-dimensional array
     typedef struct {
-    int arr[2][3];
+        rand int arr[2][3];
     } multi_dim_struct_t;
 
     // Struct with a mix of dynamic and unpacked arrays
     typedef struct {
-    int mix_arr[3][];
+        rand int mix_arr[3][];
     } mixed_struct_t;
 
-    unpacked_struct_t s1;
-    dynamic_struct_t s2;
-    queue_struct_t s3;
-    associative_struct_t s4;
-    multi_dim_struct_t s5;
-    mixed_struct_t s6;
+    rand unpacked_struct_t s1;
+    rand dynamic_struct_t s2;
+    rand queue_struct_t s3;
+    rand associative_struct_t s4;
+    rand multi_dim_struct_t s5;
+    rand mixed_struct_t s6;
 
     constraint c_unpacked { foreach (s1.arr[i]) s1.arr[i] inside {1, 2, 3, 4}; }
     constraint c_dynamic { foreach (s2.arr[i]) s2.arr[i] inside {[10:20]}; }
@@ -165,11 +165,11 @@ class StructConstraintClass;
     /* verilator lint_off SIDEEFFECT */
 endclass
 
-module test_struct_array;
+module t_constraint_struct_complex;
     int success;
-
+    StructConstraintClass scc;
     initial begin
-        StructConstraintClass scc = new();
+        scc = new();
         success = scc.randomize();
         if (success != 1) $stop;
         $write("*-* All Finished *-*\n");
