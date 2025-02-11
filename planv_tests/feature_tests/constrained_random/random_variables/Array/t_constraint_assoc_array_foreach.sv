@@ -3,7 +3,7 @@
 // Property of PlanV GmbH, 2024. All rights reserved.
 // Contact: yilou.wang@planv.tech
 
-class constrained_associative_array_basic;
+class constrained_associative_array_foreach;
 
     rand int int_index_arr [int];
     rand int string_index_arr_2 [string];
@@ -34,9 +34,9 @@ class constrained_associative_array_basic;
 
 endclass
 
-module t_constraint_assoc_array_basic;
+module t_constraint_assoc_array_foreach;
 
-  constrained_associative_array_basic my_1d_array;
+  constrained_associative_array_foreach my_1d_array;
 
   initial begin
     my_1d_array = new();

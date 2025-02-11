@@ -16,7 +16,7 @@ class AssocArray;
     endfunction
 endclass
 
-module t_constraint_assoc_array_string_format
+module t_constraint_assoc_array_string_format;
     AssocArray assoc_arr;
     int success;
     initial begin
