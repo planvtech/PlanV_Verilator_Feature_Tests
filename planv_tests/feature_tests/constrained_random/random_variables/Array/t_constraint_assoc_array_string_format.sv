@@ -3,7 +3,7 @@ class AssocArray;
     rand int str_index_1 [string];
 
     constraint c1{ 
-        foreach (str_index[i]) str_index[i] > 10;  // nodep->bitp() would be VARREF, instead of CVTPACKSTRING
+        foreach (str_index[i]) str_index[i] inside {10, 20, 30, 90};  // nodep->bitp() would be VARREF, instead of CVTPACKSTRING
     }
     constraint c2 {
         str_index_1["key1"] == 100;
