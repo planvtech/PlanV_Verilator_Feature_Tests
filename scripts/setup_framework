@@ -91,12 +91,12 @@ verilator-version:
 vsim:
 	@if [ ! -d "work" ]; then vlib work; fi
 	vlog ${test_path}/${test_name}.sv || { echo "vlog failed"; exit 1; }
-	vsim ${test_name} -c -do "log -r /*; run -all; quit" -l ${test_name}.log || { echo "vsim failed"; exit 1; }
+	vsim -voptargs="+acc" ${test_name} -c -do "log -r /*; run -all; quit" -l ${test_name}.log || { echo "vsim failed"; exit 1; }
 
 vsim-gui:
 	@if [ ! -d "work" ]; then vlib work; fi
 	vlog ${test_path}/${test_name}.sv || { echo "vlog failed"; exit 1; }
-	vsim ${test_name} || { echo "vsim failed"; exit 1; }
+	vsim -voptargs="+acc" ${test_name} || { echo "vsim failed"; exit 1; }
 
 EOL
 
