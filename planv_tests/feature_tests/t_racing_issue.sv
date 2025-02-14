@@ -45,6 +45,7 @@ module t_racing_issue;
   logic in_valid, out_valid;
   logic [31:0] in_data;
   logic [31:0] out_data, out_data_prev;
+  logic [31:0] expected_data, prev_out_data;
 
   dut uut (
     .clk(clk),
@@ -59,26 +60,47 @@ module t_racing_issue;
   always # (CLK_PERIOD / 2) clk = ~clk;
 
   initial begin
-    // Initialize signals
     clk = 0;
     rst_n = 0;
     in_valid = 0;
-    in_data = '0;
+    in_data = 0;
 
-    // Reset
-    # (2 * CLK_PERIOD);
+    #(CLK_PERIOD * 2);
     rst_n = 1;
 
-    // Apply test stimulus
-    for (int i = 0; i < NUM_ENTRIES; i++) begin
-      in_data = $random;
-      in_valid = 1;
-      # (CLK_PERIOD);
-      in_valid = 0;
-    end
+    fork
+      begin
+        for (int i = 0; i < NUM_ENTRIES; i++) begin
+          @(posedge clk);
+          in_data = $urandom();
+          in_valid = 1;
+          @(posedge clk);
+          in_valid = 0;
+        end
+        #(CLK_PERIOD * 2);
+      end
 
-    // Successful execution marker
-    $write("*-* All Finished *-*");
+      begin
+        @(posedge rst_n);
+        prev_out_data = '0;
+
+        forever begin
+          @(posedge clk);
+          if (out_valid) begin
+            assert (out_data_prev == prev_out_data)
+              else $error("Cycle Mismatch: out_data_prev=%h, next out_data=%h", out_data_prev, prev_out_data);
+
+            assert (out_data == expected_data)
+              else $error("Data Mismatch: out_data=%h, expected=%h", out_data, expected_data);
+          end
+
+          prev_out_data = out_data_prev;
+          expected_data = in_valid ? in_data : expected_data;
+        end
+      end
+    join_any
+
+    $display("*-* All Tests Passed *-*");
     $finish;
   end
 
