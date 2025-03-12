@@ -1,5 +1,5 @@
 package my_pkg;
 
-    `include "module_a.svh"
+    `include "my_class.svh"
     
 endpackage

@@ -1,13 +1,19 @@
-module tb_top;
+module t_interface_callback_passed;
     import my_pkg::*;
+    logic clk = 0;
+    my_interface vif();
+    my_class cl;
 
-    my_if my_if_inst();
+    assign vif.clk = clk;
 
     initial begin
-        int result;
-        result = my_if_inst.use_add(2, 3);
-        $display("result = %d", result);
-        $finish;
+        forever #5 clk = ~clk;
     end
 
-endmodule
+    initial begin
+        #10;
+        cl = new(vif);
+        #100;
+        $finish;
+    end
+endmodule : t_interface_callback_passed

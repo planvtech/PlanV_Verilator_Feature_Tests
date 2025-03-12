@@ -1,13 +1,15 @@
-interface my_if;
+interface my_interface;
     import my_pkg::*;
-    int c;
-    cl_a a_inst;
-    
-    function automatic int use_add(int x, int y);
-        return a_inst.add(x, y);
+    CallBackBase callback_obj;
+
+    function void register_callback(CallBackBase obj);
+        callback_obj = obj;
     endfunction
 
-    initial begin
-        c = 5;
+    logic clk;
+    always @(posedge clk) begin
+        if (callback_obj != null)
+            callback_obj.add(1, 2);
+        else $display("callback_obj is null");
     end
-endinterface
+endinterface : my_interface
