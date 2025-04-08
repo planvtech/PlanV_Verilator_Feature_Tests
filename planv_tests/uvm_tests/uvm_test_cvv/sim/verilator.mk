@@ -14,7 +14,7 @@ VERILATOR := $(VERILATOR_ROOT)/bin/verilator
 endif
 
 UVM_ROOT ?= $(shell pwd)/../../../../../uvm-verilator
-
+# uvm_1.2/uvm-verilator
 UVM_TEST ?= $(UVM_TESTNAME)
 
 DUT_FILES := $(DV_DUT_PATH)/simple_demo_tb.sv \
@@ -41,7 +41,7 @@ VERILOG_INCLUDE_DIRS = $(UVM_ROOT)/src \
 # -------------------------------------
 # Compilation/simulation configuration
 # -------------------------------------
-SIM_NAME ?= top
+SIM_NAME ?= uvmt_fifo_tb
 SIM_DIR := $(SIM_NAME)-sim
 COMPILE_ARGS += -DUVM_NO_DPI
 COMPILE_ARGS += --prefix $(SIM_NAME) -o $(SIM_NAME)
@@ -71,22 +71,23 @@ endif
 # Make UVM test with Verilator
 # -------------------------------------
 
-.PHONY: simulate clean verilate verilator-version
+.PHONY: simulate clean verilate make verilator-version
 
-all: clean verilate simulate
+all: clean verilate make simulate
 
 verilate:
-$(SIM_DIR)/$(SIM_NAME).mk:
 	$(VERILATOR) --cc --exe --main --trace --trace-structs --timing -Mdir $(SIM_DIR) \
 	${COMPILE_ARGS} ${EXTRA_ARGS} \
 	${VERILOG_DEFINE_FILES} \
 	${WARNING_ARGS}
 
-$(SIM_DIR)/$(SIM_NAME): $(SIM_DIR)/$(SIM_NAME).mk
+make: verilate
 	$(MAKE) -j${NPROC} -C $(SIM_DIR) $(BUILD_ARGS) -f $(SIM_NAME).mk
 
-simulate: $(SIM_DIR)/$(SIM_NAME).mk $(SIM_DIR)/$(SIM_NAME)
-	$(SIM_DIR)/$(SIM_NAME) +UVM_TESTNAME=$(UVM_TEST) +ntb_random_seed=2345
+simulate: make
+	$(SIM_DIR)/$(SIM_NAME) +UVM_TESTNAME=$(UVM_TEST)
+
+# +ntb_random_seed=2345
 
 clean:
 	rm -rf simv*.daidir csrc

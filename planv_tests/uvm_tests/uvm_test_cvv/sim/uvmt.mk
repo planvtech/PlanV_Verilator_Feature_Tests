@@ -18,7 +18,7 @@ export DV_UVMA_WR_RD_PATH = $(DV_UVMA_PATH)/uvma_wr_rd
 
 export DV_DUT_PATH = $(RTL_PATH)/DUT
 
-UVM_TESTNAME ?= uvmt_fifo_base_test_c
+UVM_TESTNAME ?= uvmt_fifo_test_case1_c
 
 RTLSRC_VLOG_TB_TOP := $(RTL_PATH)/DUT/simple_demo_tb.sv
 
