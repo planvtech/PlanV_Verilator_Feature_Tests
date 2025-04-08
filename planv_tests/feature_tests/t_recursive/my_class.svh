@@ -1,5 +1,6 @@
 virtual class CallBackBase;
     pure virtual function void add(int a, int b);
+    int a, b;
 endclass : CallBackBase
 
 class my_class extends CallBackBase;
@@ -12,6 +13,18 @@ class my_class extends CallBackBase;
     endfunction
 
     function void add(int a, int b);
+        $display("my_class::add");
         $display("a + b = %d", a + b);
+        run();
     endfunction
+
+    task run();
+        $display("my_class::run");
+        repeat(3) begin
+            #10;
+            a = $random;
+            b = $random;
+        end
+    endtask
+
 endclass : my_class

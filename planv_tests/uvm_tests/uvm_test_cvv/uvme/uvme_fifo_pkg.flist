@@ -1,0 +1,15 @@
+// DESCRIPTION: PlanV Async Fifo SV UVM Testbench
+//
+// Property of PlanV GmbH, 2025. All rights reserved.
+// Licensed under the Solderpad Hardware License, Version 2.0. See the LICENSE file in the project root for more information.
+// Contact: yilou.wang@planv.tech
+
+
+
+// Directives
++incdir+${DV_UVME_PATH}
++incdir+${DV_UVME_PATH}/vseq
++incdir+${DV_UVME_PATH}/cov
+
+// Files
+${DV_UVME_PATH}/uvme_fifo_pkg.sv
