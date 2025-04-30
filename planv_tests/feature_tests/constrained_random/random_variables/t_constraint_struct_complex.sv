@@ -110,6 +110,7 @@ class ArrayStruct;
     endfunction
 
 endclass
+
 class StructArray1;
     /* verilator lint_off WIDTHTRUNC */
     typedef struct {
@@ -420,16 +421,17 @@ module t_constraint_struct_complex;
         if (success != 1) $stop;
         as_c.self_test();
         as_c.print();
-    
+
         success = sa_c.randomize();
         if (success != 1) $stop;
         sa_c.self_test();
         sa_c.print();
-    
+
         success = sa_c_1.randomize();
         if (success != 1) $stop;
         sa_c_1.self_test();
         sa_c_1.print();
+
         $write("*-* All Finished *-*\n");
         $finish;
     end
