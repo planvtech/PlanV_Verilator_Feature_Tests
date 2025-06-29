@@ -1,3 +1,8 @@
+// DESCRIPTION: PlanV Verilator Feature Tests
+//
+// Property of PlanV GmbH, 2024. All rights reserved.
+// Contact: yilou.wang@planv.tech
+
 interface INTF();
     logic x;
     logic y;
@@ -20,8 +25,7 @@ class Driver;
 endclass
 
 module t_interface_t1;
-    logic a = 1;
-    logic b;
+    logic a, b;
 
     INTF intf();
 
@@ -32,10 +36,10 @@ module t_interface_t1;
     Driver drv;
 
     initial begin
+        b = 1; // 🟢 为 b 赋初值，形成闭环中的唯一值源
         drv = new(intf);
         drv.drive();
 
-        // If scheduling works, a and b will stabilize to 1
         #1ns;
         if (a !== 1 || b !== 1) begin
             $display("FAIL: a = %0b, b = %0b", a, b);

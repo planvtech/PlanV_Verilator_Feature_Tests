@@ -10,10 +10,8 @@ module t_interface_t3_simple();
     INTF vintf();
 
     assign vintf.x = s1;
-
     assign vintf.y = src_val;
     assign s2 = vintf.y;
-
     assign s1 = !s2;
 
     initial begin
