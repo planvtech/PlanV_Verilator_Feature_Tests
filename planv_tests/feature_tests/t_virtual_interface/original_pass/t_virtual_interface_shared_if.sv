@@ -1,3 +1,9 @@
+// DESCRIPTION: Verilator: Verilog Test module
+//
+// This file ONLY is placed under the Creative Commons Public Domain, for
+// any use, without warranty, 2025 by Wilson Snyder.
+// SPDX-License-Identifier: CC0-1.0
+
 `timescale 1ns/1ps
 
 interface INTF();
@@ -51,23 +57,12 @@ class intf_driver;
     endtask
 endclass
 
-module t_interface_t5();
+module t_virtual_interface_shared_if();
     logic clk;
-    logic [7:0] data;
-    logic valid;
-    logic ready;
+    logic [7:0] recv_data;
 
-    INTF read_intf();
-    assign read_intf.clk = clk;
-    assign read_intf.data = data;
-    assign read_intf.valid = valid;
-    assign ready = read_intf.ready;
-
-    INTF write_intf();
-    assign write_intf.clk = clk;
-    assign data = write_intf.data;
-    assign valid = write_intf.valid;
-    assign write_intf.ready = ready;
+    INTF shared_intf();
+    assign shared_intf.clk = clk;
 
     intf_driver driver_master;
     intf_driver driver_slave;
@@ -82,22 +77,27 @@ module t_interface_t5();
     end
 
     initial begin
-        driver_master = new(write_intf);
+        driver_master = new(shared_intf);
+        driver_slave = new(shared_intf);
+
         driver_master.init_master();
-
-        #32ns;
-        driver_master.send_data(8'h42);
-    end
-
-    logic [7:0] recv_data;
-    initial begin
-        driver_slave = new(read_intf);
         driver_slave.init_slave();
 
-        #22ns;
-        driver_slave.recv_data(recv_data);
-
-        $display("Got data: %02x", recv_data);
+        fork 
+            begin
+                #32ns;
+                driver_master.send_data(8'h42);
+            end
+            begin
+                #22ns;
+                driver_slave.recv_data(recv_data);
+                $display("Got data: %02x", recv_data);
+                if (recv_data !== 8'h42) $stop;
+            end
+        join
+        
+        $write("*-* All Finished *-*\n");
         $finish;
     end
+
 endmodule

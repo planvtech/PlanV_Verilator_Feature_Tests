@@ -30,7 +30,8 @@ module t_interface_t4_dummy_class();
         #1ns;
         src_val = 0;
         #1ns;
-        $display("x = %0b, y = %0b, z = %0b, s1 = %0b, s2 = %0b, Should be 1, 0, 1, 0, 0. ", d.vif.x, d.vif.y, d.vif.z, s1, s2);
+        if (!(d.vif.x == 1 && d.vif.y == 0 && d.vif.z == 1 && s1 == 1 && s2 == 1)) $stop;
+        $write("*-* All Finished *-*\n");
         $finish;
     end
 endmodule

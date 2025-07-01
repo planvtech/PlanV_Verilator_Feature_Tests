@@ -57,7 +57,7 @@ module idma_backend_top (
     assign result = (struct1.field1 == 1 && struct1.x == 1);
 endmodule
 
-module t_interface_struct_test;
+module t_interface_t2;
     logic result;
     logic update_val = 0;
 

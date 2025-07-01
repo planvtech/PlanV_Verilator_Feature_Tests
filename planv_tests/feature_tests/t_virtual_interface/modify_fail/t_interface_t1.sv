@@ -36,7 +36,7 @@ module t_interface_t1;
     Driver drv;
 
     initial begin
-        b = 1; // 🟢 为 b 赋初值，形成闭环中的唯一值源
+        b = 1;
         drv = new(intf);
         drv.drive();
 
