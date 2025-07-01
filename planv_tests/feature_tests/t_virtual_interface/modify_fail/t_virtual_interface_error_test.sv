@@ -31,6 +31,7 @@ module t_virtual_interface_error_test();
     assign vintf.x = s1;
     assign s1 = vintf.y;
     assign vintf.y = src_val;
+    assign vintf.z = vintf.x;
 
     assign vintf_2.x = vintf.x;
     assign vintf_2.y = s2;
@@ -45,19 +46,21 @@ module t_virtual_interface_error_test();
         d = new(vintf);
         d_2 = new(vintf_2);
 
-        #1ns;
+        #5ns;
         // src_val = 1; // Okay, pass, var updated correctly
-        // d.assign_y(1); // Not okay, only d's interface change, local var s1 changes, but d_2's interface does not change
+        // d.assign_y(1); // Failed
         d.drive_y(); // same with assign_y(1)
 
         #5ns;
 
+        /*
         $display("s1 = %0b, s2 = %0b", s1, s2);
         $display("vintf:  x = %0b, y = %0b, z = %0b", vintf.x, vintf.y, vintf.z);
         $display("vintf_2: x = %0b, y = %0b, z = %0b", vintf_2.x, vintf_2.y, vintf_2.z);
 
         $display("Dummy vif: x = %0b, y = %0b, z = %0b", d.vif.x, d.vif.y, d.vif.z);
         $display("Dummy vif_2: x = %0b, y = %0b, z = %0b", d_2.vif.x, d_2.vif.y, d_2.vif.z);
+        */
 
         failed = 0;
 
@@ -83,6 +86,14 @@ module t_virtual_interface_error_test();
         end
         if (vintf_2.x !== 1) begin
             $display("FAIL: vintf_2.x !== 1");
+            failed = 1;
+        end
+        if (vintf.z !== 1) begin
+            $display("FAIL: vintf.z !== 1");
+            failed = 1;
+        end
+        if (vintf_2.z !== 1) begin
+            $display("FAIL: vintf.z !== 1");
             failed = 1;
         end
 
