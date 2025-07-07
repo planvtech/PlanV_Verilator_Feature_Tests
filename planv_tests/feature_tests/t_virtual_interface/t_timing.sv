@@ -9,22 +9,22 @@ interface Bus;
   logic [15:0] data;
 endinterface
 
-module t_interface_t1;
+module t_timing;
   Bus intf1(), intf2();
   virtual Bus vif1 = intf1, vif2 = intf2;
 
   task assign_to_vif2();
-    if (0) return;
+    if ($c("0")) return;
     #1 vif2.data = 'hfafa; #1;
   endtask
 
   initial forever begin
     intf1.data = 'hdead;
-    if (1) begin
+    if ($c("1")) begin
       #1 vif2.data = 'hbeef; #1;
     end
     intf1.data = 'hcafe;
-    if (0); else begin
+    if ($c("0")); else begin
       #1 vif2.data = 'hface; #1;
     end
     intf1.data = 'hfeed;
@@ -34,28 +34,15 @@ module t_interface_t1;
     intf1.data = 'hdeaf;
     assign_to_vif2;
     intf1.data = 'hbebe;
-
     #1 $write("*-* All Finished *-*\n");
     $finish;
   end
 
-  always_comb if ($time < 9) $write("[%0d] vif1.data==%h\n", $time, vif1.data);
-  always_comb if ($time < 9) $write("[%0d] intf1.data==%h\n", $time, intf1.data);
-  always_comb if ($time < 9) $write("[%0d] vif2.data==%h\n", $time, vif2.data);
-  always_comb if ($time < 9) $write("[%0d] intf2.data==%h\n", $time, intf2.data);
+  always @(vif1.data) begin
+    if ($time < 9) $write("[%0t] vif1.data==%h\n", $time, vif1.data);
+  end
+  always @(intf2.data) begin
+    if ($time < 9) $write("[%0t] intf2.data==%h\n", $time, intf2.data);
+  end
 
 endmodule
-
-
-# [0] intf2.data==xxxx
-# [0] vif2.data==xxxx
-# [0] intf1.data==dead
-# [0] vif1.data==dead
-# [1] intf2.data==beef
-# [2] intf1.data==cafe
-# [3] intf2.data==face
-# [4] intf1.data==feed
-# [5] intf2.data==deed
-# [6] intf1.data==deaf
-# [7] intf2.data==fafa
-# [8] intf1.data==bebe

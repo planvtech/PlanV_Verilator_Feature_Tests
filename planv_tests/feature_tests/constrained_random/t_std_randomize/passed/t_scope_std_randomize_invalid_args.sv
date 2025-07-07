@@ -1,4 +1,10 @@
-module t_scope_std_randomize_bad2;
+// DESCRIPTION: PlanV Verilator Feature Tests
+//
+// Property of PlanV GmbH, 2025. All rights reserved.
+// Licensed under the Solderpad Hardware License, Version 2.0. See the LICENSE file in the project root for more information.
+// Contact: yilou.wang@planv.tech
+
+module t_scope_std_randomize_invalid_args;
     bit [3:0] a;
 
     function bit run();

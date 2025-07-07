@@ -1,8 +1,9 @@
-// DESCRIPTION: Verilator: Verilog Test module
+// DESCRIPTION: PlanV Verilator Feature Tests
 //
-// This file ONLY is placed under the Creative Commons Public Domain, for
-// any use, without warranty, 2025 by Wilson Snyder.
-// SPDX-License-Identifier: CC0-1.0
+// Property of PlanV GmbH, 2025. All rights reserved.
+// Licensed under the Solderpad Hardware License, Version 2.0. See the LICENSE file in the project root for more information.
+// Contact: yilou.wang@planv.tech
+
 
 `timescale 1ns/1ps
 
