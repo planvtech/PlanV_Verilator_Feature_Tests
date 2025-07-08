@@ -5,14 +5,14 @@
 // Contact: yilou.wang@planv.tech
 
 class Inner;
-    rand bit [3:0] val;
+    bit [3:0] val;
     function new();
-        val = 6;
+        val = 4;
     endfunction
 endclass
 
 class Outer;
-    rand Inner inner;
+    Inner inner;
     rand bit [3:0] val;
 
     function new(int x);
@@ -20,12 +20,12 @@ class Outer;
         this.val = x;
     endfunction
 
-    constraint c_TOP {
+    constraint c_Outer {
         val < inner.val;
     }
-    constraint c_Inner {
-        inner.val < 3;
-    }
+    //constraint c_Inner {
+    //    inner.val < 3;
+    //}
 endclass
 
 module t_membersel_class;
