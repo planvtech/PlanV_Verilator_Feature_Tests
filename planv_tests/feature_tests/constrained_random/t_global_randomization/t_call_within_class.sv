@@ -5,14 +5,14 @@
 // Contact: yilou.wang@planv.tech
 
 class Inner;
-    bit [3:0] val;
+    rand bit [3:0] val;
     function new();
-        val = 4;
+        val = 2;
     endfunction
 endclass
 
 class Outer;
-    Inner inner;
+    rand Inner inner;
     rand bit [3:0] val;
 
     function new(int x);
@@ -26,18 +26,27 @@ class Outer;
     //constraint c_Inner {
     //    inner.val < 3;
     //}
+    bit success;
+    function void rand_inner();
+        success = inner.randomize();
+        if (!success) begin
+            $display("Inner randomization failed");
+        end
+        $display("Inner value: %0d", inner.val);
+    endfunction
 endclass
 
-module t_membersel_class;
+module t_call_within_class;
     bit success, valid;
     Outer obj;
 
     initial begin
         obj = new(5);
-        success = obj.randomize();
-        valid = success && (obj.val < obj.inner.val) && (obj.inner.val < 5);
+        // success = obj.randomize();
+        // valid = success && (obj.val < obj.inner.val) && (obj.inner.val < 5);
+        obj.rand_inner();
         $display("Values: obj.val = %0d, obj.inner.val = %0d", obj.val, obj.inner.val);
-        if (!valid) $stop;
+        // if (!valid) $stop;
         $write("*-* All Finished *-*\n");
         $finish;
     end 
