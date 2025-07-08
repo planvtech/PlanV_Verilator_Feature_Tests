@@ -17,7 +17,7 @@ class Pkg extends CfgBase;
   endfunction
 endclass
 
-module t_randomize_with_membersel_bad2;
+module t_randomize_membersel_fixed3;
   Pkg p = new();
 
   initial begin

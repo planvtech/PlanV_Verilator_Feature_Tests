@@ -17,7 +17,7 @@ class Payload;
   endfunction
 endclass
 
-module t_randomize_with_membersel_bad1;
+module t_randomize_membersel_fixed2;
   Payload p = new();
   bit success;
 
