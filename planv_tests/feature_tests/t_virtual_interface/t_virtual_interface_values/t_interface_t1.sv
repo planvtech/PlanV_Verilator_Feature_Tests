@@ -46,16 +46,3 @@ module t_interface_t1;
 
 endmodule
 
-
-# [0] intf2.data==xxxx
-# [0] vif2.data==xxxx
-# [0] intf1.data==dead
-# [0] vif1.data==dead
-# [1] intf2.data==beef
-# [2] intf1.data==cafe
-# [3] intf2.data==face
-# [4] intf1.data==feed
-# [5] intf2.data==deed
-# [6] intf1.data==deaf
-# [7] intf2.data==fafa
-# [8] intf1.data==bebe

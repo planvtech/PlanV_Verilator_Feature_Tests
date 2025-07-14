@@ -80,6 +80,9 @@ module t_virtual_interface_member_trigger();
     intf_driver driver_master;
     intf_driver driver_slave;
 
+    virtual INTF vif_read = read_intf;
+    virtual INTF vif_write = write_intf;
+
     initial begin
         repeat(1000) begin
             clk = '1;
@@ -90,8 +93,8 @@ module t_virtual_interface_member_trigger();
     end
 
     initial begin
-        driver_master = new(write_intf);
-        driver_slave = new(read_intf);
+        driver_master = new(vif_write);
+        driver_slave = new(vif_read);
 
         driver_master.init_master();
         driver_slave.init_slave();
