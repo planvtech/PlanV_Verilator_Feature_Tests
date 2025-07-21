@@ -12,10 +12,10 @@ module t_randomize_with;
   Payload p = new();
   bit success;
   initial begin
-    success = p.randomize() with { data inside {[100:200]}; };
+    success = p.randomize() with { data inside {[195:200]}; };
     if (!success) $stop;
     $display("p.data = %0d", p.data);
-    if (!(p.data inside {[100:200]})) $stop;
+    if (!(p.data inside {[195:200]})) $stop;
 
     // Successful execution marker
     $write("*-* All Finished *-*\n");

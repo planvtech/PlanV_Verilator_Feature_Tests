@@ -5,7 +5,8 @@
 // Contact: yilou.wang@planv.tech
 
 class Cfg;
-  bit [7:0] limit;
+  bit [7:0] max_limit;
+  bit [7:0] min_limit;
 endclass
 
 class Payload;
@@ -14,9 +15,14 @@ class Payload;
 
   function new();
     cfg = new();
-    cfg.limit = 50; // Default limit
-    data = 0; // Initialize data
+    cfg.max_limit = 50;
+    cfg.min_limit = 49;
+    data = 0;
   endfunction
+
+  constraint c_data {
+    cfg.min_limit < data;
+  }
 endclass
 
 module t_randomize_with_classMember;
@@ -24,10 +30,10 @@ module t_randomize_with_classMember;
   bit success;
 
   initial begin
-    success = p.randomize() with { data <= cfg.limit; };
+    success = p.randomize() with { data <= cfg.max_limit; };
     if (!success) $stop;
-    $display("p.data = %0d, cfg.limit = %0d", p.data, p.cfg.limit);
-    if (p.data > p.cfg.limit) $stop;
+    $display("p.data = %0d, cfg.min_limit = %0d, cfg.max_limit = %0d", p.data, p.cfg.min_limit, p.cfg.max_limit);
+    if (!(p.data > p.cfg.min_limit && p.data <= p.cfg.max_limit)) $stop;
 
     // Successful execution marker
     $write("*-* All Finished *-*\n");

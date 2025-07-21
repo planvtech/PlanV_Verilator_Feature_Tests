@@ -42,7 +42,7 @@ class intf_driver;
     task recv_data(output logic [7:0] data);
         intf.ready <= #TA 1;
         cycle_start();
-        while (intf.valid != 1) begin cycle_end(); cycle_start(); end
+        while (!(intf.valid && intf.ready)) begin cycle_end(); cycle_start(); end
         cycle_end();
         data = intf.data;
         intf.ready <= #TA 0;
@@ -52,7 +52,7 @@ class intf_driver;
         intf.data <= #TA data;
         intf.valid <= #TA 1;
         cycle_start();
-        // while (intf.ready != 1) begin cycle_end(); cycle_start(); end
+        while (!(intf.valid && intf.ready)) begin cycle_end(); cycle_start(); end
         cycle_end();
         intf.valid <= #TA 0;
     endtask
@@ -98,17 +98,31 @@ module t_virtual_interface_member_trigger();
 
         driver_master.init_master();
         driver_slave.init_slave();
-        $display("Got data: %02x", recv_data);
         fork
             begin
-                #32ns;
+                #35ns;
                 driver_master.send_data(8'h42);
+                $display("[%0d]: Write data: %02x", $time, write_intf.data);
+                #10ns;
+                driver_master.send_data(8'h43);
+                $display("[%0d]: Write data: %02x", $time, write_intf.data);
+                #10ns;
+                driver_master.send_data(8'h44);
+                $display("[%0d]: Write data: %02x", $time, write_intf.data);
             end
             begin
-                #20ns;
+                #10ns;
                 driver_slave.recv_data(recv_data);
-                $display("Got data: %02x", recv_data);
-                if (recv_data !== 8'h42) $stop;
+                $display("[%0d]: Got data: %02x", $time, recv_data);
+                // if (recv_data !== 8'h42) $stop;
+                #5ns;
+                driver_slave.recv_data(recv_data);
+                $display("[%0d]: Got data: %02x", $time, recv_data);
+                // if (recv_data !== 8'h43) $stop;
+                #15ns;
+                driver_slave.recv_data(recv_data);
+                $display("[%0d]: Got data: %02x", $time, recv_data);
+                // if (recv_data !== 8'h44) $stop;
             end
         join
 

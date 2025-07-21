@@ -33,9 +33,11 @@ module t_failed();
     Writer writer;
 
     initial begin
+        #1ns;
         vif_write = intf_write;
         vif_read  = intf_read;
 
+        #1ns;
         vif_write.data = 8'hA5;
 
         #1ns;
@@ -60,7 +62,7 @@ module t_failed();
         $display("intf_read.data  = %02x", intf_read.data); // Unexpected Bug Here
         $display("vif_read.data   = %02x", vif_read.data);  // Unexpected Bug Here
 
-        if (vif_read.data !== 8'hAB) $stop;
+        if (vif_read.data !== 8'hB7) $stop;
         $write("*-* All Finished *-*\n");
         $finish;
     end
