@@ -43,8 +43,11 @@ module t_global_rand;
     initial begin
         obj = new(5);
         success = obj.randomize();
-        valid = success && (obj.val < obj.inner.val) && (obj.inner.val < 5);
-        if (!valid) $stop;
+        valid = success && (obj.val < obj.inner.val) && (obj.inner.val < 3);
+        if (!valid) begin
+            $display("Randomization failed: obj.val = %0d, obj.inner.val = %0d", obj.val, obj.inner.val);
+            $stop;
+        end
         $write("*-* All Finished *-*\n");
         $finish;
     end
