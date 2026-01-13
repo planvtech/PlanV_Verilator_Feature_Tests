@@ -42,6 +42,7 @@ task uvme_fifo_random_vseq_c::body();
                 if (!wr_seq.randomize()) begin
                     `uvm_fatal("RANDOM_VSEQ", "uvme_fifo_random_vseq_c::body::wr_seq randomize failed")
                 end
+                `uvm_info("RANDOM_VSEQ", $sformatf("Generated write sequence item"), UVM_MEDIUM);
                 wr_seq.start(wr_sqr);
             end
         end
@@ -52,6 +53,7 @@ task uvme_fifo_random_vseq_c::body();
                 if (!rd_seq.randomize()) begin
                     `uvm_fatal("RANDOM_VSEQ", "uvme_fifo_random_vseq_c::body::rd_seq randomize failed")
                 end
+                `uvm_info("RANDOM_VSEQ", $sformatf("Generated read sequence item"), UVM_MEDIUM);
                 rd_seq.start(rd_sqr);
             end
         end

@@ -1,0 +1,2 @@
+uvmt_fifo_tb_uvmt_fifo_clk_gen_if__0__Slow.o: \
+ uvmt_fifo_tb_uvmt_fifo_clk_gen_if__0__Slow.cpp uvmt_fifo_tb__pch.h

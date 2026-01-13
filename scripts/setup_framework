@@ -41,13 +41,7 @@ SIM_DIR := \$(SIM_NAME)-sim
 COMPILE_ARGS += -DUVM_NO_DPI -CFLAGS "-std=gnu++20"
 COMPILE_ARGS += --prefix \$(SIM_NAME) -o \$(SIM_NAME)
 EXTRA_ARGS += --timescale 1ns/1ps --error-limit 100
-WARNING_ARGS += -Wno-lint \\
-	-Wno-style \\
-	-Wno-SYMRSVDWORD \\
-	-Wno-IGNOREDRETURN \\
-	-Wno-ZERODLY \\
-	-Wno-SIDEEFFECT \\
-	-Wno-CONSTRAINTIGN
+WARNING_ARGS +=
 
 # -------------------------------------
 # Some Useful args for debugging
@@ -65,19 +59,18 @@ endif
 
 .PHONY: simulate clean verilate verilator-version make-vsim make-vsim-gui
 
-all: clean verilate simulate
+all: clean verilate make simulate
 
 verilate:
-\$(SIM_DIR)/\$(SIM_NAME).mk: \$(SV_FILES)
 	\$(VERILATOR) --cc --exe --main --trace --trace-structs --timing -Mdir \$(SIM_DIR) \\
 	\${COMPILE_ARGS} \${EXTRA_ARGS} \\
 	\${VERILOG_DEFINE_FILES} \\
 	\${WARNING_ARGS}
 
-\$(SIM_DIR)/\$(SIM_NAME): \$(SIM_DIR)/\$(SIM_NAME).mk
+make:
 	\$(MAKE) -j\${NPROC} -C \$(SIM_DIR) \$(BUILD_ARGS) -f \$(SIM_NAME).mk
 
-simulate: \$(SIM_DIR)/\$(SIM_NAME).mk \$(SIM_DIR)/\$(SIM_NAME)
+simulate:
 	\$(SIM_DIR)/\$(SIM_NAME)
 
 clean:

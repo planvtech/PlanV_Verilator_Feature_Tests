@@ -1,0 +1,3 @@
+uvmt_fifo_tb_uvm_pkg__03a__03auvm_sqr_if_base__Tz155_TBz155__Vclpkg__Slow.o: \
+ uvmt_fifo_tb_uvm_pkg__03a__03auvm_sqr_if_base__Tz155_TBz155__Vclpkg__Slow.cpp \
+ uvmt_fifo_tb__pch.h

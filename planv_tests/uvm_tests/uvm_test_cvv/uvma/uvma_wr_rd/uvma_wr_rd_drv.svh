@@ -26,13 +26,14 @@ class uvma_wr_rd_base_drv_c #(type SEQ_ITEM = uvm_sequence_item) extends uvm_dri
     uvm_analysis_port #(SEQ_ITEM) ap;
 
     // Factory
+    `ifdef VERILATOR
+    `uvm_component_utils(uvma_wr_rd_base_drv_c#(SEQ_ITEM))
+    `else
     `uvm_component_param_utils_begin(uvma_wr_rd_base_drv_c#(SEQ_ITEM))
-        `ifdef VERILATOR
-        `else
         `uvm_field_object(cfg, UVM_ALL_ON)
         `uvm_field_object(cntxt, UVM_ALL_ON)
-        `endif
     `uvm_component_utils_end
+    `endif
 
     extern function new(string name="uvma_wr_rd_base_drv_c", uvm_component parent=null);
     extern virtual function void build_phase(uvm_phase phase);

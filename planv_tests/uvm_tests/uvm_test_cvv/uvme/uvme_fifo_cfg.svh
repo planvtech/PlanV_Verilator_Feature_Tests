@@ -34,12 +34,14 @@ class uvme_fifo_cfg_c extends uvm_object;
         `uvm_field_object(write_cfg, UVM_ALL_ON)
     `uvm_object_utils_end
 
+    `ifndef VERILATOR
     constraint defaults_con {
         soft enabled == 0;
         soft is_active == UVM_PASSIVE;
         soft scoreboard_enabled == 1;
         soft cov_model_enabled == 1;
     }
+    `endif
 
     constraint agent_cfg_cons {
         if (enabled) {

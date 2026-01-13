@@ -2,15 +2,19 @@
 	path = verilator/master
 	url = https://github.com/planvtech/verilator.git
 	branch = master
-[submodule "uvm-verilator"]
-	path = uvm-verilator
+[submodule "uvm_lib/uvm-2017"]
+	path = uvm_lib/uvm-2017
+	url = https://github.com/chipsalliance/uvm-verilator.git
+	branch = uvm-2017-1.0-vlt
+[submodule "uvm_lib/uvm-antmicro-deprecatedApi"]
+	path = uvm_lib/uvm-antmicro-deprecatedApi
 	url = https://github.com/antmicro/uvm-verilator.git
-	branch = master
-[submodule "verilator/Fix-Multi-D-Queue-Assign"]
-	path = verilator/Fix-Multi-D-Queue-Assign
+	branch = current-patches-deprecated-api
+[submodule "verilator/version-5.042"]
+	path = verilator/version-5.042
 	url = https://github.com/planvtech/verilator.git
-	branch = Fix-Multi-D-Queue-Assign
-[submodule "uvm_1.2/uvm-verilator"]
-	path = uvm_1.2/uvm-verilator
-	url = https://github.com/antmicro/uvm-verilator.git
-	branch = uvm-1.2-current-patches
+	branch = version/5.042
+[submodule "verilator/version-5.040"]
+	path = verilator/version-5.040
+	url = https://github.com/planvtech/verilator.git
+	branch = version/5.040

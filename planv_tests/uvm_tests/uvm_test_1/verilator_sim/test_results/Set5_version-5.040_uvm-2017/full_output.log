@@ -1,0 +1,22 @@
+rm -rf simv*.daidir csrc
+rm -rf csrc* simv*
+rm -rf simple_demo_tb-sim
+rm -rf dump.vcd
+rm -f verilate.log compile.log simulate.log
+/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../verilator/version-5.040/bin/verilator --cc --exe --main --trace --trace-structs --timing -Mdir simple_demo_tb-sim \
+-DUVM_NO_DPI --prefix simple_demo_tb -o simple_demo_tb +incdir+../../DUT +incdir+../. +incdir+../sv_uvm_class +incdir+/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-2017/src --timescale 1ns/1ps --error-limit 100 \
+/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-2017/src/uvm.sv ../sv_fifo_pkg.sv ../sv_fifo_interface.sv ../sv_tb_top.sv ../../DUT/simple_demo_tb.sv ../../DUT/async_fifo.sv ../../DUT/empty_checker.sv ../../DUT/fifo_mem.sv ../../DUT/full_checker.sv ../../DUT/sync_2ff.sv \
+-Wno-lint -Wno-style -Wno-SYMRSVDWORD -Wno-IGNOREDRETURN -Wno-CONSTRAINTIGN -Wno-ZERODLY 2>&1 | tee -a verilate.log
+%Error: /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-2017/src/seq/uvm_sequencer.svh:153:21: Function Argument expects a CLASSREFDTYPE 'uvm_sequencer__Tz278_TBz278', got CLASSREFDTYPE 'uvm_sequencer__Tz278'
+                                                                                                                                                                                       : ... note: In instance 'sv_tb_top.simple_demo_tb'
+  153 |   seq_item_export = new ("seq_item_export", this);
+      |                     ^~~
+        /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-2017/src/seq/uvm_seq.svh:30:1: ... note: In file included from 'uvm_seq.svh'
+        /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-2017/src/uvm_pkg.sv:36:1: ... note: In file included from 'uvm_pkg.sv'
+        /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-2017/src/uvm.sv:26:1: ... note: In file included from 'uvm.sv'
+        ... See the manual at https://verilator.org/verilator_doc.html?v=5.040 for more assistance.
+%Error: Exiting due to 1 error(s)
+make -j -C simple_demo_tb-sim  -f simple_demo_tb.mk 2>&1 | tee -a compile.log
+make[1]: *** simple_demo_tb-sim: No such file or directory.  Stop.
+simple_demo_tb-sim/simple_demo_tb +UVM_TESTNAME=case0_test 2>&1 | tee -a simulate.log
+/bin/sh: simple_demo_tb-sim/simple_demo_tb: No such file or directory

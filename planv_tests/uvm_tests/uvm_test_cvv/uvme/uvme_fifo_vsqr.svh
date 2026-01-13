@@ -25,10 +25,14 @@ class uvme_fifo_vsqr_c extends uvm_sequencer#(
     uvma_wr_rd_base_sqr_c #(uvma_rd_seq_item_c) read_sqr;
 
     // Factory
+    `ifdef VERILATOR
+    `uvm_component_utils(uvme_fifo_vsqr_c)
+    `else
     `uvm_component_utils_begin(uvme_fifo_vsqr_c)
         `uvm_field_object(cfg, UVM_ALL_ON)
         `uvm_field_object(cntxt, UVM_ALL_ON)
     `uvm_component_utils_end
+    `endif
 
     // Constructor
 

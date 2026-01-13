@@ -27,10 +27,14 @@ class uvma_wr_rd_agent_c#(type SEQ_ITEM = uvm_sequence_item) extends uvm_agent;
     uvm_analysis_port #(SEQ_ITEM) mon_ap;
 
     // Fatory
+    `ifdef VERILATOR
+    `uvm_component_utils(uvma_wr_rd_agent_c#(SEQ_ITEM))
+    `else
     `uvm_component_param_utils_begin(uvma_wr_rd_agent_c#(SEQ_ITEM))
         `uvm_field_object(cfg, UVM_ALL_ON)
         `uvm_field_object(cntxt, UVM_ALL_ON)
     `uvm_component_utils_end
+    `endif
 
     // Constructor
     extern function new(string name="uvma_wr_rd_agent", uvm_component parent=null);

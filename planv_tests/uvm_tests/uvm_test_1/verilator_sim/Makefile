@@ -1,12 +1,12 @@
 # -------------------------------------
 # Testbench setup
 # -------------------------------------
-VERILATOR := verilator
-ifdef VERILATOR_ROOT
+# Auto-generated configuration for testing
+VERILATOR_ROOT := $(shell pwd)/../../../../verilator/version-5.040
 VERILATOR := $(VERILATOR_ROOT)/bin/verilator
-endif
+export VERILATOR_ROOT
 
-UVM_ROOT ?= $(shell pwd)/../../../../uvm-verilator
+UVM_ROOT := $(shell pwd)/../../../../uvm_lib/uvm-2017
 
 UVM_TEST ?= case0_test
 
@@ -41,23 +41,38 @@ endif
 
 all: clean verilate make simulate
 
+# Log files
+VERILATE_LOG := verilate.log
+COMPILE_LOG := compile.log
+SIMULATE_LOG := simulate.log
+
 verilate:
+	@echo "=== Starting Verilator elaboration at $$(date) ===" > $(VERILATE_LOG)
 	$(VERILATOR) --cc --exe --main --trace --trace-structs --timing -Mdir $(SIM_DIR) \
 	${COMPILE_ARGS} ${EXTRA_ARGS} \
 	${VERILOG_DEFINE_FILES} \
-	${WARNING_ARGS}
+	${WARNING_ARGS} 2>&1 | tee -a $(VERILATE_LOG)
+	@echo "=== Verilator elaboration completed at $$(date) ===" >> $(VERILATE_LOG)
 
 make: verilate
-	$(MAKE) -j${NPROC} -C $(SIM_DIR) $(BUILD_ARGS) -f $(SIM_NAME).mk
+	@echo "=== Starting C++ compilation at $$(date) ===" > $(COMPILE_LOG)
+	$(MAKE) -j${NPROC} -C $(SIM_DIR) $(BUILD_ARGS) -f $(SIM_NAME).mk 2>&1 | tee -a $(COMPILE_LOG)
+	@echo "=== C++ compilation completed at $$(date) ===" >> $(COMPILE_LOG)
 
 simulate: make
-	$(SIM_DIR)/$(SIM_NAME) +UVM_TESTNAME=$(UVM_TEST)
+	@echo "=== Starting simulation at $$(date) ===" > $(SIMULATE_LOG)
+	@echo "Test: $(UVM_TEST)" >> $(SIMULATE_LOG)
+	@echo "========================================" >> $(SIMULATE_LOG)
+	$(SIM_DIR)/$(SIM_NAME) +UVM_TESTNAME=$(UVM_TEST) 2>&1 | tee -a $(SIMULATE_LOG)
+	@echo "========================================" >> $(SIMULATE_LOG)
+	@echo "=== Simulation completed at $$(date) ===" >> $(SIMULATE_LOG)
 
 clean:
 	rm -rf simv*.daidir csrc
 	rm -rf csrc* simv*
 	rm -rf $(SIM_DIR)
 	rm -rf dump.vcd
+	rm -f $(VERILATE_LOG) $(COMPILE_LOG) $(SIMULATE_LOG)
 
 verilator-version:
 	@echo "Running $(VERILATOR) --version"

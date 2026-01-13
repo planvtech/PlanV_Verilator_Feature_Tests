@@ -1,0 +1,3 @@
+  CREATE_STREAM @0.0 ns {NAME:random_vseq T:Transactions SCOPE:uvm_test_top.env.vsequencer STREAM:1262}
+  CREATE_STREAM @0.0 ns {NAME:wr_seq T:Transactions SCOPE:uvm_test_top.env.write_agent.sqr STREAM:1315}
+  CREATE_STREAM @0.0 ns {NAME:rd_seq T:Transactions SCOPE:uvm_test_top.env.read_agent.sqr STREAM:1328}

@@ -1,0 +1,152 @@
+// Verilated -*- C++ -*-
+// DESCRIPTION: Verilator output: Design implementation internals
+// See uvmt_fifo_tb.h for the primary calling header
+
+#include "uvmt_fifo_tb__pch.h"
+
+uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416(VlProcessRef vlProcess, uvmt_fifo_tb__Syms* __restrict vlSymsp, std::string name, VlClassRef<uvmt_fifo_tb_uvm_pkg__03a__03auvm_component> parent, VlClassRef<uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_base__Tz412> port)
+    : uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component_base(vlProcess, vlSymsp, name, parent) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::new\n"); );
+    // Body
+    _ctor_var_reset(vlSymsp);
+    ;
+    if ((VlNull{} == port)) {
+        this->__VnoInFunc_uvm_report_fatal(vlProcess, vlSymsp, "Bad usage"s, "Null handle to port"s, 0U, ""s, 0U, ""s, 0U);
+    }
+    this->__PVT__m_port = port;
+}
+
+void uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_get_type_name(uvmt_fifo_tb__Syms* __restrict vlSymsp, std::string &get_type_name__Vfuncrtn) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_get_type_name\n"); );
+    // Locals
+    std::string __Vtask_get_type_name__2__Vfuncout;
+    // Body
+    {
+        if ((VlNull{} == this->__PVT__m_port)) {
+            get_type_name__Vfuncrtn = "uvm_port_component"s;
+            goto __Vlabel0;
+        }
+        VL_NULL_CHECK(this->__PVT__m_port, "/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_cvv/sim/veri-sim/../../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_port_base.svh", 130)->__VnoInFunc_get_type_name(vlSymsp, __Vtask_get_type_name__2__Vfuncout);
+        get_type_name__Vfuncrtn = __Vtask_get_type_name__2__Vfuncout;
+        __Vlabel0: ;
+    }
+}
+
+void uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_resolve_bindings(VlProcessRef vlProcess, uvmt_fifo_tb__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_resolve_bindings\n"); );
+    // Body
+    VL_NULL_CHECK(this->__PVT__m_port, "/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_cvv/sim/veri-sim/../../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_port_base.svh", 134)->__VnoInFunc_resolve_bindings(vlProcess, vlSymsp);
+}
+
+void uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_get_port(uvmt_fifo_tb__Syms* __restrict vlSymsp, VlClassRef<uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_base__Tz412> &get_port__Vfuncrtn) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_get_port\n"); );
+    // Body
+    get_port__Vfuncrtn = this->__PVT__m_port;
+}
+
+void uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_get_connected_to(uvmt_fifo_tb__Syms* __restrict vlSymsp, VlAssocArray<std::string, VlClassRef<uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component_base>> &list) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_get_connected_to\n"); );
+    // Locals
+    VlClassRef<uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component_base> __Vtask_get_comp__5__Vfuncout;
+    // Body
+    std::string unnamedblk1__DOT__name;
+    CData/*0:0*/ unnamedblk1__DOT__name__Vfirst;
+    unnamedblk1__DOT__name__Vfirst = 0;
+    VlAssocArray<std::string, VlClassRef<uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_base__Tz412>> list1;
+    VL_NULL_CHECK(this->__PVT__m_port, "/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_cvv/sim/veri-sim/../../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_port_base.svh", 153)->__VnoInFunc_get_connected_to(vlSymsp, list1);
+    list.clear();
+    if ((0U != list1.first(unnamedblk1__DOT__name))) {
+        unnamedblk1__DOT__name__Vfirst = 1U;
+        while (((IData)(unnamedblk1__DOT__name__Vfirst) 
+                || (0U != list1.next(unnamedblk1__DOT__name)))) {
+            unnamedblk1__DOT__name__Vfirst = 0U;
+            VL_NULL_CHECK(list1.at(unnamedblk1__DOT__name), "/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_cvv/sim/veri-sim/../../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_port_base.svh", 156)->__VnoInFunc_get_comp(vlSymsp, __Vtask_get_comp__5__Vfuncout);
+            list.at(unnamedblk1__DOT__name) = __Vtask_get_comp__5__Vfuncout;
+        }
+    }
+}
+
+void uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_is_port(uvmt_fifo_tb__Syms* __restrict vlSymsp, CData/*0:0*/ &is_port__Vfuncrtn) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_is_port\n"); );
+    // Locals
+    CData/*0:0*/ __Vtask_is_port__6__Vfuncout;
+    __Vtask_is_port__6__Vfuncout = 0;
+    // Body
+    VL_NULL_CHECK(this->__PVT__m_port, "/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_cvv/sim/veri-sim/../../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_port_base.svh", 161)->__VnoInFunc_is_port(vlSymsp, __Vtask_is_port__6__Vfuncout);
+    is_port__Vfuncrtn = __Vtask_is_port__6__Vfuncout;
+}
+
+void uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_is_export(uvmt_fifo_tb__Syms* __restrict vlSymsp, CData/*0:0*/ &is_export__Vfuncrtn) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_is_export\n"); );
+    // Locals
+    CData/*0:0*/ __Vtask_is_export__7__Vfuncout;
+    __Vtask_is_export__7__Vfuncout = 0;
+    // Body
+    VL_NULL_CHECK(this->__PVT__m_port, "/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_cvv/sim/veri-sim/../../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_port_base.svh", 165)->__VnoInFunc_is_export(vlSymsp, __Vtask_is_export__7__Vfuncout);
+    is_export__Vfuncrtn = __Vtask_is_export__7__Vfuncout;
+}
+
+void uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_is_imp(uvmt_fifo_tb__Syms* __restrict vlSymsp, CData/*0:0*/ &is_imp__Vfuncrtn) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_is_imp\n"); );
+    // Locals
+    CData/*0:0*/ __Vtask_is_imp__8__Vfuncout;
+    __Vtask_is_imp__8__Vfuncout = 0;
+    // Body
+    VL_NULL_CHECK(this->__PVT__m_port, "/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_cvv/sim/veri-sim/../../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_port_base.svh", 169)->__VnoInFunc_is_imp(vlSymsp, __Vtask_is_imp__8__Vfuncout);
+    is_imp__Vfuncrtn = __Vtask_is_imp__8__Vfuncout;
+}
+
+void uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_randomize(uvmt_fifo_tb__Syms* __restrict vlSymsp, IData/*31:0*/ &randomize__Vfuncrtn) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc_randomize\n"); );
+    // Locals
+    IData/*31:0*/ __Vfunc___VBasicRand__10__Vfuncout;
+    __Vfunc___VBasicRand__10__Vfuncout = 0;
+    // Body
+    uvmt_fifo_tb_uvm_pkg__03a__03auvm_void::__PVT__constraint.clearConstraints();
+    this->__VnoInFunc___Vsetup_constraints(vlSymsp);
+    randomize__Vfuncrtn = uvmt_fifo_tb_uvm_pkg__03a__03auvm_void::__PVT__constraint.next(__Vm_rng);
+    randomize__Vfuncrtn = (randomize__Vfuncrtn & ([&]() {
+                this->__VnoInFunc___VBasicRand(vlSymsp, __Vfunc___VBasicRand__10__Vfuncout);
+            }(), __Vfunc___VBasicRand__10__Vfuncout));
+}
+
+void uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc___Vsetup_constraints(uvmt_fifo_tb__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc___Vsetup_constraints\n"); );
+}
+
+void uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc___VBasicRand(uvmt_fifo_tb__Syms* __restrict vlSymsp, IData/*31:0*/ &__VBasicRand__Vfuncrtn) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::__VnoInFunc___VBasicRand\n"); );
+    // Body
+    __VBasicRand__Vfuncrtn = 1U;
+}
+
+void uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::_ctor_var_reset(uvmt_fifo_tb__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::_ctor_var_reset\n"); );
+    // Body
+    (void)vlSymsp;  // Prevent unused variable warning
+}
+
+uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::~uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416() {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::~\n"); );
+}
+
+std::string VL_TO_STRING(const VlClassRef<uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416>& obj) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::VL_TO_STRING\n"); );
+    // Body
+    return (obj ? obj->to_string() : "null");
+}
+
+std::string uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::to_string() const {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::to_string\n"); );
+    // Body
+    return ("'{"s + to_string_middle() + "}");
+}
+
+std::string uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::to_string_middle() const {
+    VL_DEBUG_IF(VL_DBG_MSGF("+                        uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component__Tz416::to_string_middle\n"); );
+    // Body
+    std::string out;
+    out += "m_port:" + VL_TO_STRING(__PVT__m_port);
+    out += ", "+ uvmt_fifo_tb_uvm_pkg__03a__03auvm_port_component_base::to_string_middle();
+    return (out);
+}

@@ -8,13 +8,29 @@
 # -------------------------------------
 # Testbench setup
 # -------------------------------------
-VERILATOR := verilator
-ifdef VERILATOR_ROOT
-VERILATOR := $(VERILATOR_ROOT)/bin/verilator
-endif
+# Select Verilator version (uncomment one)
+VERILATOR_ROOT := $(shell pwd)/../../../../../verilator/master
+# VERILATOR_ROOT := /home/yilou/Desktop/OSVISE/planvtech/yilou_repo/yilou_verilator/verilator
+# VERILATOR_ROOT := $(shell pwd)/../../../../../verilator/version-5.042
+# VERILATOR_ROOT := $(shell pwd)/../../../../../verilator/version-5.040
 
-UVM_ROOT ?= $(shell pwd)/../../../../../uvm-verilator
-# uvm_1.2/uvm-verilator
+VERILATOR := $(VERILATOR_ROOT)/bin/verilator
+export VERILATOR_ROOT
+
+# Select UVM library (uncomment one)
+# UVM_ROOT ?= $(shell pwd)/../../../../../uvm_lib/uvm-2017
+UVM_ROOT ?= $(shell pwd)/../../../../../uvm_lib/uvm-antmicro-deprecatedApi
+
+# -------------------------------------
+# Configuration Matrix (for reference)
+# Set1: Verilator-5.040 + uvm-2017
+# Set2: Verilator-5.040 + uvm-antmicro-deprecatedApi
+# Set3: Verilator-master + uvm-2017
+# Set4: Verilator-master + uvm-antmicro-deprecatedApi
+# Set5: Verilator-5.042 + uvm-2017
+# Set6: Verilator-5.042 + uvm-antmicro-deprecatedApi
+# -------------------------------------
+
 UVM_TEST ?= $(UVM_TESTNAME)
 
 DUT_FILES := $(DV_DUT_PATH)/simple_demo_tb.sv \
@@ -51,7 +67,7 @@ WARNING_ARGS += -Wno-lint \
 	-Wno-style \
 	-Wno-SYMRSVDWORD \
 	-Wno-IGNOREDRETURN \
-	-Wno-CONSTRAINTIGN \
+	#-Wno-CONSTRAINTIGN \
 	-Wno-ZERODLY
 
 # -------------------------------------
@@ -71,21 +87,35 @@ endif
 # Make UVM test with Verilator
 # -------------------------------------
 
+# Log files
+VERILATE_LOG := verilate.log
+COMPILE_LOG := compile.log
+SIMULATE_LOG := simulate.log
+
 .PHONY: simulate clean verilate make verilator-version
 
 all: clean verilate make simulate
 
 verilate:
+	@echo "=== Starting Verilator elaboration at $$(date) ===" > $(VERILATE_LOG)
 	$(VERILATOR) --cc --exe --main --trace --trace-structs --timing -Mdir $(SIM_DIR) \
 	${COMPILE_ARGS} ${EXTRA_ARGS} \
 	${VERILOG_DEFINE_FILES} \
-	${WARNING_ARGS}
+	${WARNING_ARGS} 2>&1 | tee -a $(VERILATE_LOG)
+	@echo "=== Verilator elaboration completed at $$(date) ===" >> $(VERILATE_LOG)
 
 make: verilate
-	$(MAKE) -j${NPROC} -C $(SIM_DIR) $(BUILD_ARGS) -f $(SIM_NAME).mk
+	@echo "=== Starting C++ compilation at $$(date) ===" > $(COMPILE_LOG)
+	$(MAKE) -j${NPROC} -C $(SIM_DIR) $(BUILD_ARGS) -f $(SIM_NAME).mk 2>&1 | tee -a $(COMPILE_LOG)
+	@echo "=== C++ compilation completed at $$(date) ===" >> $(COMPILE_LOG)
 
 simulate: make
-	$(SIM_DIR)/$(SIM_NAME) +UVM_TESTNAME=$(UVM_TEST)
+	@echo "=== Starting simulation at $$(date) ===" > $(SIMULATE_LOG)
+	@echo "Test: $(UVM_TEST)" >> $(SIMULATE_LOG)
+	@echo "========================================" >> $(SIMULATE_LOG)
+	$(SIM_DIR)/$(SIM_NAME) +UVM_TESTNAME=$(UVM_TEST) 2>&1 | tee -a $(SIMULATE_LOG)
+	@echo "========================================" >> $(SIMULATE_LOG)
+	@echo "=== Simulation completed at $$(date) ===" >> $(SIMULATE_LOG)
 
 # +ntb_random_seed=2345
 
@@ -94,6 +124,7 @@ clean:
 	rm -rf csrc* simv*
 	rm -rf $(SIM_DIR)
 	rm -rf dump.vcd
+	rm -f $(VERILATE_LOG) $(COMPILE_LOG) $(SIMULATE_LOG)
 
 verilator-version:
 	@echo "Running $(VERILATOR) --version"

@@ -1,0 +1,6 @@
+=== Starting simulation at Tue Dec  2 15:49:57 CET 2025 ===
+Test: case0_test
+========================================
+/bin/sh: simple_demo_tb-sim/simple_demo_tb: No such file or directory
+========================================
+=== Simulation completed at Tue Dec  2 15:49:57 CET 2025 ===

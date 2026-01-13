@@ -1,0 +1,442 @@
+=== Starting simulation at Tue Dec  2 15:55:28 CET 2025 ===
+Test: case0_test
+========================================
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_root.svh(449) @ 0: reporter [UVM/RELNOTES] 
+  ***********       IMPORTANT RELEASE NOTES         ************
+
+  This implementation of the UVM Library deviates from the 1800.2-2017
+  standard.  See the DEVIATIONS.md file contained in the release
+  for more details.
+
+----------------------------------------------------------------
+Accellera:1800.2-2017:UVM:1.0
+
+All copyright owners for this kit are listed in NOTICE.txt
+All Rights Reserved Worldwide
+----------------------------------------------------------------
+
+      (Specify +UVM_NO_RELNOTES to turn off this notice)
+
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_root.svh(517) @ 0: reporter [NO_DPI_TSTNAME] UVM_NO_DPI defined--getting UVM_TESTNAME directly, without DPI
+UVM_INFO @ 0: reporter [RNTST] Running test case0_test...
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(289) @ 0: reporter [UVM/COMP/NAMECHECK] This implementation of the component name checks requires DPI to be enabled
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "uvm_test_top" of the component "uvm_test_top" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "env" of the component "uvm_test_top.env" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "r_agt" of the component "uvm_test_top.env.r_agt" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "drv" of the component "uvm_test_top.env.r_agt.drv" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "rsp_port" of the component "uvm_test_top.env.r_agt.drv.rsp_port" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "seq_item_port" of the component "uvm_test_top.env.r_agt.drv.seq_item_port" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "mon" of the component "uvm_test_top.env.r_agt.mon" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "ap" of the component "uvm_test_top.env.r_agt.mon.ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "seqr" of the component "uvm_test_top.env.r_agt.seqr" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "req_fifo" of the component "uvm_test_top.env.r_agt.seqr.req_fifo" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "get_ap" of the component "uvm_test_top.env.r_agt.seqr.req_fifo.get_ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "get_peek_export" of the component "uvm_test_top.env.r_agt.seqr.req_fifo.get_peek_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "put_ap" of the component "uvm_test_top.env.r_agt.seqr.req_fifo.put_ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "put_export" of the component "uvm_test_top.env.r_agt.seqr.req_fifo.put_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "rsp_export" of the component "uvm_test_top.env.r_agt.seqr.rsp_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "seq_item_export" of the component "uvm_test_top.env.r_agt.seqr.seq_item_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "sqr_rsp_analysis_fifo" of the component "uvm_test_top.env.r_agt.seqr.sqr_rsp_analysis_fifo" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "analysis_export" of the component "uvm_test_top.env.r_agt.seqr.sqr_rsp_analysis_fifo.analysis_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "get_ap" of the component "uvm_test_top.env.r_agt.seqr.sqr_rsp_analysis_fifo.get_ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "get_peek_export" of the component "uvm_test_top.env.r_agt.seqr.sqr_rsp_analysis_fifo.get_peek_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "put_ap" of the component "uvm_test_top.env.r_agt.seqr.sqr_rsp_analysis_fifo.put_ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "put_export" of the component "uvm_test_top.env.r_agt.seqr.sqr_rsp_analysis_fifo.put_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "scb" of the component "uvm_test_top.env.scb" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "act_fifo" of the component "uvm_test_top.env.scb.act_fifo" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "analysis_export" of the component "uvm_test_top.env.scb.act_fifo.analysis_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "get_ap" of the component "uvm_test_top.env.scb.act_fifo.get_ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "get_peek_export" of the component "uvm_test_top.env.scb.act_fifo.get_peek_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "put_ap" of the component "uvm_test_top.env.scb.act_fifo.put_ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "put_export" of the component "uvm_test_top.env.scb.act_fifo.put_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "exp_export" of the component "uvm_test_top.env.scb.exp_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "v_seqr" of the component "uvm_test_top.env.v_seqr" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "req_fifo" of the component "uvm_test_top.env.v_seqr.req_fifo" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "get_ap" of the component "uvm_test_top.env.v_seqr.req_fifo.get_ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "get_peek_export" of the component "uvm_test_top.env.v_seqr.req_fifo.get_peek_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "put_ap" of the component "uvm_test_top.env.v_seqr.req_fifo.put_ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "put_export" of the component "uvm_test_top.env.v_seqr.req_fifo.put_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "rsp_export" of the component "uvm_test_top.env.v_seqr.rsp_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "seq_item_export" of the component "uvm_test_top.env.v_seqr.seq_item_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "sqr_rsp_analysis_fifo" of the component "uvm_test_top.env.v_seqr.sqr_rsp_analysis_fifo" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "analysis_export" of the component "uvm_test_top.env.v_seqr.sqr_rsp_analysis_fifo.analysis_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "get_ap" of the component "uvm_test_top.env.v_seqr.sqr_rsp_analysis_fifo.get_ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "get_peek_export" of the component "uvm_test_top.env.v_seqr.sqr_rsp_analysis_fifo.get_peek_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "put_ap" of the component "uvm_test_top.env.v_seqr.sqr_rsp_analysis_fifo.put_ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "put_export" of the component "uvm_test_top.env.v_seqr.sqr_rsp_analysis_fifo.put_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "w_agt" of the component "uvm_test_top.env.w_agt" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "drv" of the component "uvm_test_top.env.w_agt.drv" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "rsp_port" of the component "uvm_test_top.env.w_agt.drv.rsp_port" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "seq_item_port" of the component "uvm_test_top.env.w_agt.drv.seq_item_port" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "mon" of the component "uvm_test_top.env.w_agt.mon" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "ap" of the component "uvm_test_top.env.w_agt.mon.ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "seqr" of the component "uvm_test_top.env.w_agt.seqr" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "req_fifo" of the component "uvm_test_top.env.w_agt.seqr.req_fifo" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "get_ap" of the component "uvm_test_top.env.w_agt.seqr.req_fifo.get_ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "get_peek_export" of the component "uvm_test_top.env.w_agt.seqr.req_fifo.get_peek_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "put_ap" of the component "uvm_test_top.env.w_agt.seqr.req_fifo.put_ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "put_export" of the component "uvm_test_top.env.w_agt.seqr.req_fifo.put_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "rsp_export" of the component "uvm_test_top.env.w_agt.seqr.rsp_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "seq_item_export" of the component "uvm_test_top.env.w_agt.seqr.seq_item_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "sqr_rsp_analysis_fifo" of the component "uvm_test_top.env.w_agt.seqr.sqr_rsp_analysis_fifo" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "analysis_export" of the component "uvm_test_top.env.w_agt.seqr.sqr_rsp_analysis_fifo.analysis_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "get_ap" of the component "uvm_test_top.env.w_agt.seqr.sqr_rsp_analysis_fifo.get_ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "get_peek_export" of the component "uvm_test_top.env.w_agt.seqr.sqr_rsp_analysis_fifo.get_peek_export" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "put_ap" of the component "uvm_test_top.env.w_agt.seqr.sqr_rsp_analysis_fifo.put_ap" violates the uvm component name constraints
+UVM_WARNING /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_traversal.svh(274) @ 0: reporter [UVM/COMP/NAME] the name "put_export" of the component "uvm_test_top.env.w_agt.seqr.sqr_rsp_analysis_fifo.put_export" violates the uvm component name constraints
+Case0 Starts!!!
+UVM_INFO ../sv_uvm_class/sv_case_sequence.svh(32) @ 0: uvm_test_top.env.v_seqr@@seq0 [case0] Write 8.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(50) @ 25000: reporter [W_Seq] w_driver receives wdata 03 with a delay 117 from W_seqr.
+push.cls_1_:
+'{enum_4_:'h8, lgc_1_:'ha5d35443, x:'h0}
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(50) @ 55000: reporter [W_Seq] w_driver receives wdata 7c with a delay 510 from W_seqr.
+push.cls_1_:
+'{enum_4_:'h5, lgc_1_:'h1ebcca70, x:'h0}
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(50) @ 75000: reporter [W_Seq] w_driver receives wdata fe with a delay 552 from W_seqr.
+push.cls_1_:
+'{enum_4_:'h5, lgc_1_:'h4f2a655c, x:'h0}
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(50) @ 95000: reporter [W_Seq] w_driver receives wdata e8 with a delay 209 from W_seqr.
+push.cls_1_:
+'{enum_4_:'h8, lgc_1_:'h299410cd, x:'h0}
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(50) @ 125000: reporter [W_Seq] w_driver receives wdata a0 with a delay 185 from W_seqr.
+push.cls_1_:
+'{enum_4_:'h8, lgc_1_:'h4d712a03, x:'h0}
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(50) @ 155000: reporter [W_Seq] w_driver receives wdata be with a delay 504 from W_seqr.
+push.cls_1_:
+'{enum_4_:'h8, lgc_1_:'he4d5174, x:'h0}
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(50) @ 175000: reporter [W_Seq] w_driver receives wdata a0 with a delay 242 from W_seqr.
+push.cls_1_:
+'{enum_4_:'h8, lgc_1_:'h8f3d47a, x:'h1}
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(50) @ 195000: reporter [W_Seq] w_driver receives wdata b4 with a delay 109 from W_seqr.
+push.cls_1_:
+'{enum_4_:'h5, lgc_1_:'h3c26acdf, x:'h0}
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(50) @ 225000: reporter [W_Seq] w_driver receives wdata a6 with a delay 164 from W_seqr.
+push.cls_1_:
+'{enum_4_:'h8, lgc_1_:'hfad06b25, x:'h0}
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(50) @ 245000: reporter [W_Seq] w_driver receives wdata 68 with a delay 699 from W_seqr.
+push.cls_1_:
+'{enum_4_:'h8, lgc_1_:'hb42d212f, x:'h1}
+UVM_INFO ../sv_uvm_class/sv_case_sequence.svh(43) @ 265000: uvm_test_top.env.v_seqr@@seq0 [case0] Read 8.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(130) @ 273000: reporter [R_Seq] r_driver receives rdata with a delay  9, with a en 01 from r_seqr.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(132) @ 273000: reporter [R_Seq] Randmization DEBUG USE: r_data = 0f.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(150) @ 273000: reporter [r_driver] r_driver::pop:: rdata with a delay  0
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(130) @ 301000: reporter [R_Seq] r_driver receives rdata with a delay 52, with a en 01 from r_seqr.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(132) @ 301000: reporter [R_Seq] Randmization DEBUG USE: r_data = 37.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(150) @ 301000: reporter [r_driver] r_driver::pop:: rdata with a delay  1
+UVM_INFO ../sv_uvm_class/sv_fifo_scoreboard.svh(46) @ 301000: uvm_test_top.env.scb [fifo_scb] Get a expect result.
+'{cls_1_:'{enum_4_:'h8, lgc_1_:'h72984ef3, x:'h0}, r:'h1, data:'h3, delay:'h0, flag:'h0, m_sequence_id:'hffffffff, m_use_sequence_info:'h0, m_depth:'hffffffff, m_sequencer:null, m_parent_sequence:null, print_sequence_info:'h0, events:'{pool:'{}, m_leaf_name:"events", m_inst_id:'h3c2, __Vrandmode:'{}}, m_transaction_id:'hffffffff, begin_time:'hffffffffffffffff, end_time:'hffffffffffffffff, accept_time:'hffffffffffffffff, initiator:null, stream_handle:null, tr_recorder:null, m_leaf_name:"uvm_sequence_item", m_inst_id:'h3c1, __Vrandmode:'{}}
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @963 
+  data             integral         8     'h3  
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO ../sv_uvm_class/sv_fifo_scoreboard.svh(53) @ 301000: uvm_test_top.env.scb [fifo_scb] Compare Successfully.
+UVM_INFO ../sv_uvm_class/sv_fifo_scoreboard.svh(46) @ 329000: uvm_test_top.env.scb [fifo_scb] Get a expect result.
+'{cls_1_:'{enum_4_:'h5, lgc_1_:'hdd705249, x:'h1}, r:'h1, data:'h7c, delay:'h0, flag:'h0, m_sequence_id:'hffffffff, m_use_sequence_info:'h0, m_depth:'hffffffff, m_sequencer:null, m_parent_sequence:null, print_sequence_info:'h0, events:'{pool:'{}, m_leaf_name:"events", m_inst_id:'h533, __Vrandmode:'{}}, m_transaction_id:'hffffffff, begin_time:'hffffffffffffffff, end_time:'hffffffffffffffff, accept_time:'hffffffffffffffff, initiator:null, stream_handle:null, tr_recorder:null, m_leaf_name:"uvm_sequence_item", m_inst_id:'h532, __Vrandmode:'{}}
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1113
+  data             integral         8     'h7c 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO ../sv_uvm_class/sv_fifo_scoreboard.svh(53) @ 329000: uvm_test_top.env.scb [fifo_scb] Compare Successfully.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(130) @ 343000: reporter [R_Seq] r_driver receives rdata with a delay  1, with a en 00 from r_seqr.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(132) @ 343000: reporter [R_Seq] Randmization DEBUG USE: r_data = f8.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(150) @ 343000: reporter [r_driver] r_driver::pop:: rdata with a delay  1
+UVM_INFO ../sv_uvm_class/sv_fifo_scoreboard.svh(46) @ 371000: uvm_test_top.env.scb [fifo_scb] Get a expect result.
+'{cls_1_:'{enum_4_:'h8, lgc_1_:'h55a28a3, x:'h0}, r:'h1, data:'h7c, delay:'h0, flag:'h0, m_sequence_id:'hffffffff, m_use_sequence_info:'h0, m_depth:'hffffffff, m_sequencer:null, m_parent_sequence:null, print_sequence_info:'h0, events:'{pool:'{}, m_leaf_name:"events", m_inst_id:'h545, __Vrandmode:'{}}, m_transaction_id:'hffffffff, begin_time:'hffffffffffffffff, end_time:'hffffffffffffffff, accept_time:'hffffffffffffffff, initiator:null, stream_handle:null, tr_recorder:null, m_leaf_name:"uvm_sequence_item", m_inst_id:'h544, __Vrandmode:'{}}
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1134
+  data             integral         8     'hfe 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_comparer.svh(573) @ 371000: reporter [MISCMP] Miscompare for uvm_sequence_item.data: lhs = 'hfe : rhs = 'h7c
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_comparer.svh(525) @ 371000: reporter [MISCMP] 1 Miscompare(s) for object uvm_sequence_item@1134 vs. uvm_sequence_item@1348
+UVM_ERROR ../sv_uvm_class/sv_fifo_scoreboard.svh(56) @ 371000: uvm_test_top.env.scb [fifo_scb] Compare Failed
+the expected pkt is:
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1348
+  data             integral         8     'h7c 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+the actual pkt is:
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1134
+  data             integral         8     'hfe 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(130) @ 385000: reporter [R_Seq] r_driver receives rdata with a delay 23, with a en 00 from r_seqr.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(132) @ 385000: reporter [R_Seq] Randmization DEBUG USE: r_data = 51.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(150) @ 385000: reporter [r_driver] r_driver::pop:: rdata with a delay  2
+UVM_INFO ../sv_uvm_class/sv_fifo_scoreboard.svh(46) @ 413000: uvm_test_top.env.scb [fifo_scb] Get a expect result.
+'{cls_1_:'{enum_4_:'h5, lgc_1_:'h5bf26bea, x:'h0}, r:'h1, data:'hfe, delay:'h0, flag:'h0, m_sequence_id:'hffffffff, m_use_sequence_info:'h0, m_depth:'hffffffff, m_sequencer:null, m_parent_sequence:null, print_sequence_info:'h0, events:'{pool:'{}, m_leaf_name:"events", m_inst_id:'h55d, __Vrandmode:'{}}, m_transaction_id:'hffffffff, begin_time:'hffffffffffffffff, end_time:'hffffffffffffffff, accept_time:'hffffffffffffffff, initiator:null, stream_handle:null, tr_recorder:null, m_leaf_name:"uvm_sequence_item", m_inst_id:'h55c, __Vrandmode:'{}}
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1154
+  data             integral         8     'he8 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_comparer.svh(573) @ 413000: reporter [MISCMP] Miscompare for uvm_sequence_item.data: lhs = 'he8 : rhs = 'hfe
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_comparer.svh(525) @ 413000: reporter [MISCMP] 1 Miscompare(s) for object uvm_sequence_item@1154 vs. uvm_sequence_item@1372
+UVM_ERROR ../sv_uvm_class/sv_fifo_scoreboard.svh(56) @ 413000: uvm_test_top.env.scb [fifo_scb] Compare Failed
+the expected pkt is:
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1372
+  data             integral         8     'hfe 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+the actual pkt is:
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1154
+  data             integral         8     'he8 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(130) @ 441000: reporter [R_Seq] r_driver receives rdata with a delay  2, with a en 00 from r_seqr.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(132) @ 441000: reporter [R_Seq] Randmization DEBUG USE: r_data = 31.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(150) @ 441000: reporter [r_driver] r_driver::pop:: rdata with a delay  2
+UVM_INFO ../sv_uvm_class/sv_fifo_scoreboard.svh(46) @ 469000: uvm_test_top.env.scb [fifo_scb] Get a expect result.
+'{cls_1_:'{enum_4_:'h5, lgc_1_:'hf2e8a173, x:'h0}, r:'h1, data:'he8, delay:'h0, flag:'h0, m_sequence_id:'hffffffff, m_use_sequence_info:'h0, m_depth:'hffffffff, m_sequencer:null, m_parent_sequence:null, print_sequence_info:'h0, events:'{pool:'{}, m_leaf_name:"events", m_inst_id:'h579, __Vrandmode:'{}}, m_transaction_id:'hffffffff, begin_time:'hffffffffffffffff, end_time:'hffffffffffffffff, accept_time:'hffffffffffffffff, initiator:null, stream_handle:null, tr_recorder:null, m_leaf_name:"uvm_sequence_item", m_inst_id:'h578, __Vrandmode:'{}}
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1174
+  data             integral         8     'ha0 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_comparer.svh(573) @ 469000: reporter [MISCMP] Miscompare for uvm_sequence_item.data: lhs = 'ha0 : rhs = 'he8
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_comparer.svh(525) @ 469000: reporter [MISCMP] 1 Miscompare(s) for object uvm_sequence_item@1174 vs. uvm_sequence_item@1400
+UVM_ERROR ../sv_uvm_class/sv_fifo_scoreboard.svh(56) @ 469000: uvm_test_top.env.scb [fifo_scb] Compare Failed
+the expected pkt is:
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1400
+  data             integral         8     'he8 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+the actual pkt is:
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1174
+  data             integral         8     'ha0 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(130) @ 497000: reporter [R_Seq] r_driver receives rdata with a delay 45, with a en 00 from r_seqr.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(132) @ 497000: reporter [R_Seq] Randmization DEBUG USE: r_data = 50.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(150) @ 497000: reporter [r_driver] r_driver::pop:: rdata with a delay  0
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(130) @ 525000: reporter [R_Seq] r_driver receives rdata with a delay  9, with a en 01 from r_seqr.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(132) @ 525000: reporter [R_Seq] Randmization DEBUG USE: r_data = 1d.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(150) @ 525000: reporter [r_driver] r_driver::pop:: rdata with a delay  0
+UVM_INFO ../sv_uvm_class/sv_fifo_scoreboard.svh(46) @ 525000: uvm_test_top.env.scb [fifo_scb] Get a expect result.
+'{cls_1_:'{enum_4_:'h8, lgc_1_:'ha75d77ed, x:'h0}, r:'h1, data:'ha0, delay:'h0, flag:'h0, m_sequence_id:'hffffffff, m_use_sequence_info:'h0, m_depth:'hffffffff, m_sequencer:null, m_parent_sequence:null, print_sequence_info:'h0, events:'{pool:'{}, m_leaf_name:"events", m_inst_id:'h595, __Vrandmode:'{}}, m_transaction_id:'hffffffff, begin_time:'hffffffffffffffff, end_time:'hffffffffffffffff, accept_time:'hffffffffffffffff, initiator:null, stream_handle:null, tr_recorder:null, m_leaf_name:"uvm_sequence_item", m_inst_id:'h594, __Vrandmode:'{}}
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1194
+  data             integral         8     'hbe 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_comparer.svh(573) @ 525000: reporter [MISCMP] Miscompare for uvm_sequence_item.data: lhs = 'hbe : rhs = 'ha0
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_comparer.svh(525) @ 525000: reporter [MISCMP] 1 Miscompare(s) for object uvm_sequence_item@1194 vs. uvm_sequence_item@1428
+UVM_ERROR ../sv_uvm_class/sv_fifo_scoreboard.svh(56) @ 525000: uvm_test_top.env.scb [fifo_scb] Compare Failed
+the expected pkt is:
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1428
+  data             integral         8     'ha0 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+the actual pkt is:
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1194
+  data             integral         8     'hbe 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(130) @ 553000: reporter [R_Seq] r_driver receives rdata with a delay 46, with a en 01 from r_seqr.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(132) @ 553000: reporter [R_Seq] Randmization DEBUG USE: r_data = 11.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(150) @ 553000: reporter [r_driver] r_driver::pop:: rdata with a delay  1
+UVM_INFO ../sv_uvm_class/sv_fifo_scoreboard.svh(46) @ 553000: uvm_test_top.env.scb [fifo_scb] Get a expect result.
+'{cls_1_:'{enum_4_:'h8, lgc_1_:'hedf1da1d, x:'h1}, r:'h1, data:'ha0, delay:'h0, flag:'h0, m_sequence_id:'hffffffff, m_use_sequence_info:'h0, m_depth:'hffffffff, m_sequencer:null, m_parent_sequence:null, print_sequence_info:'h0, events:'{pool:'{}, m_leaf_name:"events", m_inst_id:'h5bd, __Vrandmode:'{}}, m_transaction_id:'hffffffff, begin_time:'hffffffffffffffff, end_time:'hffffffffffffffff, accept_time:'hffffffffffffffff, initiator:null, stream_handle:null, tr_recorder:null, m_leaf_name:"uvm_sequence_item", m_inst_id:'h5bc, __Vrandmode:'{}}
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1214
+  data             integral         8     'ha0 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO ../sv_uvm_class/sv_fifo_scoreboard.svh(53) @ 553000: uvm_test_top.env.scb [fifo_scb] Compare Successfully.
+UVM_INFO ../sv_uvm_class/sv_fifo_scoreboard.svh(46) @ 581000: uvm_test_top.env.scb [fifo_scb] Get a expect result.
+'{cls_1_:'{enum_4_:'h5, lgc_1_:'hbcd2ef01, x:'h0}, r:'h1, data:'hbe, delay:'h0, flag:'h0, m_sequence_id:'hffffffff, m_use_sequence_info:'h0, m_depth:'hffffffff, m_sequencer:null, m_parent_sequence:null, print_sequence_info:'h0, events:'{pool:'{}, m_leaf_name:"events", m_inst_id:'h5d9, __Vrandmode:'{}}, m_transaction_id:'hffffffff, begin_time:'hffffffffffffffff, end_time:'hffffffffffffffff, accept_time:'hffffffffffffffff, initiator:null, stream_handle:null, tr_recorder:null, m_leaf_name:"uvm_sequence_item", m_inst_id:'h5d8, __Vrandmode:'{}}
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1234
+  data             integral         8     'hb4 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_comparer.svh(573) @ 581000: reporter [MISCMP] Miscompare for uvm_sequence_item.data: lhs = 'hb4 : rhs = 'hbe
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_comparer.svh(525) @ 581000: reporter [MISCMP] 1 Miscompare(s) for object uvm_sequence_item@1234 vs. uvm_sequence_item@1496
+UVM_ERROR ../sv_uvm_class/sv_fifo_scoreboard.svh(56) @ 581000: uvm_test_top.env.scb [fifo_scb] Compare Failed
+the expected pkt is:
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1496
+  data             integral         8     'hbe 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+the actual pkt is:
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1234
+  data             integral         8     'hb4 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(130) @ 595000: reporter [R_Seq] r_driver receives rdata with a delay  6, with a en 01 from r_seqr.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(132) @ 595000: reporter [R_Seq] Randmization DEBUG USE: r_data = 77.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(150) @ 595000: reporter [r_driver] r_driver::pop:: rdata with a delay  0
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(130) @ 623000: reporter [R_Seq] r_driver receives rdata with a delay 43, with a en 01 from r_seqr.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(132) @ 623000: reporter [R_Seq] Randmization DEBUG USE: r_data = b3.
+UVM_INFO ../sv_uvm_class/sv_fifo_driver.svh(150) @ 623000: reporter [r_driver] r_driver::pop:: rdata with a delay  1
+UVM_INFO ../sv_uvm_class/sv_fifo_scoreboard.svh(46) @ 623000: uvm_test_top.env.scb [fifo_scb] Get a expect result.
+'{cls_1_:'{enum_4_:'h8, lgc_1_:'h7e31371, x:'h0}, r:'h1, data:'hbe, delay:'h0, flag:'h0, m_sequence_id:'hffffffff, m_use_sequence_info:'h0, m_depth:'hffffffff, m_sequencer:null, m_parent_sequence:null, print_sequence_info:'h0, events:'{pool:'{}, m_leaf_name:"events", m_inst_id:'h5e5, __Vrandmode:'{}}, m_transaction_id:'hffffffff, begin_time:'hffffffffffffffff, end_time:'hffffffffffffffff, accept_time:'hffffffffffffffff, initiator:null, stream_handle:null, tr_recorder:null, m_leaf_name:"uvm_sequence_item", m_inst_id:'h5e4, __Vrandmode:'{}}
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1254
+  data             integral         8     'ha6 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_comparer.svh(573) @ 623000: reporter [MISCMP] Miscompare for uvm_sequence_item.data: lhs = 'ha6 : rhs = 'hbe
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_comparer.svh(525) @ 623000: reporter [MISCMP] 1 Miscompare(s) for object uvm_sequence_item@1254 vs. uvm_sequence_item@1508
+UVM_ERROR ../sv_uvm_class/sv_fifo_scoreboard.svh(56) @ 623000: uvm_test_top.env.scb [fifo_scb] Compare Failed
+the expected pkt is:
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1508
+  data             integral         8     'hbe 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+the actual pkt is:
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1254
+  data             integral         8     'ha6 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO ../sv_uvm_class/sv_fifo_scoreboard.svh(46) @ 651000: uvm_test_top.env.scb [fifo_scb] Get a expect result.
+'{cls_1_:'{enum_4_:'h8, lgc_1_:'h1e4cb786, x:'h0}, r:'h1, data:'hb4, delay:'h0, flag:'h0, m_sequence_id:'hffffffff, m_use_sequence_info:'h0, m_depth:'hffffffff, m_sequencer:null, m_parent_sequence:null, print_sequence_info:'h0, events:'{pool:'{}, m_leaf_name:"events", m_inst_id:'h60d, __Vrandmode:'{}}, m_transaction_id:'hffffffff, begin_time:'hffffffffffffffff, end_time:'hffffffffffffffff, accept_time:'hffffffffffffffff, initiator:null, stream_handle:null, tr_recorder:null, m_leaf_name:"uvm_sequence_item", m_inst_id:'h60c, __Vrandmode:'{}}
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1274
+  data             integral         8     'h68 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_comparer.svh(573) @ 651000: reporter [MISCMP] Miscompare for uvm_sequence_item.data: lhs = 'h68 : rhs = 'hb4
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_comparer.svh(525) @ 651000: reporter [MISCMP] 1 Miscompare(s) for object uvm_sequence_item@1274 vs. uvm_sequence_item@1548
+UVM_ERROR ../sv_uvm_class/sv_fifo_scoreboard.svh(56) @ 651000: uvm_test_top.env.scb [fifo_scb] Compare Failed
+the expected pkt is:
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1548
+  data             integral         8     'hb4 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+the actual pkt is:
+-----------------------------------------------
+Name               Type             Size  Value
+-----------------------------------------------
+uvm_sequence_item  w_sequence_item  -     @1274
+  data             integral         8     'h68 
+  delay            integral         32    'h0  
+  flag             integral         1     'h0  
+-----------------------------------------------
+UVM_INFO ../sv_uvm_class/sv_case_sequence.svh(78) @ 20651000: uvm_test_top.env.v_seqr@@seq0 [case0] Body Finished
+UVM_INFO ../sv_uvm_class/sv_case_sequence.svh(88) @ 20651000: uvm_test_top.env.v_seqr@@seq0 [case0] Entering post_body
+Case0 Ends!!!
+***************************
+Project Report:
+Company: PlanV
+Project: OSVISE
+Current Status: Simple UVM testbench running in Verilator
+Objectives: Develop UVM-based testbench for ISAX core extensions RTL verification and extend Verilator for UVM simulation
+
+We are eager to connect and share knowledge with interested parties. Feel free to reach out and engage with us for more insights and discussions.
+***************************
+UVM_INFO ../sv_uvm_class/sv_base_test.svh(42) @ 20651000: uvm_test_top [case0_test] ---------------------------
+UVM_INFO ../sv_uvm_class/sv_base_test.svh(43) @ 20651000: uvm_test_top [case0_test] -----    Test Fail!   -----
+UVM_INFO ../sv_uvm_class/sv_base_test.svh(44) @ 20651000: uvm_test_top [case0_test] ---------------------------
+UVM_INFO /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_report_server.svh(864) @ 20651000: reporter [UVM/REPORT/SERVER] 
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :   78
+UVM_WARNING :   64
+UVM_ERROR :    7
+UVM_FATAL :    0
+** Report counts by id
+[MISCMP]    14
+[NO_DPI_TSTNAME]     1
+[RNTST]     1
+[R_Seq]    20
+[UVM/COMP/NAME]    64
+[UVM/COMP/NAMECHECK]     1
+[UVM/RELNOTES]     1
+[W_Seq]    10
+[case0]     4
+[case0_test]     3
+[fifo_scb]    20
+[r_driver]    10
+
+- /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_1/verilator_sim/../../../../uvm_lib/uvm-antmicro-deprecatedApi/src/base/uvm_root.svh:585: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.040 2025-08-30
+- Verilator: $finish at 21us; walltime 0.138 s; speed 792.761 us/s
+- Verilator: cpu 0.026 s on 1 threads; alloced 151 MB
+========================================
+=== Simulation completed at Tue Dec  2 15:55:28 CET 2025 ===

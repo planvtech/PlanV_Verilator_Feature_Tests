@@ -18,10 +18,14 @@ class uvma_wr_rd_base_sqr_c#(type SEQ_ITEM = uvm_sequence_item) extends uvm_sequ
     uvma_wr_rd_cntxt_c cntxt;
 
     // Factory
+    `ifdef VERILATOR
+    `uvm_component_utils(uvma_wr_rd_base_sqr_c#(SEQ_ITEM))
+    `else
     `uvm_component_param_utils_begin(uvma_wr_rd_base_sqr_c#(SEQ_ITEM))
         `uvm_field_object(cfg, UVM_ALL_ON)
         `uvm_field_object(cntxt, UVM_ALL_ON)
     `uvm_component_utils_end
+    `endif
 
     extern function new(string name="uvma_wr_rd_base_sqr", uvm_component parent=null);
     extern virtual function void build_phase(uvm_phase phase);
@@ -60,8 +64,12 @@ endfunction : build_phase
 class uvma_wr_sqr_c extends uvma_wr_rd_base_sqr_c#(uvma_wr_seq_item_c);
 
     // Factory
+    `ifdef VERILATOR
+    `uvm_component_utils(uvma_wr_sqr_c)
+    `else
     `uvm_component_utils_begin(uvma_wr_sqr_c)
     `uvm_component_utils_end
+    `endif
 
     extern function new(string name="uvma_wr_sqr_c", uvm_component parent=null);
 
@@ -78,8 +86,12 @@ endfunction : new
 class uvma_rd_sqr_c extends uvma_wr_rd_base_sqr_c#(uvma_rd_seq_item_c);
 
     // Factory
+    `ifdef VERILATOR
+    `uvm_component_utils(uvma_rd_sqr_c)
+    `else
     `uvm_component_utils_begin(uvma_rd_sqr_c)
     `uvm_component_utils_end
+    `endif
 
     extern function new(string name="uvma_rd_sqr_c", uvm_component parent=null);
 

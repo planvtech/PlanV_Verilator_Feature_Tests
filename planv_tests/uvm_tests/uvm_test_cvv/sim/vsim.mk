@@ -51,7 +51,7 @@ VERILOG_INCLUDE_DIRS = $(UVM_ROOT)/src \
 
 WORK_DIR = work
 
-VSIM_OPTS = -t ps -voptargs=+acc -uvmcontrol=all +UVM_VERBOSITY=UVM_LOW $(DPILIB_VSIM_OPT) -do "run -all" -l simulate.log
+VSIM_OPTS = -t ps -voptargs=+acc -uvmcontrol=all +UVM_VERBOSITY=UVM_MEDIUM $(DPILIB_VSIM_OPT) -do "run -all" -l simulate.log
 
 ifeq ($(GUI),1)
 	VSIM_OPTS += -gui

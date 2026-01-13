@@ -30,10 +30,14 @@ class uvme_fifo_env_c extends uvm_env;
     read_agent_t read_agent;
     `endif
 
+    `ifdef VERILATOR
+    `uvm_component_utils(uvme_fifo_env_c)
+    `else
     `uvm_component_utils_begin(uvme_fifo_env_c)
         `uvm_field_object(cfg, UVM_ALL_ON)
         `uvm_field_object(cntxt, UVM_ALL_ON)
     `uvm_component_utils_end
+    `endif
 
     extern function new(string name="uvme_fifo_env", uvm_component parent=null);
     extern virtual function void build_phase(uvm_phase phase);
@@ -75,6 +79,7 @@ function void uvme_fifo_env_c::build_phase(uvm_phase phase);
     end
 
     if (cfg.enabled) begin
+        $display("ENV: cfg is enabled in build_phase.");
         void'(uvm_config_db#(uvme_fifo_cntxt_c)::get(this, "", "cntxt", cntxt));
         if (cntxt == null) begin
             `uvm_info("CNTXT", "cntxt is null", UVM_MEDIUM)
@@ -138,12 +143,12 @@ task uvme_fifo_env_c::run_phase(uvm_phase phase);
     super.run_phase(phase);
 
     `uvm_info("ENV", "Entered run phase.", UVM_MEDIUM)
-    phase.raise_objection(this);
+    // phase.raise_objection(this);
     if (cfg.is_active == UVM_ACTIVE) begin
         random_vseq = uvme_fifo_random_vseq_c::type_id::create("random_vseq");
         random_vseq.start(vsequencer);
     end
-    phase.drop_objection(this);
+    // phase.drop_objection(this);
     `uvm_info("ENV", "Exiting run phase.", UVM_MEDIUM)
 
 endtask : run_phase

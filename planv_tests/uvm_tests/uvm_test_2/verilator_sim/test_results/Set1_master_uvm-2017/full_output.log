@@ -1,0 +1,15 @@
+rm -rf simv*.daidir csrc
+rm -rf csrc* simv*
+rm -rf top-sim
+rm -rf dump.vcd
+rm -f verilate.log compile.log simulate.log
+/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_2/verilator_sim/../../../../verilator/master/bin/verilator --cc --exe --main --trace --trace-structs --timing -Mdir top-sim \
+-DUVM_NO_DPI --prefix top -o top +incdir+/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_2/verilator_sim/../../../../uvm_lib/uvm-2017/src +incdir+../../DUT +incdir+../. +incdir+../uvm_class --timescale 1ns/1ps --error-limit 100 \
+/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_2/verilator_sim/../../../../uvm_lib/uvm-2017/src/uvm.sv ../af_pkg.sv ../af_bfm.sv ../top.sv ../../DUT/async_fifo.sv ../../DUT/empty_checker.sv ../../DUT/fifo_mem.sv ../../DUT/full_checker.sv ../../DUT/sync_2ff.sv \
+-Wno-lint -Wno-style -Wno-SYMRSVDWORD -Wno-IGNOREDRETURN -Wno-CONSTRAINTIGN -Wno-ZERODLY 2>&1 | tee -a verilate.log
+%Error: Verilator threw signal 9. Suggest trying --debug --gdbbt
+%Error: Command Failed ulimit -s unlimited 2>/dev/null; exec /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/verilator/master/bin/verilator_bin --cc --exe --main --trace --trace-structs --timing -Mdir top-sim -DUVM_NO_DPI --prefix top -o top +incdir+/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_2/verilator_sim/../../../../uvm_lib/uvm-2017/src +incdir+../../DUT +incdir+../. +incdir+../uvm_class --timescale 1ns/1ps --error-limit 100 /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/uvm_tests/uvm_test_2/verilator_sim/../../../../uvm_lib/uvm-2017/src/uvm.sv ../af_pkg.sv ../af_bfm.sv ../top.sv ../../DUT/async_fifo.sv ../../DUT/empty_checker.sv ../../DUT/fifo_mem.sv ../../DUT/full_checker.sv ../../DUT/sync_2ff.sv -Wno-lint -Wno-style -Wno-SYMRSVDWORD -Wno-IGNOREDRETURN -Wno-CONSTRAINTIGN -Wno-ZERODLY
+make -j -C top-sim  -f top.mk 2>&1 | tee -a compile.log
+make[1]: *** top-sim: No such file or directory.  Stop.
+top-sim/top +UVM_TESTNAME=case1_test 2>&1 | tee -a simulate.log
+/bin/sh: top-sim/top: No such file or directory

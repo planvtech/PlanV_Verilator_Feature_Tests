@@ -1,0 +1,2 @@
+uvmt_fifo_tb_uvme_fifo_pkg__0__Slow.o: \
+ uvmt_fifo_tb_uvme_fifo_pkg__0__Slow.cpp uvmt_fifo_tb__pch.h

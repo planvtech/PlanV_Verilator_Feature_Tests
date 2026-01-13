@@ -25,22 +25,24 @@ class uvmt_fifo_base_test_c extends uvm_test;
     virtual uvmt_fifo_clk_gen_if rd_clk_gen_vif;
     virtual uvmt_fifo_clk_gen_if wr_clk_gen_vif;
 
+    int success;
+
     // Default Sequence
     // rand uvme_fifo_random_vseq_c   random_vseq;     
 
-
     // Factory
+    `ifdef VERILATOR
+    `uvm_component_utils(uvmt_fifo_base_test_c)
+    `else
     `uvm_component_utils_begin(uvmt_fifo_base_test_c)
-        `ifdef VERILATOR
-        `else
         `uvm_field_object(test_cfg, UVM_ALL_ON)
         `uvm_field_object(test_randvars, UVM_ALL_ON)
         `uvm_field_object(env_cfg, UVM_ALL_ON)
         `uvm_field_object(env_cntxt, UVM_ALL_ON)
-        `endif
     `uvm_component_utils_end
+    `endif
 
-    constraint env_cfg_con { 
+    constraint env_cfg_con {
         env_cfg.enabled == 1;
         env_cfg.is_active == UVM_ACTIVE;
         env_cfg.scoreboard_enabled == 1;
@@ -68,7 +70,7 @@ endclass : uvmt_fifo_base_test_c
 
 
 function uvmt_fifo_base_test_c::new(string name="uvmt_fifo_base_test", uvm_component parent=null);
-    
+
     super.new(name, parent);
 
     // random_vseq = uvme_fifo_random_vseq_c::type_id::create("random_vseq", vsqr);
@@ -85,6 +87,7 @@ function void uvmt_fifo_base_test_c::build_phase(uvm_phase phase);
     retrieve_vifs();
     create_cfg_and_cntxt();
     randomize_test();
+    `uvm_info("TEST", $sformatf("##### After randomize: env_cfg.enabled=%0d", this.env_cfg.enabled), UVM_LOW)
     assign_cfg();
     // create_cntxt();
     assign_cntxt();
@@ -111,12 +114,26 @@ endfunction : connect_phase
 
 task uvmt_fifo_base_test_c::run_phase(uvm_phase phase);
 
+    // CRITICAL: Raise objection BEFORE super.run_phase() to prevent race condition
+    // If we raise it after super.run_phase(), UVM might see all components exited
+    // (due to fork...join_none in drivers/monitors) and decide to end the phase
+    phase.raise_objection(this, "Test is running");
+    `uvm_info("TEST", "Raised objection BEFORE super.run_phase()", UVM_LOW)
+
     super.run_phase(phase);
 
     `uvm_info("TEST", "Entered run_phase", UVM_MEDIUM)
 
     // random_vseq.start(vsqr);
+    `uvm_info("TEST", "About to wait 2000ns", UVM_LOW)
+    #2000ns;
+    `uvm_info("TEST", "Finished waiting 2000ns", UVM_LOW)
+
     watchdog_timer();
+
+    // Drop objection to allow phase to end
+    phase.drop_objection(this, "Test completed");
+    `uvm_info("TEST", "Dropped objection", UVM_LOW)
 
     `uvm_info("TEST", "Exiting run_phase", UVM_MEDIUM)
 
@@ -196,7 +213,9 @@ endfunction : create_components
 task uvmt_fifo_base_test_c::watchdog_timer();
 
     fork
-        begin 
+        begin
+            # 1ns; // Give verilator time to start up
+            $display("\n%m: Watchdog timer will wait for %0dns\n", test_cfg.watchdog_timeout * 1ns);
             # (test_cfg.watchdog_timeout * 1ns);
             `uvm_fatal("TIMEOUT", "Test timed out")
         end

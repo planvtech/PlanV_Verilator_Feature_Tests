@@ -1,0 +1,103 @@
+# vsim -voptargs="+acc" t_constraint_unsat -c -do "log -r /*; run -all; quit" -l t_constraint_unsat.log 
+# Start time: 14:55:08 on Jan 02,2026
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# //  Questa Sim-64
+# //  Version 2022.3 linux_x86_64 Jul 18 2022
+# //
+# //  Copyright 1991-2022 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.t_constraint_unsat_sv_unit(fast)
+# Loading work.t_constraint_unsat(fast)
+# log -r /*
+# ** UI-Msg (Warning): (vish-4014) No objects found matching '/*'.
+#  run -all
+# 
+# === Test 1: Valid constraints ===
+# Randomization succeeded for addr=50, data=100 -> addr=50, data=100
+# 
+# === Test 2: addr out of range ===
+# /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(16): randomize() failed due to conflicts between the following constraints:
+# 	/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(11): addr_range { (addr < 127); }
+# 	/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(16): (addr == local::a);
+# Where:
+# 	addr = 8'h80 /* random  */
+# 	local::a = 8'h80 /* non-random */
+# ** Note: (vsim-7130) Enabling enhanced debug (-solvefaildebug=2) may generate a more descriptive constraint contradiction report and -solvefaildebug testcase.
+# ** Note: (vsim-7106) Use vsim option '-solvefailtestcase[=filename]' to generate a simplified testcase that will reproduce the failure.
+# ** Warning: (vsim-7084) No solutions exist which satisfy the specified constraints; randomize() failed.
+# 
+#    Time: 0 ns  Iteration: 0  Process: /t_constraint_unsat/#INITIAL#46(#ublk#91718532#46) File: /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv Line: 16
+# Randomization failed for addr=128, data=18
+# 
+# === Test 3: data out of range (too small) ===
+# /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(16): randomize() failed due to conflicts between the following constraints:
+# 	/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(12): data_range { (data > 10); }
+# 	/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(16): (data == local::d);
+# Where:
+# 	data = 8'h05 /* random  */
+# 	local::d = 8'h05 /* non-random */
+# ** Note: (vsim-7130) Enabling enhanced debug (-solvefaildebug=2) may generate a more descriptive constraint contradiction report and -solvefaildebug testcase.
+# ** Note: (vsim-7106) Use vsim option '-solvefailtestcase[=filename]' to generate a simplified testcase that will reproduce the failure.
+# ** Warning: (vsim-7084) No solutions exist which satisfy the specified constraints; randomize() failed.
+# 
+#    Time: 0 ns  Iteration: 0  Process: /t_constraint_unsat/#INITIAL#46(#ublk#91718532#46) File: /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv Line: 16
+# Randomization failed for addr=100, data=5
+# 
+# === Test 4: data out of range (too large) ===
+# /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(16): randomize() failed due to conflicts between the following constraints:
+# 	/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(12): data_range { (data < 200); }
+# 	/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(16): (data == local::d);
+# Where:
+# 	data = 8'hfa /* random  */
+# 	local::d = 8'hfa /* non-random */
+# ** Note: (vsim-7130) Enabling enhanced debug (-solvefaildebug=2) may generate a more descriptive constraint contradiction report and -solvefaildebug testcase.
+# ** Note: (vsim-7106) Use vsim option '-solvefailtestcase[=filename]' to generate a simplified testcase that will reproduce the failure.
+# ** Warning: (vsim-7084) No solutions exist which satisfy the specified constraints; randomize() failed.
+# 
+#    Time: 0 ns  Iteration: 0  Process: /t_constraint_unsat/#INITIAL#46(#ublk#91718532#46) File: /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv Line: 16
+# Randomization failed for addr=100, data=250
+# 
+# === Test 5: Both constraints violated ===
+# /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(16): randomize() failed due to conflicts between the following constraints:
+# 	/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(11): addr_range { (addr < 127); }
+# 	/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(16): (addr == local::a);
+# Where:
+# 	addr = 8'hc8 /* random  */
+# 	local::a = 8'hc8 /* non-random */
+# ** Note: (vsim-7130) Enabling enhanced debug (-solvefaildebug=2) may generate a more descriptive constraint contradiction report and -solvefaildebug testcase.
+# ** Note: (vsim-7106) Use vsim option '-solvefailtestcase[=filename]' to generate a simplified testcase that will reproduce the failure.
+# ** Warning: (vsim-7084) No solutions exist which satisfy the specified constraints; randomize() failed.
+# 
+#    Time: 0 ns  Iteration: 0  Process: /t_constraint_unsat/#INITIAL#46(#ublk#91718532#46) File: /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv Line: 16
+# Randomization failed for addr=200, data=5
+# 
+# === Test 6: Conflicting constraints (x > 100 && x < 50) ===
+# /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(32): randomize() failed due to conflicts between the following constraints:
+# 	/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(28): c1 { (x > 100); }
+# 	/home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(29): c2 { (x < 50); }
+# Given:
+# 	bit [7:0] x
+# ** Note: (vsim-7130) Enabling enhanced debug (-solvefaildebug=2) may generate a more descriptive constraint contradiction report and -solvefaildebug testcase.
+# ** Note: (vsim-7106) Use vsim option '-solvefailtestcase[=filename]' to generate a simplified testcase that will reproduce the failure.
+# ** Warning: (vsim-7084) No solutions exist which satisfy the specified constraints; randomize() failed.
+# 
+#    Time: 0 ns  Iteration: 0  Process: /t_constraint_unsat/#INITIAL#46(#ublk#91718532#46) File: /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv Line: 32
+# Expected failure: conflicting constraints detected
+# 
+# === Test 7: Constraint with quotes in comment ===
+# Quote test passed, value=95
+# *-* All Finished *-*
+# ** Note: $finish    : /home/yilou/Desktop/OSVISE/planvtech/PlanV_Verilator_Feature_Tests/planv_tests/feature_tests/constrained_random/t_constraint_unsat.sv(91)
+#    Time: 0 ns  Iteration: 0  Instance: /t_constraint_unsat
+# End time: 14:55:08 on Jan 02,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 5

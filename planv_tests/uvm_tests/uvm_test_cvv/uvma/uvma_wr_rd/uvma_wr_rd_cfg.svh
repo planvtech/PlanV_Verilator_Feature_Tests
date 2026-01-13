@@ -32,6 +32,7 @@ class uvma_wr_rd_cfg_c extends uvm_object;
         `uvm_field_int(trn_log_enabled, UVM_ALL_ON)
     `uvm_object_utils_end
 
+    `ifndef VERILATOR
     constraint default_con {
         soft enabled == 0;
         soft is_active == UVM_PASSIVE;
@@ -39,6 +40,7 @@ class uvma_wr_rd_cfg_c extends uvm_object;
         soft cov_model_enabled == 0;
         soft trn_log_enabled == 0;
     }
+    `endif
 
     extern function new(string name="uvma_wr_rd_cfg_c");
 

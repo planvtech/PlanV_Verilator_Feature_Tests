@@ -115,6 +115,7 @@ module uvmt_fifo_tb;
             end
             else begin
             $display("                 SIMULATION PASSED with WARNINGS              ");
+            $display("    Warnings: %0d", warning_count);
             end
             $display("    ----------------------------------------------------------");
         end
@@ -135,6 +136,9 @@ module uvmt_fifo_tb;
             else begin
                 $display("    --------------------------------------------------------");
                 $display("                       SIMULATION FAILED                    ");
+                $display("    Errors  : %0d", err_count);
+                $display("    Fatals  : %0d", fatal_count);
+                $display("    Warnings: %0d", warning_count);
                 $display("    --------------------------------------------------------");
             end
         end

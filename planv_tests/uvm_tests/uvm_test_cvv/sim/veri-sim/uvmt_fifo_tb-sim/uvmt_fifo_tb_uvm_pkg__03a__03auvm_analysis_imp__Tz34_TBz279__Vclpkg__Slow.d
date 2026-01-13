@@ -1,0 +1,3 @@
+uvmt_fifo_tb_uvm_pkg__03a__03auvm_analysis_imp__Tz34_TBz279__Vclpkg__Slow.o: \
+ uvmt_fifo_tb_uvm_pkg__03a__03auvm_analysis_imp__Tz34_TBz279__Vclpkg__Slow.cpp \
+ uvmt_fifo_tb__pch.h

@@ -31,10 +31,10 @@ typedef enum bit[15:0] {
     FOUR = 13
 } ENUM;
 
-typedef union packed {
-    int x;
-    bit [7:0] byte_value;
-} UNION;
+// typedef union packed {
+//     int x;
+//     bit [7:0] byte_value;
+// } UNION;
 
 class cls;
     rand ENUM enum_4_;

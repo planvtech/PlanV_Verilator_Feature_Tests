@@ -1,0 +1,2 @@
+uvmt_fifo_tb_uvm_pkg__03a__03auvm_env__Vclpkg__0.o: \
+ uvmt_fifo_tb_uvm_pkg__03a__03auvm_env__Vclpkg__0.cpp uvmt_fifo_tb__pch.h

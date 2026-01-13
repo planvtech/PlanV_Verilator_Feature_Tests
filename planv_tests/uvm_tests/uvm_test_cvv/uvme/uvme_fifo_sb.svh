@@ -34,14 +34,14 @@ class uvme_fifo_sb_c extends uvm_scoreboard;
 
     // Components
     // TODO Add sub-scoreboards
-
+    `ifdef VERILATOR
+    `uvm_component_utils(uvme_fifo_sb_c)
+    `else
     `uvm_component_utils_begin(uvme_fifo_sb_c)
-        `ifdef VERILATOR
-        `else
         `uvm_field_object(cntxt, UVM_ALL_ON)
         `uvm_field_object(cfg, UVM_ALL_ON)
-        `endif
     `uvm_component_utils_end
+    `endif
 
     // Constructor
     extern function new(string name="uvme_fifo_sb_c", uvm_component parent=null);

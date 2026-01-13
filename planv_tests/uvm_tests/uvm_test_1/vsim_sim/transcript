@@ -1,0 +1,30 @@
+# vlib work
+# ** Warning: (vlib-34) Library already exists at "work".
+# Errors: 0, Warnings: 1
+#  vmap work work
+# QuestaSim-64 vmap 2022.3 Lib Mapping Utility 2022.07 Jul 18 2022
+# vmap work work 
+# Modifying modelsim.ini
+#  vlog -work work +incdir+../../DUT +incdir+.. +incdir+../sv_uvm_class +incdir+/opt/questasim/verilog_src/uvm-1.2//src /opt/questasim/verilog_src/uvm-1.2//src/uvm_pkg.sv ../sv_fifo_pkg.sv ../sv_fifo_interface.sv ../sv_tb_top.sv ../../DUT/simple_demo_tb.sv ../../DUT/async_fifo.sv ../../DUT/empty_checker.sv ../../DUT/fifo_mem.sv ../../DUT/full_checker.sv ../../DUT/sync_2ff.sv
+# QuestaSim-64 vlog 2022.3 Compiler 2022.07 Jul 18 2022
+# Start time: 11:20:32 on Dec 02,2025
+# vlog -work work "+incdir+../../DUT" "+incdir+.." "+incdir+../sv_uvm_class" "+incdir+/opt/questasim/verilog_src/uvm-1.2//src" /opt/questasim/verilog_src/uvm-1.2/src/uvm_pkg.sv ../sv_fifo_pkg.sv ../sv_fifo_interface.sv ../sv_tb_top.sv ../../DUT/simple_demo_tb.sv ../../DUT/async_fifo.sv ../../DUT/empty_checker.sv ../../DUT/fifo_mem.sv ../../DUT/full_checker.sv ../../DUT/sync_2ff.sv 
+# -- Compiling package uvm_pkg (uvm-1.2 Built-in)
+# -- Compiling package sv_fifo_pkg
+# -- Importing package uvm_pkg (uvm-1.2 Built-in)
+# -- Compiling interface fifo_w_if
+# -- Compiling interface fifo_r_if
+# -- Compiling module sv_tb_top
+# -- Importing package sv_fifo_pkg
+# -- Compiling module simple_demo_tb
+# -- Compiling module async_fifo
+# -- Compiling module empty_checker
+# -- Compiling module fifo_mem
+# -- Compiling module full_checker
+# -- Compiling module sync_2ff
+# 
+# Top level modules:
+# 	sv_tb_top
+# End time: 11:20:33 on Dec 02,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+#  quit

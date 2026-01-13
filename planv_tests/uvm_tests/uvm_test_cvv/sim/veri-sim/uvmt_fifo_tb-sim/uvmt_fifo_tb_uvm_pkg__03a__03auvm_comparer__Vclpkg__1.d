@@ -1,0 +1,3 @@
+uvmt_fifo_tb_uvm_pkg__03a__03auvm_comparer__Vclpkg__1.o: \
+ uvmt_fifo_tb_uvm_pkg__03a__03auvm_comparer__Vclpkg__1.cpp \
+ uvmt_fifo_tb__pch.h
