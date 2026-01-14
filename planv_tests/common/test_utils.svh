@@ -8,7 +8,7 @@
 //
 // Compile with +define+DEBUG to enable debug output:
 //   vlog +define+DEBUG test.sv
-//   verilator +define+DEBUG test.sv
+//   For Verilator: use +define+DEBUG test.sv
 
 `ifndef TEST_UTILS_SVH
 `define TEST_UTILS_SVH
