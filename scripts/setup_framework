@@ -8,6 +8,7 @@
 
 SCRIPT_DIR=$(realpath "$(dirname "$0")")
 DEFAULT_TEST_DIR="${SCRIPT_DIR}/../planv_tests/feature_tests"
+COMMON_DIR="${SCRIPT_DIR}/../planv_tests/common"
 # Function to create feature tests framework
 create_test_framework() {
     local test_path=$1
@@ -63,6 +64,7 @@ all: clean verilate make simulate
 
 verilate:
 	\$(VERILATOR) --cc --exe --main --trace --trace-structs --timing -Mdir \$(SIM_DIR) \\
+	+incdir+${COMMON_DIR} \\
 	\${COMPILE_ARGS} \${EXTRA_ARGS} \\
 	\${VERILOG_DEFINE_FILES} \\
 	\${WARNING_ARGS}
@@ -83,12 +85,12 @@ verilator-version:
 
 vsim:
 	@if [ ! -d "work" ]; then vlib work; fi
-	vlog ${test_path}/${test_name}.sv || { echo "vlog failed"; exit 1; }
+	vlog +incdir+${COMMON_DIR} ${test_path}/${test_name}.sv || { echo "vlog failed"; exit 1; }
 	vsim -voptargs="+acc" ${test_name} -c -do "log -r /*; run -all; quit" -l ${test_name}.log || { echo "vsim failed"; exit 1; }
 
 vsim-gui:
 	@if [ ! -d "work" ]; then vlib work; fi
-	vlog ${test_path}/${test_name}.sv || { echo "vlog failed"; exit 1; }
+	vlog +incdir+${COMMON_DIR} ${test_path}/${test_name}.sv || { echo "vlog failed"; exit 1; }
 	vsim -voptargs="+acc" ${test_name} || { echo "vsim failed"; exit 1; }
 
 EOL

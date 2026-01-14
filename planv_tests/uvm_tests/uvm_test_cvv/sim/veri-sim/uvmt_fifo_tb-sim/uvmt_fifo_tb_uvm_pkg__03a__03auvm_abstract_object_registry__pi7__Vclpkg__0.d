@@ -1,3 +1,0 @@
-uvmt_fifo_tb_uvm_pkg__03a__03auvm_abstract_object_registry__pi7__Vclpkg__0.o: \
- uvmt_fifo_tb_uvm_pkg__03a__03auvm_abstract_object_registry__pi7__Vclpkg__0.cpp \
- uvmt_fifo_tb__pch.h

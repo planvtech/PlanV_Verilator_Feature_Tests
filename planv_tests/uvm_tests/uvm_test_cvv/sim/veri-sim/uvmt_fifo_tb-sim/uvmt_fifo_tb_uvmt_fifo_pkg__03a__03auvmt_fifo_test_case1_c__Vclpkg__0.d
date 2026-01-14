@@ -1,3 +1,0 @@
-uvmt_fifo_tb_uvmt_fifo_pkg__03a__03auvmt_fifo_test_case1_c__Vclpkg__0.o: \
- uvmt_fifo_tb_uvmt_fifo_pkg__03a__03auvmt_fifo_test_case1_c__Vclpkg__0.cpp \
- uvmt_fifo_tb__pch.h

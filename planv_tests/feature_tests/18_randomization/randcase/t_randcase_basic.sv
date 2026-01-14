@@ -1,0 +1,38 @@
+// DESCRIPTION: PlanV Verilator Feature Tests
+//
+// Property of PlanV GmbH, 2026. All rights reserved.
+// Licensed under the Solderpad Hardware License, Version 2.0. See the LICENSE file in the project root for more information.
+// Contact: yilou.wang@planv.tech
+//
+// This test validates: basic randcase statement for weighted random selection
+
+`include "test_utils.svh"
+
+module t_randcase_basic;
+    byte a, b;          
+    bit [7:0] x;       
+    int i;             
+    int expected_value; 
+
+    initial begin
+        a = $urandom_range(0, 255);
+        b = $urandom_range(0, 255);
+        `DBG(("Initial values: a = %0d, b = %0d", a, b))
+
+        for (i = 0; i < 20; i++) begin
+            randcase
+                (a + b) : x = 1;
+                0 : x = 2;
+                (a ^ ~b) : x = 3;
+                12'h800 : x = 4;
+            endcase
+
+            // Check if the selected value matches the expected value
+            if (x == 2) begin
+                `DBG(("Iteration %0d: Selected x = %0d, which is NOT as expected.", i + 1, x))
+                $stop; // Stop the test if it doesn't match the expected value
+            end
+        end
+        `TEST_PASS // End marker
+    end
+endmodule

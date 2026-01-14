@@ -1,0 +1,40 @@
+// DESCRIPTION: PlanV Verilator Feature Tests
+//
+// Property of PlanV GmbH, 2026. All rights reserved.
+// Licensed under the Solderpad Hardware License, Version 2.0. See the LICENSE file in the project root for more information.
+// Contact: yilou.wang@planv.tech
+//
+// This test validates: external constraint definitions
+
+`include "test_utils.svh"
+
+class ExternalConstraintExample;
+    rand int x;
+    rand int y;
+
+    constraint proto1;
+    extern constraint proto2; // Explicit form
+endclass
+
+constraint ExternalConstraintExample::proto1 {
+    x inside {-4, 5, 7};
+}
+
+constraint ExternalConstraintExample::proto2 {
+    y >= 0;
+}
+
+module t_constraint_extern_basic;
+    ExternalConstraintExample ece;
+
+    initial begin
+        ece = new();
+        repeat(10) begin
+            if (!ece.randomize()) $error("Randomization failed");
+            `DBG(("x: %0d, y: %0d", ece.x, ece.y))
+            if (!(ece.x inside {-4, 5, 7})) $stop;
+            if (!(ece.y >= 0)) $stop;
+        end
+        `TEST_PASS
+    end
+endmodule

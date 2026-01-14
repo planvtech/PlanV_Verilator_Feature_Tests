@@ -1,6 +1,0 @@
-Set Number: 4
-Verilator: version-5.042
-UVM Library: uvm-antmicro-deprecatedApi
-Status: \033[0;32mPASS\033[0m
-Error Stage: 
-Test Date: Tue Dec  2 15:49:56 CET 2025

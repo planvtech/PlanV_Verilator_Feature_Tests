@@ -1,7 +1,32 @@
-The current script includes the following files:
+# Scripts
 
-* set_build_run_functions: This file contains the functions for setup, build, and run, which can be called by other scripts.
-* setup_framework: Unlike the previous setup framework located in the test folder, this script generates a new simulation folder to store the Makefile and simulation-generated files. The advantage of this approach is that after running the simulation once, it makes it easier to clean up the previous simulation files for subsequent runs.
-* run: This script is intended for users running simulations locally and accepts two arguments to specify the branch and test directory.
-* ciSystemRunner: This script is designed for GitHub Actions and will run all tests in sequence.
-* polish_to_html.py: A Python script that converts the log files generated from simulations into more readable HTML files.
+## Verilator Testing
+
+| Script | Description |
+|--------|-------------|
+| `run` | Local test runner for Verilator |
+| `ciSystemRunner.sh` | CI runner for GitHub Actions |
+| `set_build_run_functions` | Shared functions for setup/build/run |
+| `setup_framework` | Simulation directory setup |
+| `polish_to_html.py` | Convert logs to HTML reports |
+
+## QuestaSim Validation
+
+| Script | Description |
+|--------|-------------|
+| `run_questa_batch.sh` | Run all feature tests with QuestaSim |
+| `run_questa_pilot.sh` | Run a single directory with QuestaSim |
+
+### Usage
+
+```bash
+# Run all tests
+./scripts/run_questa_batch.sh
+
+# Run single directory
+./scripts/run_questa_pilot.sh 18_randomization/constraint_blocks
+```
+
+### Negative Tests
+
+Tests in `/invalid/` directories or with `// TEST_NEGATIVE:` comment are expected to fail compilation. These are marked as `[XFAIL]` in test results.

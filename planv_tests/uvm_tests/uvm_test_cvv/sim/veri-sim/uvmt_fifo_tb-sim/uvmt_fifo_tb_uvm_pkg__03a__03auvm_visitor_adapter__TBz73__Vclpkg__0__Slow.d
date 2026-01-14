@@ -1,3 +1,0 @@
-uvmt_fifo_tb_uvm_pkg__03a__03auvm_visitor_adapter__TBz73__Vclpkg__0__Slow.o: \
- uvmt_fifo_tb_uvm_pkg__03a__03auvm_visitor_adapter__TBz73__Vclpkg__0__Slow.cpp \
- uvmt_fifo_tb__pch.h

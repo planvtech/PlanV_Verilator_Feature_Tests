@@ -18,3 +18,7 @@
 	path = verilator/version-5.040
 	url = https://github.com/planvtech/verilator.git
 	branch = version/5.040
+[submodule "verilator/version-5.044"]
+	path = verilator/version-5.044
+	url = https://github.com/planvtech/verilator.git
+	branch = version/5.044

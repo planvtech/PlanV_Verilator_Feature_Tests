@@ -1,3 +1,0 @@
-uvmt_fifo_tb_uvme_fifo_pkg__03a__03auvme_fifo_random_vseq_c__Vclpkg__0.o: \
- uvmt_fifo_tb_uvme_fifo_pkg__03a__03auvme_fifo_random_vseq_c__Vclpkg__0.cpp \
- uvmt_fifo_tb__pch.h

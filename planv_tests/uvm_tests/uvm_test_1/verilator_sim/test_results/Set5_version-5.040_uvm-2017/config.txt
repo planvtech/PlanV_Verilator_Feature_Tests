@@ -1,6 +1,0 @@
-Set Number: 5
-Verilator: version-5.040
-UVM Library: uvm-2017
-Status: \033[0;32mPASS\033[0m
-Error Stage: 
-Test Date: Tue Dec  2 15:49:57 CET 2025

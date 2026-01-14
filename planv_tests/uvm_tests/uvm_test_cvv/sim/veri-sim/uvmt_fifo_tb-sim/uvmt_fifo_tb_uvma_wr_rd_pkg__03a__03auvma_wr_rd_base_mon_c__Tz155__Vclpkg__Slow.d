@@ -1,3 +1,0 @@
-uvmt_fifo_tb_uvma_wr_rd_pkg__03a__03auvma_wr_rd_base_mon_c__Tz155__Vclpkg__Slow.o: \
- uvmt_fifo_tb_uvma_wr_rd_pkg__03a__03auvma_wr_rd_base_mon_c__Tz155__Vclpkg__Slow.cpp \
- uvmt_fifo_tb__pch.h

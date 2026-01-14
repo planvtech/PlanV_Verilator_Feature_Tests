@@ -1,3 +1,0 @@
-uvmt_fifo_tb_uvm_pkg__03a__03auvm_pre_shutdown_phase__Vclpkg__0__Slow.o: \
- uvmt_fifo_tb_uvm_pkg__03a__03auvm_pre_shutdown_phase__Vclpkg__0__Slow.cpp \
- uvmt_fifo_tb__pch.h

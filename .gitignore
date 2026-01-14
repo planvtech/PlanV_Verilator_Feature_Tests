@@ -1,0 +1,47 @@
+# Simulation outputs (root level)
+/sim/
+/logs/
+/reports/
+
+# Simulation generated files
+*.vcd
+*.wlf
+*.log
+**/work/
+transcript
+modelsim.ini
+obj_dir/
+**/*-sim/
+**/test_results/
+
+# Compiled objects
+*.a
+*.o
+*.gch
+*.qdb
+*.qpg
+*.qtl
+
+# Archived tests
+**/_archived/
+
+# Claude AI config
+.claude/
+
+# Independently managed repos
+planv_tests/uvm_tests/GettingVerilatorStartedWithUVM/
+
+# Editor
+*.swp
+*.swo
+*~
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/

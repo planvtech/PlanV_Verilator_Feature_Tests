@@ -1,3 +1,0 @@
-uvmt_fifo_tb_uvma_wr_rd_pkg__03a__03a__VDynScope_32__Vclpkg__0__Slow.o: \
- uvmt_fifo_tb_uvma_wr_rd_pkg__03a__03a__VDynScope_32__Vclpkg__0__Slow.cpp \
- uvmt_fifo_tb__pch.h

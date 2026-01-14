@@ -1,3 +1,0 @@
-uvmt_fifo_tb_uvme_fifo_pkg__03a__03auvm_analysis_imp_rd_act__pi78__Vclpkg__Slow.o: \
- uvmt_fifo_tb_uvme_fifo_pkg__03a__03auvm_analysis_imp_rd_act__pi78__Vclpkg__Slow.cpp \
- uvmt_fifo_tb__pch.h

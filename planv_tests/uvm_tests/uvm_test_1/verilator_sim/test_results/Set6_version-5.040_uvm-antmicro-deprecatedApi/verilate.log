@@ -1,5 +1,0 @@
-=== Starting Verilator elaboration at Tue Dec  2 15:49:57 CET 2025 ===
-- V e r i l a t i o n   R e p o r t: Verilator 5.040 2025-08-30 rev UNKNOWN.REV
-- Verilator: Built from 56.937 MB sources in 363 modules, into 25.488 MB in 5035 C++ files needing 20.868 MB
-- Verilator: Walltime 4.512 s (elab=0.477, cvt=3.360, bld=0.000); cpu 4.497 s on 1 threads; alloced 241.504 MB
-=== Verilator elaboration completed at Tue Dec  2 15:50:01 CET 2025 ===

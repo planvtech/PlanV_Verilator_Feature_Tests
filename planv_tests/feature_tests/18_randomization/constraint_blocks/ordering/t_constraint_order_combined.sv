@@ -1,0 +1,39 @@
+// DESCRIPTION: PlanV Verilator Feature Tests
+//
+// Property of PlanV GmbH, 2026. All rights reserved.
+// Licensed under the Solderpad Hardware License, Version 2.0. See the LICENSE file in the project root for more information.
+// Contact: yilou.wang@planv.tech
+//
+// This test validates: solve-before combined with implication constraints
+
+`include "test_utils.svh"
+
+class B;
+    rand bit s;
+    rand bit [31:0] d;
+
+    constraint c { s -> d == 0; }        // Ensure if s is true, d must be 0
+    constraint order { solve s before d; } // Solve s before d
+
+    function new();
+    endfunction
+endclass
+
+module t_constraint_order_combined;
+    B obj = new();
+    int i;
+
+    initial begin
+        for (i = 0; i < 100; i++) begin
+            if (!obj.randomize()) $fatal("Randomization failed.");
+
+            // Display the values of s and d
+            `DBG(("Randomization %0d: s = %0b, d = %0d", i, obj.s, obj.d))
+
+            // Validate constraints
+            if (obj.s && obj.d != 0) $fatal("Constraint violated: s = %0b, d = %0d", obj.s, obj.d);
+        end
+
+        `TEST_PASS
+    end
+endmodule

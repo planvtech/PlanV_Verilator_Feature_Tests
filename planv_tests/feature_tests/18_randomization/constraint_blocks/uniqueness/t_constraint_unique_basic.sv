@@ -1,0 +1,35 @@
+// DESCRIPTION: PlanV Verilator Feature Tests
+//
+// Property of PlanV GmbH, 2026. All rights reserved.
+// Licensed under the Solderpad Hardware License, Version 2.0. See the LICENSE file in the project root for more information.
+// Contact: yilou.wang@planv.tech
+//
+// This test validates: unique constraint for array elements
+
+`include "test_utils.svh"
+
+class UniquenessConstraintTest;
+    rand bit [7:0] value1;
+    rand bit [7:0] value2;
+    rand bit [7:0] value3;
+
+    constraint unique_con {
+        unique {value1, value2, value3}; // Ensure all values are unique
+    }
+
+    function new();
+    endfunction
+endclass
+
+module t_constraint_unique_basic;
+    UniquenessConstraintTest uct;
+
+    initial begin
+        uct = new();
+        repeat(10) begin
+            if (!uct.randomize()) $error("Randomization failed");
+            `DBG(("value1: %0d, value2: %0d, value3: %0d", uct.value1, uct.value2, uct.value3))
+        end
+        `TEST_PASS
+    end
+endmodule
